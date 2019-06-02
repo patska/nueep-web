@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th = "http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+
+    <script>
+        function limpa_formulário_cep() {
+            document.getElementById('rua').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+
+
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                document.getElementById('rua').value = (conteudo.logradouro);
+                document.getElementById('bairro').value = (conteudo.bairro);
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
+
+            } else {
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+
+        function pesquisacep(valor) {
+
+            var cep = valor.replace(/\D/g, '');
+
+            if (cep != "") {
+
+                var validacep = /^[0-9]{8}$/;
+
+                if (validacep.test(cep)) {
+
+                    document.getElementById('rua').value = "...";
+                    document.getElementById('bairro').value = "...";
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
+                    document.getElementById('numero').value = ("");
+                    document.getElementById('complemento').value = ("");
+
+                    var script = document.createElement('script');
+
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    document.body.appendChild(script);
+
+                } else {
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } else {
+                limpa_formulário_cep();
+            }
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-default").load("/navbar.html");
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".classe-nome-social").hide();
+            $('#nome-social-select').click(function () {
+                $("#mostrar-nome-social").show();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#cpf').mask('000.000.000-00', {
+                reverse: true
+            });
+            $('#cep').mask('00000-000');
+
+        });
+    </script>
+   
+</head>
+
+<body style="background-color: #6e6e6e">
+    <div id="navbar-default"></div>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Cadastrar novo candidato
+                </h1>
+                <h2 class="subtitle">
+                    Preencha o formulário abaixo para cadastrar um novo aluno.
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="notification">
+            <form action="">
+                <form action="/action_page.php" method="get" id="cpf-form">
+                    <div class="columns is-gapless">
+                        <div class="column is-one-quarter">
+                            <div class="form">
+                                <label for="cpf">CPF do Candidato</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="" id="cpf" maxlength="11">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-2">
+                            <div class="form">
+                                <label for="">&nbsp;&nbsp;</label>
+                                <div class="control ">
+                                    <input class="button" type="submit" form="cpf-form" value="Pesquisar"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="matricula">Matrícula</label>
+                            <div class="control">
+                                <input class="input" type="text" id="matricula" placeholder="Matrícula">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label for="nome-completo">Nome completo do Candidato</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="nome-completo" placeholder="Nome Completo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="field">
+                            <label for="data-nascimento">Data de Nascimento</label>
+                            <input class="input" type="date" name="" id="data-nascimento">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="genero">Gênero</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Selecionar</option>
+                                        <option>Masculino</option>
+                                        <option>Feminino</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="rg-candidato">RG Candidato</label>
+                            <div class="control">
+                                <input class="input" type="text" id="rg-candidato" placeholder="RG">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="nome-responsavel">Nome responsável</label>
+                            <div class="control">
+                                <input class="input" type="text" id="nome-responsavel"
+                                    placeholder="Nome do Responsável">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="rg-candidato">RG Responsável</label>
+                            <div class="control">
+                                <input class="input" type="text" id="rg-responsavel" placeholder="RG Resp.">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="genero">Estado Civil</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Selecionar</option>
+                                        <option>Solteiro</option>
+                                        <option>Casado</option>
+                                        <option>Divorciado</option>
+                                        <option>Viúvo</option>
+                                        <option>Separado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="">PcD?</label>
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="question">
+                                    Sim
+                                </label>
+                                <label class="radio">
+                                    <input selected type="radio" name="question">
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="">Possui Nome Social?</label>
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" id="nome-social-select" name="pergunta-nome-social" value="sim">
+                                    Sim
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="pergunta-nome-social" value="nao" checked="checked">
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <div class="classe-nome-social" id="mostrar-nome-social">
+                                <label for="">Nome Social Completo</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="" id="nome-social"
+                                        placeholder="Nome Social Completo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h4 class="title is-4">Informações de Contato</h4>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="telefone-candidato">Telefone Fixo</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="telefone-candidato">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="celular-candidato">Celular</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="celular-candidato">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="email-candidato">E-mail</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="email" name="" id="celular-candidato">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h4 class="title is-4">Informações de Endereço</h4>
+                <div class="columns is-gapless">
+                    <div class="column is-one-quarter">
+                        <div class="form">
+                            <label for="cep-candidato">CEP</label>
+                            <div class="control">
+                                <input class="input" type="text" name="cep" id="cep" size="10" maxlength="9"
+                                    onblur="pesquisacep(this.value);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-2">
+                        <div class="form">
+                            <label for="">&nbsp;&nbsp;</label>
+                            <div class="control">
+                                <a class="button is-warning"
+                                    href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCep.cfm"
+                                    target="_blank">Pesquisar nos Correios</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="rua">Logradouro</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="rua" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <div class="field">
+                            <label for="numero-residencial">Número</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="numero">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="complemento-residencial">Complemento</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="complemento">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="bairro">Bairro</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="bairro" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="cidade">Localidade</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="cidade" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <div class="field">
+                            <label for="uf">UF</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="uf" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="title is-4">Escolaridade</h4>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="nivel">Nivel</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Selecionar</option>
+                                        <option>Ensino Fundamental</option>
+                                        <option>Ensino Médio</option>
+                                        <option>Ensino Superior</option>
+                                        <option>Técnico</option>
+                                        <option>Educação Básica</option>
+                                        <option>Habilitação Básica</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="grau">Grau de Instrução</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Selecionar</option>
+                                        <option>Completo</option>
+                                        <option>Incompleto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="modalidade">Modalidade</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Selecionar</option>
+                                        <option>Presencial</option>
+                                        <option>Semi Presencial</option>
+                                        <option>EaD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="turno">Turno de Estudo</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Selecionar</option>
+                                        <option>Matutino</option>
+                                        <option>Vespertino</option>
+                                        <option>Integral</option>
+                                        <option>Noturno</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="buttons is-right">
+                    <span class="button is-danger is-large">Cancelar</span>
+                    <span class="button is-success is-large">Confirmar Cadastro</span>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<footer class="footer" style="background: #363636">
+    <div class="content has-text-centered">
+        <p style="color: white">
+            <strong style="color: white"> NUEEP Estágio</strong> é um sistema desenvolvido para o Projeto Integrador do Terceiro Semestre<br>
+            do Curso de Análise e Desenvolvimento de Sistema da Unicuritiba.
+        </p>
+        <a href="https://bulma.io">
+            <img src="images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
+          </a>
+    </div>
+</footer>
+
+</html>
