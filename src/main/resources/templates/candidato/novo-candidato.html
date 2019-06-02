@@ -109,8 +109,8 @@
 
     <div class="container">
         <div class="notification">
-            <form action="">
-                <form action="/action_page.php" method="get" id="cpf-form">
+            <form action="#" th:action="@{/candidato/salvar}"
+            				 th:object="${candidato}" method="POST">
                     <div class="columns is-gapless">
                         <div class="column is-one-quarter">
                             <div class="form">
@@ -128,7 +128,6 @@
                             </div>
                         </div>
                     </div>
-                </form>
                 <br>
                 <div class="columns">
                     <div class="column is-one-quarter">
@@ -144,7 +143,7 @@
                         <div class="field">
                             <label for="nome-completo">Nome completo do Candidato</label>
                             <div class="control">
-                                <input class="input" type="text" name="" id="nome-completo" placeholder="Nome Completo">
+                                <input class="input" th:field="*{nomeCompleto}" type="text" name="" id="nome-completo" placeholder="Nome Completo">
                             </div>
                         </div>
                     </div>
@@ -435,8 +434,7 @@
                 <br>
                 <br>
                 <div class="buttons is-right">
-                    <span class="button is-danger is-large">Cancelar</span>
-                    <span class="button is-success is-large">Confirmar Cadastro</span>
+                    <button type="submit">Salvar</button>
 
                 </div>
             </form>
