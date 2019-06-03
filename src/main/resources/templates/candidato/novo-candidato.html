@@ -116,7 +116,7 @@
                             <div class="form">
                                 <label for="cpf">CPF do Candidato</label>
                                 <div class="control">
-                                    <input class="input" type="text" name="" id="cpf" maxlength="11">
+                                    <input class="input" th:field="*{cpf}" type="text" name="" id="cpf" maxlength="11" required>
                                 </div>
                             </div>
                         </div>
@@ -313,7 +313,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="columns">
+              	<div th:object="${endereco}">
+              		  <div class="columns">
                     <div class="column is-one-third">
                         <div class="field">
                             <label for="rua">Logradouro</label>
@@ -339,6 +340,7 @@
                         </div>
                     </div>
                 </div>
+              	</div>
                 <div class="columns">
                     <div class="column is-one-third">
                         <div class="field">

@@ -8,18 +8,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pi.nueep.dao.EnderecoRepository;
 import com.pi.nueep.entidades.Candidato;
+import com.pi.nueep.entidades.Endereco;
 import com.pi.nueep.service.CandidatoService;
+import com.pi.nueep.service.EnderecoService;
+import com.pi.nueep.service.EnderecoServiceImplement;
 
 @Controller
 @RequestMapping("candidato")
 public class CandidatoController {
 	
 	private CandidatoService candidatoService;
+	private EnderecoService enderecoService;
 	
-	public CandidatoController(CandidatoService oCandidatoService) {
+	public CandidatoController(CandidatoService oCandidatoService, EnderecoService oEnderecoService) {
 		candidatoService = oCandidatoService;
+		enderecoService = oEnderecoService;
+
 	}
+	
+
 	
 	@GetMapping("/novo")
 	public String novoCandidato(Model modelo) {
@@ -29,8 +38,10 @@ public class CandidatoController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvarCandidato(@ModelAttribute("candidato") Candidato oCandidato) {
+	public String salvarCandidato(@ModelAttribute("candidato") Candidato oCandidato,@ModelAttribute("endereco") Endereco oEndereco ) {
 		System.out.println(oCandidato.getNomeCompleto());
+		enderecoService.salvar(oEndereco);
+		oCandidato.addEndereco(oEndereco);
 		candidatoService.salvar(oCandidato);
 		return "index";
 	}
