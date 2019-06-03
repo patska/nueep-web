@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - NueepApplication",
+            "request": "launch",
+            "mainClass": "com.pi.nueep.NueepApplication",
+            "projectName": "nueep"
+        }
+    ]
+}
