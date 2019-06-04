@@ -16,24 +16,28 @@ public class ResponsavelLegal {
 	@Column(name="id")
 	private int id; 
 	@Column(name = "nome_completo")
-	private String nomeCompleto; 
-	@Column(name = "rg")
-	private String rg; 
+	private String nomeCompletoResponsavel; 
+	@Column(name = "rgResponsavel")
+	private String rgResponsavel; 
 	@Column(name = "cpf")
 	private String cpf;
 	
 	
 	
-	public ResponsavelLegal(String nomeCompleto, String rg, String cpf) {
+	public ResponsavelLegal(String nomeCompletoResponsavel, String rgResponsavel, String cpf) {
 		super();
-		this.nomeCompleto = nomeCompleto;
-		this.rg = rg;
+		this.nomeCompletoResponsavel = nomeCompletoResponsavel;
+		this.rgResponsavel
+ = rgResponsavel
+;
 		this.cpf = cpf;
 	}
 	
 	@Override
 	public String toString() {
-		return "ResponsavelLegal [id=" + id + ", nomeCompleto=" + nomeCompleto + ", rg=" + rg + ", cpf=" + cpf + "]";
+		return "ResponsavelLegal [id=" + id + ", nomeCompletoResponsavel=" + nomeCompletoResponsavel + ", rgResponsavel
+=" + rgResponsavel
+ + ", cpf=" + cpf + "]";
 	}
 
 	public ResponsavelLegal() {
@@ -46,17 +50,20 @@ public class ResponsavelLegal {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNomeCompleto() {
-		return nomeCompleto;
+	public String getNomeCompletoResponsavel() {
+		return nomeCompletoResponsavel;
 	}
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+	public void setNomeCompletoResponsavel(String nomeCompletoResponsavel) {
+		this.nomeCompletoResponsavel = nomeCompletoResponsavel;
 	}
-	public String getRg() {
-		return rg;
+	public String getRgResponsavel() {
+		return rgResponsavel
+;
 	}
-	public void setRg(String rg) {
-		this.rg = rg;
+	public void setRgResponsavel(String rgResponsavel) {
+		this.rgResponsavel
+ = rgResponsavel
+;
 	}
 	public String getCpf() {
 		return cpf;

@@ -72,13 +72,15 @@
     </script>
     <script>
         $(document).ready(function () {
-            $(".classe-nome-social").hide();
-            $('#nome-social-select').click(function () {
-                $("#mostrar-nome-social").show();
+            $("#mostrar-nome-social").hide();
+            $("#genero").click(function () {
+                if ($("#genero").val() == 'Transexual') {
+                    $("#mostrar-nome-social").show();
+                } else {
+                    $("#mostrar-nome-social").hide();
+                }
             });
-            $('#nome-social-unselected').click(function () {
-                $(".classe-nome-social").hide();
-            });
+
         });
     </script>
     <script>
@@ -167,11 +169,12 @@
                             <label for="genero">Gênero</label>
                             <div class="control">
                                 <div class="select">
-                                    <select th:field=${candidato.sexo}>
+                                    <select id="genero" th:field=${candidato.sexo}>
                                         <option value="" selected="selected" disabled>Selecionar...</option>
                                         <option th:value="'Masculino'" th:text="Masculino"></option>
                                         <option th:value="'Feminino'" th:text="Feminino"></option>
-                                        <option th:value="'Transexual'" th:text="Transexual"></option>
+                                        <option value="Transexual" th:value="'Transexual'" th:text="Transexual">
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -192,8 +195,8 @@
                         <div class="field">
                             <label for="nome-responsavel">Nome responsável</label>
                             <div class="control">
-                                <input class="input" type="text" id="nome-responsavel"
-                                    placeholder="Nome do Responsável">
+                                <input class="input" th:field="${responsavelLegal.nomeCompletoResponsavel}" type="text"
+                                    id="nome-responsavel" placeholder="Nome do Responsável">
                             </div>
                         </div>
                     </div>
@@ -202,7 +205,8 @@
                         <div class="field">
                             <label for="rg-candidato">RG Responsável</label>
                             <div class="control">
-                                <input class="input" type="text" id="rg-responsavel" placeholder="RG Resp.">
+                                <input class="input" th:field="${responsavelLegal.rgResponsavel}" type="text"
+                                    id="rg-responsavel" placeholder="RG Resp.">
                             </div>
                         </div>
                     </div>
@@ -252,8 +256,8 @@
                                     Sim
                                 </label>
                                 <label class="radio">
-                                    <input type="radio" id="nome-social-unselected" name="pergunta-nome-social"
-                                        value="nao" checked="checked">
+                                    <input type="radio" th:field="${candidato.nomeSocial}" id="nome-social-unselected"
+                                        name="pergunta-nome-social" value="nao" checked="checked">
                                     Não
                                 </label>
                             </div>
@@ -279,9 +283,8 @@
                     <div class="column is-one-quarter">
                         <div class="field">
                             <label>Telefone Fixo</label>
-                            <div class="control">      
-                                <input class="input" id="telefone-candidato" type="text"
-                                    placeholder="(00) 0000-0000">
+                            <div class="control">
+                                <input class="input" id="telefone-candidato" type="text" placeholder="(00) 0000-0000">
                             </div>
                         </div>
                     </div>
@@ -334,7 +337,8 @@
                         <div class="field">
                             <label for="rua">Logradouro</label>
                             <div class="control">
-                                <input class="input" th:field="${endereco.logradouro}" type="text" name="" id="rua" disabled>
+                                <input class="input" th:field="${endereco.logradouro}" type="text" name="" id="rua"
+                                    disabled>
                             </div>
                         </div>
                     </div>

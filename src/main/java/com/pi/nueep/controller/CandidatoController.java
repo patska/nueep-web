@@ -47,7 +47,6 @@ public class CandidatoController {
 	}
 
 
-
 	@GetMapping("/novo")
 	public String novoCandidato(
 		Model modeloCandidato,
@@ -69,6 +68,7 @@ public class CandidatoController {
 		modeloEstado.addAttribute("estado", estado);
 		modeloMunicipio.addAttribute("municipio", municipio);
 		modeloTelefone.addAttribute("telefone", telefone);
+		modelResponsavelLegal.addAttribute("responsavelLegal", responsavelLegal);
 
 		return "/candidato/novo-candidato";
 	}
@@ -78,7 +78,7 @@ public class CandidatoController {
 		@ModelAttribute("municipio") Municipio oMunicipio,
 		@ModelAttribute("estado") Estado oEstado,
 		@ModelAttribute("telefone") Telefone oTelefone,
-		@ModelAttribute("responsavel-legal") ResponsavelLegal oResponsavelLegal) {
+		@ModelAttribute("responsavelLegal") ResponsavelLegal oResponsavelLegal) {
 
 
 		estadoService.salvar(oEstado);
