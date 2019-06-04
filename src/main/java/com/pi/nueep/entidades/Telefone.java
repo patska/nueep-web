@@ -25,12 +25,11 @@ public class Telefone {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id; 
-	@Column(name="numero")
-	private String numero;
-	@Column(name="ddd")
-	private String ddd;
-	@Column(name="tipo")
-	private TipoDeTelefone tipo;
+	@Column(name="fixo")
+	private String fixo;
+	@Column(name="celular")
+	private String celular;
+
 	@Column(name="whatsapp")
 	private boolean whatsapp; 
 	
@@ -46,16 +45,19 @@ public class Telefone {
 				inverseJoinColumns = @JoinColumn(name="empresa_id"))
 	private List<Empresa> empresa;
 
-	public Telefone() {
-		super();
+	public Telefone(){}
+	public Telefone(String fixo, String celular, boolean whatsapp, List<Candidato> candidato){
+		this.fixo = fixo; 
+		this.celular = celular; 
+		this.whatsapp = whatsapp; 
+		this.candidato = candidato;
 	}
 
-	public Telefone(String numero, String ddd, TipoDeTelefone tipo, boolean whatsapp) {
-		super();
-		this.numero = numero;
-		this.ddd = ddd;
-		this.tipo = tipo;
-		this.whatsapp = whatsapp;
+	public Telefone(List<Empresa> empresa, String fixo, String celular, boolean whatsapp){
+		this.fixo = fixo; 
+		this.celular = celular; 
+		this.whatsapp = whatsapp; 
+		this.empresa = empresa;
 	}
 
 	public int getId() {
@@ -65,29 +67,21 @@ public class Telefone {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getNumero() {
-		return numero;
+	
+	public String getFixo() {
+		return fixo;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setFixo(String fixo) {
+		this.fixo = fixo;
 	}
 
-	public String getDdd() {
-		return ddd;
+	public String getCelular() {
+		return celular;
 	}
 
-	public void setDdd(String ddd) {
-		this.ddd = ddd;
-	}
-
-	public TipoDeTelefone getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoDeTelefone tipo) {
-		this.tipo = tipo;
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	public boolean isWhatsapp() {
@@ -106,28 +100,15 @@ public class Telefone {
 		this.candidato = candidato;
 	}
 
-	@Override
-	public String toString() {
-		return "Telefone [id=" + id + ", numero=" + numero + ", ddd=" + ddd + ", tipo=" + tipo + ", whatsapp="
-				+ whatsapp + ", candidato=" + candidato + "]";
+	public List<Empresa> getEmpresa() {
+		return empresa;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public void setEmpresa(List<Empresa> empresa) {
+		this.empresa = empresa;
+	}
+
+
 	
 }
 	

@@ -8,6 +8,5 @@ public class NueepApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NueepApplication.class, args);
-	}
-
+	} 	
 }

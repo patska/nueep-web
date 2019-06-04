@@ -1,6 +1,7 @@
 package com.pi.nueep.entidades;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import javax.persistence.Table;
 import com.pi.nueep.entidades.listas.EstadoCivil;
 import com.pi.nueep.entidades.listas.Sexo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "candidato")
 public class Candidato {
@@ -41,11 +44,12 @@ public class Candidato {
 	private boolean ativo;
 	
 	@Column(name="matricula")
-	private boolean matricula;
+	private String matricula;
 	
 
 	@Column(name = "data_nascimento")
-	private Date dataNascimento;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dataNascimento;
 
 	@Column(name = "cpf")
 	private String cpf;
@@ -89,7 +93,7 @@ public class Candidato {
 	}
 
 
-	public Candidato(String nomeCompleto, String nomeSocial, boolean ativo, boolean matricula, Date dataNascimento,
+	public Candidato(String nomeCompleto, String nomeSocial, boolean ativo, String matricula, LocalDate dataNascimento,
 			String cpf, String rg, String email, Sexo sexo, EstadoCivil estadoCivil, boolean condicaoEspecial,
 			ResponsavelLegal responsavelLegal, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
 		super();
@@ -138,11 +142,11 @@ public class Candidato {
 		this.nomeSocial = nomeSocial;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -253,14 +257,15 @@ public class Candidato {
 
 		endereco.add(end);
 	}
-
-	public boolean isMatricula() {
+	
+	public String getMatricula() {
 		return matricula;
 	}
 
-	public void setMatricula(boolean matricula) {
+	public void setResponsavelLegal(String matricula) {
 		this.matricula = matricula;
 	}
+	
 
 	@Override
 	public String toString() {

@@ -2,8 +2,8 @@ package com.pi.nueep.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.pi.nueep.entidades.Endereco;
+import com.pi.nueep.entidades.ResponsavelLegal;;
 
-public interface ResponsavelLegalRepository extends JpaRepository<Endereco, Integer> {
+public interface ResponsavelLegalRepository extends JpaRepository<ResponsavelLegal, Integer> {
 
 }

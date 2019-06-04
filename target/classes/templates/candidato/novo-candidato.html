@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th = "http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -18,8 +18,6 @@
             document.getElementById('bairro').value = ("");
             document.getElementById('cidade').value = ("");
             document.getElementById('uf').value = ("");
-
-
         }
 
         function meu_callback(conteudo) {
@@ -78,6 +76,9 @@
             $('#nome-social-select').click(function () {
                 $("#mostrar-nome-social").show();
             });
+            $('#nome-social-unselected').click(function () {
+                $(".classe-nome-social").hide();
+            });
         });
     </script>
     <script>
@@ -86,10 +87,11 @@
                 reverse: true
             });
             $('#cep').mask('00000-000');
-
+            $('#telefone-candidato').mask('(00) 0000-0000');
+            $('#celular-candidato').mask('(00) 00000-0000');
         });
     </script>
-   
+
 </head>
 
 <body style="background-color: #6e6e6e">
@@ -109,32 +111,34 @@
 
     <div class="container">
         <div class="notification">
-            <form action="#" th:action="@{/candidato/salvar}"
-            				 th:object="${candidato}" method="POST">
-                    <div class="columns is-gapless">
-                        <div class="column is-one-quarter">
-                            <div class="form">
-                                <label for="cpf">CPF do Candidato</label>
-                                <div class="control">
-                                    <input class="input" th:field="*{cpf}" type="text" name="" id="cpf" maxlength="11" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-2">
-                            <div class="form">
-                                <label for="">&nbsp;&nbsp;</label>
-                                <div class="control ">
-                                    <input class="button" type="submit" form="cpf-form" value="Pesquisar"> </div>
+            <form action="#" th:action="@{/candidato/salvar}" method="POST">
+                <div class="columns is-gapless">
+                    <div class="column is-one-quarter">
+                        <div class="form">
+                            <label for="cpf">CPF do Candidato</label>
+                            <div class="control">
+                                <input class="input" th:field="${candidato.cpf}" type="text" name="" id="cpf"
+                                    maxlength="11" required>
                             </div>
                         </div>
                     </div>
+                    <div class="column is-2">
+                        <div class="form">
+                            <label for="">&nbsp;&nbsp;</label>
+                            <div class="control ">
+                                <input class="button" type="submit" th:field=${candidato.cpf} form="cpf-form"
+                                    value="Pesquisar"> </div>
+                        </div>
+                    </div>
+                </div>
                 <br>
                 <div class="columns">
                     <div class="column is-one-quarter">
                         <div class="field">
                             <label for="matricula">Matrícula</label>
                             <div class="control">
-                                <input class="input" type="text" id="matricula" placeholder="Matrícula">
+                                <input class="input" type="text" th:field=${candidato.matricula} id="matricula"
+                                    placeholder="Matrícula">
                             </div>
                         </div>
                     </div>
@@ -143,7 +147,8 @@
                         <div class="field">
                             <label for="nome-completo">Nome completo do Candidato</label>
                             <div class="control">
-                                <input class="input" th:field="*{nomeCompleto}" type="text" name="" id="nome-completo" placeholder="Nome Completo">
+                                <input class="input" th:field=${candidato.nomeCompleto} type="text" name=""
+                                    id="nome-completo" placeholder="Nome Completo">
                             </div>
                         </div>
                     </div>
@@ -151,7 +156,8 @@
                     <div class="column">
                         <div class="field">
                             <label for="data-nascimento">Data de Nascimento</label>
-                            <input class="input" type="date" name="" id="data-nascimento">
+                            <input class="input" th:field=${candidato.dataNascimento} type="date" name=""
+                                id="data-nascimento">
                         </div>
                     </div>
                 </div>
@@ -161,10 +167,11 @@
                             <label for="genero">Gênero</label>
                             <div class="control">
                                 <div class="select">
-                                    <select>
-                                        <option selected disabled>Selecionar</option>
-                                        <option>Masculino</option>
-                                        <option>Feminino</option>
+                                    <select th:field=${candidato.sexo}>
+                                        <option value="" selected="selected" disabled>Selecionar...</option>
+                                        <option th:value="'Masculino'" th:text="Masculino"></option>
+                                        <option th:value="'Feminino'" th:text="Feminino"></option>
+                                        <option th:value="'Transexual'" th:text="Transexual"></option>
                                     </select>
                                 </div>
                             </div>
@@ -174,10 +181,13 @@
                         <div class="field">
                             <label for="rg-candidato">RG Candidato</label>
                             <div class="control">
-                                <input class="input" type="text" id="rg-candidato" placeholder="RG">
+                                <input class="input" th:field="${candidato.rg}" type="text" id="rg-candidato"
+                                    placeholder="RG">
                             </div>
                         </div>
                     </div>
+
+
                     <div class="column">
                         <div class="field">
                             <label for="nome-responsavel">Nome responsável</label>
@@ -187,6 +197,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="column is-one-fifth">
                         <div class="field">
                             <label for="rg-candidato">RG Responsável</label>
@@ -196,20 +207,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="columns">
                     <div class="column is-one-fifth">
                         <div class="field">
                             <label for="genero">Estado Civil</label>
                             <div class="control">
                                 <div class="select">
-                                    <select>
-                                        <option selected disabled>Selecionar</option>
-                                        <option>Solteiro</option>
-                                        <option>Casado</option>
-                                        <option>Divorciado</option>
-                                        <option>Viúvo</option>
-                                        <option>Separado</option>
+                                    <select th:field=${candidato.estadoCivil}>
+                                        <option value="" selected disabled></option>
+                                        <option th:value="'Solteiro'" th:text="Solteiro"></option>
+                                        <option th:value="'Casado'" th:text="Divorciado"></option>
+                                        <option th:value="'Viuvo'" th:text="Viúvo"></option>
+                                        <option th:value="'Separado'" th:text="Separado"></option>
+                                        <option th:value="'Divorciado'" th:text="Divorciado"></option>
+
                                     </select>
                                 </div>
                             </div>
@@ -220,14 +231,15 @@
                         <div class="field">
                             <label for="">PcD?</label>
                             <div class="control">
-                                <label class="radio">
-                                    <input type="radio" name="question">
-                                    Sim
-                                </label>
-                                <label class="radio">
-                                    <input selected type="radio" name="question">
-                                    Não
-                                </label>
+                                <ul>
+
+                                    <label>Sim</label>
+                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${true}" />
+
+                                    <label>Não</label>
+                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${false}" />
+
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -240,7 +252,8 @@
                                     Sim
                                 </label>
                                 <label class="radio">
-                                    <input type="radio" name="pergunta-nome-social" value="nao" checked="checked">
+                                    <input type="radio" id="nome-social-unselected" name="pergunta-nome-social"
+                                        value="nao" checked="checked">
                                     Não
                                 </label>
                             </div>
@@ -248,11 +261,13 @@
                     </div>
                     <div class="column">
                         <div class="field">
-                            <div class="classe-nome-social" id="mostrar-nome-social">
-                                <label for="">Nome Social Completo</label>
-                                <div class="control">
-                                    <input class="input" type="text" name="" id="nome-social"
-                                        placeholder="Nome Social Completo">
+                            <div class="mostrar-nome-social">
+                                <div class="classe-nome-social" id="mostrar-nome-social">
+                                    <label for="">Nome Social Completo</label>
+                                    <div class="control">
+                                        <input class="input" type="text" name="" id="nome-social"
+                                            placeholder="Nome Social Completo">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -263,9 +278,10 @@
                 <div class="columns">
                     <div class="column is-one-quarter">
                         <div class="field">
-                            <label for="telefone-candidato">Telefone Fixo</label>
-                            <div class="control">
-                                <input class="input" type="text" name="" id="telefone-candidato">
+                            <label>Telefone Fixo</label>
+                            <div class="control">      
+                                <input class="input" id="telefone-candidato" type="text"
+                                    placeholder="(00) 0000-0000">
                             </div>
                         </div>
                     </div>
@@ -313,13 +329,12 @@
                         </div>
                     </div>
                 </div>
-              	<div th:object="${endereco}">
-              		  <div class="columns">
+                <div class="columns">
                     <div class="column is-one-third">
                         <div class="field">
                             <label for="rua">Logradouro</label>
                             <div class="control">
-                                <input class="input" type="text" name="" id="rua" disabled>
+                                <input class="input" th:field="${endereco.logradouro}" type="text" name="" id="rua" disabled>
                             </div>
                         </div>
                     </div>
@@ -340,7 +355,6 @@
                         </div>
                     </div>
                 </div>
-              	</div>
                 <div class="columns">
                     <div class="column is-one-third">
                         <div class="field">
@@ -446,12 +460,13 @@
 <footer class="footer" style="background: #363636">
     <div class="content has-text-centered">
         <p style="color: white">
-            <strong style="color: white"> NUEEP Estágio</strong> é um sistema desenvolvido para o Projeto Integrador do Terceiro Semestre<br>
+            <strong style="color: white"> NUEEP Estágio</strong> é um sistema desenvolvido para o Projeto Integrador do
+            Terceiro Semestre<br>
             do Curso de Análise e Desenvolvimento de Sistema da Unicuritiba.
         </p>
         <a href="https://bulma.io">
             <img src="images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
-          </a>
+        </a>
     </div>
 </footer>
 
