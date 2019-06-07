@@ -34,46 +34,46 @@ public class Candidato {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "nome_completo")
+	@Column(name = "nome_completo", nullable = false)
 	private String nomeCompleto;
 
-	@Column(name = "nome_social")
+	@Column(name = "nome_social", nullable = false)
 	private String nomeSocial;
 	
-	@Column(name="ativo")
+	@Column(name="ativo", nullable = false)
 	private boolean ativo;
 	
-	@Column(name="matricula")
+	@Column(name="matricula", nullable = false)
 	private String matricula;
 	
 
-	@Column(name = "data_nascimento")
+	@Column(name = "data_nascimento", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 
-	@Column(name = "cpf")
+	@Column(name = "cpf", nullable = false)
 	private String cpf;
 
-	@Column(name = "rg")
+	@Column(name = "rg", nullable = false)
 	private String rg;
 
 
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "sexo")
+	@Column(name = "sexo", nullable = false)
 	private Sexo sexo;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "estado_civil")
+	@Column(name = "estado_civil", nullable = false)
 	private EstadoCivil estadoCivil;
 
-	@Column(name = "condicao_especial")
+	@Column(name = "condicao_especial", nullable = false)
 	boolean condicaoEspecial;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "responsavel_legal_id")
+	@JoinColumn(name = "responsavel_legal_id", nullable = false)
 	private ResponsavelLegal responsavelLegal;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
