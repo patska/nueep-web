@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NUEEP - Nova Empresa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet"
+        type="text/css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#cnpj').mask('00.000.000/0000-00');
+            $('#cep').mask('00000-000');
+            $('#telefone-candidato').mask('(00) 0000-0000');
+            $('#celular-candidato').mask('(00) 00000-0000');
+        });
+    </script>
+
+</head>
+
+<body style="background-color: #6e6e6e">
+    <div id="navbar-default"></div>
+    <section class="hero is-danger">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Cadastrar nova vaga
+                </h1>
+                <h2 class="subtitle">
+                    Preencha o formulário abaixo para cadastrar uma nova vaga.
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="notification">
+            <form action="#" id="formulario" method="POST" onsyu>
+   
+            </form>
+        </div>
+    </div>
+    <script>
+        function limpa_formulário_cep() {
+            document.getElementById('rua').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                document.getElementById('rua').value = (conteudo.logradouro);
+                document.getElementById('bairro').value = (conteudo.bairro);
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
+
+            } else {
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+
+        function pesquisacep(valor) {
+
+            var cep = valor.replace(/\D/g, '');
+
+            if (cep != "") {
+
+                var validacep = /^[0-9]{8}$/;
+
+                if (validacep.test(cep)) {
+
+                    document.getElementById('rua').value = "...";
+                    document.getElementById('bairro').value = "...";
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
+                    document.getElementById('numero').value = ("");
+                    document.getElementById('complemento').value = ("");
+
+                    var script = document.createElement('script');
+
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    document.body.appendChild(script);
+
+                } else {
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } else {
+                limpa_formulário_cep();
+            }
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-default").load("/navbar.html");
+        });
+    </script>
+
+
+    <script>
+    
+            $.validate({
+                modules: 'brazil',
+                lang: 'pt',
+                modules: 'date'
+            });
+ 
+    </script>
+</body>
+<footer class="footer" style="background: #363636">
+    <div class="content has-text-centered">
+        <p style="color: white">
+            <strong style="color: white"> NUEEP Estágio</strong> é um sistema desenvolvido para o Projeto Integrador do
+            Terceiro Semestre<br>
+            do Curso de Análise e Desenvolvimento de Sistema da Unicuritiba.
+        </p>
+        <a href="https://bulma.io">
+            <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
+        </a>
+    </div>
+</footer>
+
+
+
+</html>

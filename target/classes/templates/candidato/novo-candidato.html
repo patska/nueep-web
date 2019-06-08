@@ -312,12 +312,12 @@
                                 <div class="select">
                                     <select th:field="${candidato.nivelEnsino}" data-validation="required">
                                         <option value="">Selecionar...</option>
-                                        <option th:value="'EnsinoFundamental'" th:text="EnsinoFundamental"></option>
-                                        <option th:value="'EnsinoMedio'" th:text="EnsinoMedio"></option>
-                                        <option th:value="'EnsinoSuperior'" th:text="EnsinoSuperior"></option>
-                                        <option th:value="'Tecnico'" th:text="Tecnico"></option>
-                                        <option th:value="'EducacaoBasica'" th:text="EducacaoBasica"></option>
-                                        <option th:value="'HabilitacaoBasica'" th:text="HabilitacaoBasica"></option>
+                                        <option th:value="'EnsinoFundamental'">Ensino Fundamental</option>
+                                        <option th:value="'EnsinoMedio'">Ensino Médio</option>
+                                        <option th:value="'EnsinoSuperior'">Ensino Superior</option>
+                                        <option th:value="'Tecnico'">Técnico</option>
+                                        <option th:value="'EducacaoBasica'">Educação Básica</option>
+                                        <option th:value="'HabilitacaoBasica'">Habilitação Básica</option>
                                     </select>
                                 </div>
                             </div>
@@ -345,7 +345,7 @@
                                     <select th:field="${candidato.modalidadeEnsino}" data-validation="required">
                                         <option value="">Selecionar...</option>
                                         <option th:value="'Presencial'" th:text="Presencial">Presencial</option>
-                                        <option th:value="'SemiPresencial'" th:text="SemiPresencial"></option>
+                                        <option th:value="'SemiPresencial'">Semi Presencial</option>
                                         <option th:value="'EaD'" th:text="EaD"></option>
                                     </select>
                                 </div>
