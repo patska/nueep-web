@@ -1,5 +1,7 @@
 package com.pi.nueep.service;
 
+import java.util.Optional;
+
 import com.pi.nueep.dao.ResponsavelLegalRepository;
 import com.pi.nueep.entidades.ResponsavelLegal;
 
@@ -19,6 +21,26 @@ public class ResponsavelLegalServiceImplement implements ResponsavelLegalService
     @Override
     public void salvar(ResponsavelLegal responsavelLegal){
         responsavelLegalRepository.save(responsavelLegal);
+    }
+
+    @Override
+    public ResponsavelLegal encontrarPorId(int id) {
+        	
+		Optional<ResponsavelLegal> resultado = responsavelLegalRepository.findById(id);
+		ResponsavelLegal candidato = null;
+		if(resultado.isPresent()){
+			candidato = resultado.get();
+		}
+		else{
+			throw new RuntimeException("Não encontrado. Candidato - ID: " + id);
+		}
+
+		return candidato;
+    }
+
+    @Override
+    public void deletarPorId(int id) {
+        responsavelLegalRepository.deleteById(id);
     }
 
 

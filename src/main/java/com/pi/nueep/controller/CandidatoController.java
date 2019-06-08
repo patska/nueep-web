@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 import com.pi.nueep.entidades.Candidato;
 import com.pi.nueep.entidades.Endereco;
@@ -21,7 +24,7 @@ import com.pi.nueep.service.ResponsavelLegalService;
 import com.pi.nueep.service.TelefoneService;
 
 @Controller
-@RequestMapping("candidato")
+@RequestMapping("/candidato")
 public class CandidatoController {
 
 	private CandidatoService candidatoService;
@@ -70,7 +73,7 @@ public class CandidatoController {
 		modeloTelefone.addAttribute("telefone", telefone);
 		modelResponsavelLegal.addAttribute("responsavelLegal", responsavelLegal);
 
-		return "/candidato/novo-candidato";
+		return "candidato/novo-candidato";
 	}
 
 	@PostMapping("/salvar")
@@ -99,8 +102,59 @@ public class CandidatoController {
 		responsavelLegalService.salvar(oResponsavelLegal);
 		candidatoService.salvar(oCandidato);
 
-		return "index";
+		return "redirect:/candidato/listar";
 	}
+
+	@GetMapping("/listar")
+	public String listarCandidatos(Model theModel){
+		List<Candidato> candidatos = candidatoService.encontrarTodos();
+
+		theModel.addAttribute("candidatos", candidatos);
+
+		return "candidato/lista";
+	}
+	@GetMapping("/atualizar")
+	public String mostrarFormulario(
+		@RequestParam("candidatoId") int oId, 
+		Model candidatoModelo, 
+		Model responsavelLegalModelo,
+		Model enderecoModelo, 
+		Model telefoneModelo, 
+		Model municipioModelo, 
+		Model estadoModelo
+		){
+
+		Candidato candidato = candidatoService.encontrarPorId(oId);
+		ResponsavelLegal responsavelLegal = responsavelLegalService.encontrarPorId(oId);
+		Telefone telefone = telefoneService.encontrarTelefonePorId(oId);
+		Endereco endereco = enderecoService.encontrarPorId(oId);
+		Municipio municipio = municipioService.encontrarPorId(oId);
+		Estado estado = estadoService.encontrarPorId(oId);
+
+		System.out.println("===================");
+		System.out.println("Nome Completo: " + candidato.getNomeCompleto());
+		System.out.println("CPF: " + candidato.getCpf());
+		System.out.println("Data de Nascimento: " + candidato.getDataNascimento());
+		System.out.println("===================");
+
+		candidatoModelo.addAttribute("candidato", candidato);
+		responsavelLegalModelo.addAttribute("responsavelLegal", responsavelLegal);
+		telefoneModelo.addAttribute("telefone", telefone);
+		enderecoModelo.addAttribute("endereco", endereco);
+		municipioModelo.addAttribute("municipio", municipio);
+		estadoModelo.addAttribute("estado", estado);
+		
+		return "candidato/novo-candidato";
+
+	}
+
+	@GetMapping("/deletar")
+	public String deletar(@RequestParam("candidatoId") int oId){
+		candidatoService.deletarPorId(oId);
+		
+		return "redirect:/candidato/listar";
+	}
+
 
 
 }

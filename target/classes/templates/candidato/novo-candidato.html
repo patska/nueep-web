@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -8,9 +8,382 @@
     <title>Title Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body style="background-color: #6e6e6e">
+    <div id="navbar-default"></div>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Cadastrar novo candidato
+                </h1>
+                <h2 class="subtitle">
+                    Preencha o formulário abaixo para cadastrar um novo aluno.
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="notification">
+            <form action="#" id="formulario" th:action="@{/candidato/salvar}" method="POST" onsyu>
+                <input type="hidden" th:field="${candidato.id}">
+                <input type="hidden" th:field="${responsavelLegal.id}">
+                <input type="hidden" th:field="${telefone.id}">
+                <input type="hidden" th:field="${endereco.id}">
+                <input type="hidden" th:field="${municipio.id}">
+                <input type="hidden" th:field="${estado.id}">
+
+                <div class="columns is-gapless">
+                    <div class="column is-one-quarter">
+                        <div class="form">
+                            <label for="cpf">CPF do Candidato</label>
+                            <div class="control">
+                                <input class="input" th:field="${candidato.cpf}" type="text" name="cpf" id="cpf"
+                                    data-validation="length validar_cpf" data-validation-length="14">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <div class="form">
+                            <label for="">&nbsp;&nbsp;</label>
+                            <div class="control ">
+                                <input class="button is-info" type="submit" th:field=${candidato.cpf} form="cpf-form"
+                                    value="Pesquisar"> </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="matricula">Matrícula</label>
+                            <div class="control">
+                                <input class="input" type="text" data-validation="length number"
+                                    data-validation-length="3-10" th:field=${candidato.matricula} id="matricula"
+                                    placeholder="Matrícula">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label for="nome-completo">Nome completo do Candidato</label>
+                            <div class="control">
+                                <input class="input" th:field=${candidato.nomeCompleto}
+                                    onkeyup="this.value = this.value.toUpperCase();" type="text" name=""
+                                    id="nome-completo" data-validation="custom" data-validation-regexp="^[A-Z\s]+$"
+                                    placeholder="Nome Completo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="field">
+                            <label for="data-nascimento">Data de Nascimento</label>
+                            <input class="input" th:field=${candidato.dataNascimento} data-validation="required" type="date" name=""
+                                id="data-nascimento">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="genero">Gênero</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select data-validation="required" id="genero" th:field=${candidato.sexo}>
+                                        <option id="selecionado" selected="selected" value="">Selecionar...</option>
+                                        <option th:value="'Masculino'" th:text="Masculino"></option>
+                                        <option th:value="'Feminino'" th:text="Feminino"></option>
+                                        <option value="Transexual" th:value="'Transexual'" th:text="Transexual">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="rg-candidato">RG Candidato</label>
+                            <div class="control">
+                                <input class="input" th:field="${candidato.rg}" data-validation="required" type="text"
+                                    id="rg-candidato" placeholder="RG">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="column">
+                        <div class="field">
+                            <label for="nome-responsavel">Nome responsável</label>
+                            <div class="control">
+                                <input class="input" th:field="${responsavelLegal.nomeCompletoResponsavel}" type="text"
+                                    id="nome-responsavel" onkeyup="this.value = this.value.toUpperCase();"
+                                    placeholder="Nome do Responsável">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="rg-candidato">RG Responsável</label>
+                            <div class="control">
+                                <input class="input" th:field="${responsavelLegal.rgResponsavel}" type="text"
+                                    id="rg-responsavel" placeholder="RG Resp.">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="genero">Estado Civil</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select th:field=${candidato.estadoCivil} data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option th:value="'Solteiro'" th:text="Solteiro"></option>
+                                        <option th:value="'Casado'" th:text="Divorciado"></option>
+                                        <option th:value="'Viuvo'" th:text="Viúvo"></option>
+                                        <option th:value="'Separado'" th:text="Separado"></option>
+                                        <option th:value="'Divorciado'" th:text="Divorciado"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-one-fifth">
+                        <div class="field">
+                            <label for="">PcD?</label>
+                            <div class="control">
+                                <ul>
+
+                                    <label>Sim</label>
+                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${true}" />
+
+                                    <label>Não</label>
+                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${false}" />
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-a-half">
+                        <div class="field">
+                            <div class="mostrar-nome-social">
+                                <div class="classe-nome-social" id="mostrar-nome-social">
+                                    <label for="">Nome Social Completo</label>
+                                    <div class="control">
+                                        <input class="input" onkeyup="this.value = this.value.toUpperCase();"
+                                            th:field="${candidato.nomeSocial}" type="text" name="" id="nome-social"
+                                            placeholder="Nome Social Completo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h4 class="title is-4">Informações de Contato</h4>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label>Telefone Fixo</label>
+                            <div class="control">
+                                <input class="input" th:field="${telefone.fixo}" type="text"
+                                    data-validation="length validar_telefone" data-validation-length="14"
+                                    id="telefone-candidato" placeholder="(00) 0000-0000">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="celular-candidato">Celular</label>
+                            <div class="control">
+                                <input class="input" th:field="${telefone.celular}" type="text" data-validation="length validar_celular"  data-validation-length="15" name=""
+                                    id="celular-candidato">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="email-candidato">E-mail</label>
+                            <div class="control has-icons-left">
+                                <input class="input" th:field="${candidato.email}"  onkeyup="this.value = this.value.toLowerCase();" type="text" data-validation="email"
+                                    name="" id="celular-candidato">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h4 class="title is-4">Informações de Endereço</h4>
+                <div class="columns is-gapless">
+                    <div class="column is-one-quarter">
+                        <div class="form">
+                            <label for="cep-candidato">CEP</label>
+                            <div class="control">
+                                <input class="input" type="text" th:field="${endereco.cep}" name="cep" id="cep"
+                                     data-validation="length" data-validation-length="9" onblur="pesquisacep(this.value);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-2">
+                        <div class="form">
+                            <label for="">&nbsp;&nbsp;</label>
+                            <div class="control">
+                                <a class="button is-warning"
+                                    href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCep.cfm"
+                                    target="_blank">Pesquisar nos Correios</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="rua">Logradouro</label>
+                            <div class="control">
+                                <input class="input" th:field="${endereco.logradouro}" data-validation="required" type="text" name="" id="rua"
+                                    readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <div class="field">
+                            <label for="numero-residencial">Número</label>
+                            <div class="control">
+                                <input class="input" th:field="${endereco.numero}" data-validation="number" type="text" name="" id="numero">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="complemento-residencial">Complemento</label>
+                            <div class="control">
+                                <input class="input" th:field="${endereco.complemento}" type="text" name=""
+                                    id="complemento">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="bairro">Bairro</label>
+                            <div class="control">
+                                <input class="input" type="text" th:field="${endereco.bairro}" data-validation="required" name="" id="bairro"
+                                    readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="cidade">Localidade</label>
+                            <div class="control">
+                                <input class="input" th:field="${municipio.nome}" type="text" data-validation="required" name="" id="cidade"
+                                    readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <div class="field">
+                            <label for="uf">UF</label>
+                            <div class="control">
+                                <input class="input" type="text" th:field="${estado.uf}" data-validation="required" name="" id="uf"
+                                    readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="title is-4">Escolaridade</h4>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="nivel">Nivel</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select th:field="${candidato.nivelEnsino}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option th:value="'EnsinoFundamental'" th:text="EnsinoFundamental"></option>
+                                        <option th:value="'EnsinoMedio'" th:text="EnsinoMedio"></option>
+                                        <option th:value="'EnsinoSuperior'" th:text="EnsinoSuperior"></option>
+                                        <option th:value="'Tecnico'" th:text="Tecnico"></option>
+                                        <option th:value="'EducacaoBasica'" th:text="EducacaoBasica"></option>
+                                        <option th:value="'HabilitacaoBasica'" th:text="HabilitacaoBasica"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="grau">Grau de Instrução</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select th:field="${candidato.grauInstrucao}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option th:value="'Completo'" th:text="Completo"></option>
+                                        <option th:value="'Incompleto'" th:text="Incompleto"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="modalidade">Modalidade</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select th:field="${candidato.modalidadeEnsino}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option th:value="'Presencial'" th:text="Presencial">Presencial</option>
+                                        <option th:value="'SemiPresencial'" th:text="SemiPresencial"></option>
+                                        <option th:value="'EaD'" th:text="EaD"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="turno">Turno de Estudo</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select th:field="${candidato.turnoEstudo}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option th:value="'Matutino'" th:text="Matutino"></option>
+                                        <option th:value="'Vespertino'" th:text="Vespertino"></option>
+                                        <option th:value="'Integral'" th:text="Integral"></option>
+                                        <option th:value="'Noturno'" th:text="Noturno"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="buttons is-right">
+                    <button class="button is-warning is-large">Limpar</button>
+                    <button class="button is-success is-large" type="submit">Salvar Candidato</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script th:src="@{/js/jquery.mask.js}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet"
+        type="text/css" />
 
     <script>
         function limpa_formulário_cep() {
@@ -70,6 +443,7 @@
             $("#navbar-default").load("/navbar.html");
         });
     </script>
+
     <script>
         $(document).ready(function () {
             $("#mostrar-nome-social").hide();
@@ -93,358 +467,220 @@
             $('#celular-candidato').mask('(00) 00000-0000');
         });
     </script>
+    <script>
+        $(document).ready(function () {
 
-</head>
+            $.formUtils.addValidator({
+                name: 'validar_celular',
+                validatorFunction: function validarTelefoneFixo(numero) {
+                    numero = numero.replace(/\D/g, '');
 
-<body style="background-color: #6e6e6e">
-    <div id="navbar-default"></div>
-    <section class="hero is-dark">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Cadastrar novo candidato
-                </h1>
-                <h2 class="subtitle">
-                    Preencha o formulário abaixo para cadastrar um novo aluno.
-                </h2>
-            </div>
-        </div>
-    </section>
+                    if (numero.substring(0, 2) == "11" ||
+                        numero.substring(0, 2) == "12" ||
+                        numero.substring(0, 2) == "13" ||
+                        numero.substring(0, 2) == "14" ||
+                        numero.substring(0, 2) == "15" ||
+                        numero.substring(0, 2) == "16" ||
+                        numero.substring(0, 2) == "17" ||
+                        numero.substring(0, 2) == "18" ||
+                        numero.substring(0, 2) == "19" ||
+                        numero.substring(0, 2) == "21" ||
+                        numero.substring(0, 2) == "22" ||
+                        numero.substring(0, 2) == "27" ||
+                        numero.substring(0, 2) == "28" ||
+                        numero.substring(0, 2) == "31" ||
+                        numero.substring(0, 2) == "32" ||
+                        numero.substring(0, 2) == "33" ||
+                        numero.substring(0, 2) == "34" ||
+                        numero.substring(0, 2) == "35" ||
+                        numero.substring(0, 2) == "37" ||
+                        numero.substring(0, 2) == "38" ||
+                        numero.substring(0, 2) == "41" ||
+                        numero.substring(0, 2) == "42" ||
+                        numero.substring(0, 2) == "43" ||
+                        numero.substring(0, 2) == "44" ||
+                        numero.substring(0, 2) == "45" ||
+                        numero.substring(0, 2) == "46" ||
+                        numero.substring(0, 2) == "47" ||
+                        numero.substring(0, 2) == "48" ||
+                        numero.substring(0, 2) == "49" ||
+                        numero.substring(0, 2) == "51" ||
+                        numero.substring(0, 2) == "53" ||
+                        numero.substring(0, 2) == "54" ||
+                        numero.substring(0, 2) == "55" ||
+                        numero.substring(0, 2) == "61" ||
+                        numero.substring(0, 2) == "62" ||
+                        numero.substring(0, 2) == "63" ||
+                        numero.substring(0, 2) == "64" ||
+                        numero.substring(0, 2) == "65" ||
+                        numero.substring(0, 2) == "66" ||
+                        numero.substring(0, 2) == "67" ||
+                        numero.substring(0, 2) == "68" ||
+                        numero.substring(0, 2) == "69" ||
+                        numero.substring(0, 2) == "71" ||
+                        numero.substring(0, 2) == "73" ||
+                        numero.substring(0, 2) == "75" ||
+                        numero.substring(0, 2) == "77" ||
+                        numero.substring(0, 2) == "79" ||
+                        numero.substring(0, 2) == "81" ||
+                        numero.substring(0, 2) == "82" ||
+                        numero.substring(0, 2) == "83" ||
+                        numero.substring(0, 2) == "84" ||
+                        numero.substring(0, 2) == "85" ||
+                        numero.substring(0, 2) == "86" ||
+                        numero.substring(0, 2) == "87" ||
+                        numero.substring(0, 2) == "88" ||
+                        numero.substring(0, 2) == "89" ||
+                        numero.substring(0, 2) == "91" ||
+                        numero.substring(0, 2) == "92" ||
+                        numero.substring(0, 2) == "93" ||
+                        numero.substring(0, 2) == "94" ||
+                        numero.substring(0, 2) == "95" ||
+                        numero.substring(0, 2) == "96" ||
+                        numero.substring(0, 2) == "97" ||
+                        numero.substring(0, 2) == "98" ||
+                        numero.substring(0, 2) == "99"
+                    ) {
+                        if (numero.substring(2, 3) == "9" ||
+                            numero.substring(2, 3) == "8" ||
+                            numero.substring(2, 3) == "7"
+                        ) {
+                            console.log(numero.substring(2, 3));
+                            return true;
+                        } else return false;
+                    } else return false;
+                },
+                errorMessage: 'Celular Inválido',
+                errorMessageKey: ''
+            });
 
-    <div class="container">
-        <div class="notification">
-            <form action="#" th:action="@{/candidato/salvar}" method="POST">
-                <div class="columns is-gapless">
-                    <div class="column is-one-quarter">
-                        <div class="form">
-                            <label for="cpf">CPF do Candidato</label>
-                            <div class="control">
-                                <input class="input" th:field="${candidato.cpf}" type="text" name="" id="cpf"
-                                    maxlength="11" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="form">
-                            <label for="">&nbsp;&nbsp;</label>
-                            <div class="control ">
-                                <input class="button" type="submit" th:field=${candidato.cpf} form="cpf-form"
-                                    value="Pesquisar"> </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="columns">
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="matricula">Matrícula</label>
-                            <div class="control">
-                                <input class="input" type="text" th:field=${candidato.matricula} id="matricula"
-                                    placeholder="Matrícula">
-                            </div>
-                        </div>
-                    </div>
+            $.formUtils.addValidator({
+                name: 'validar_telefone',
+                validatorFunction: function validarTelefoneFixo(numero) {
+                    numero = numero.replace(/\D/g, '');
 
-                    <div class="column is-half">
-                        <div class="field">
-                            <label for="nome-completo">Nome completo do Candidato</label>
-                            <div class="control">
-                                <input class="input" th:field=${candidato.nomeCompleto} type="text" name=""
-                                    id="nome-completo" placeholder="Nome Completo">
-                            </div>
-                        </div>
-                    </div>
+                    if (numero.substring(0, 2) == "11" ||
+                        numero.substring(0, 2) == "12" ||
+                        numero.substring(0, 2) == "13" ||
+                        numero.substring(0, 2) == "14" ||
+                        numero.substring(0, 2) == "15" ||
+                        numero.substring(0, 2) == "16" ||
+                        numero.substring(0, 2) == "17" ||
+                        numero.substring(0, 2) == "18" ||
+                        numero.substring(0, 2) == "19" ||
+                        numero.substring(0, 2) == "21" ||
+                        numero.substring(0, 2) == "22" ||
+                        numero.substring(0, 2) == "27" ||
+                        numero.substring(0, 2) == "28" ||
+                        numero.substring(0, 2) == "31" ||
+                        numero.substring(0, 2) == "32" ||
+                        numero.substring(0, 2) == "33" ||
+                        numero.substring(0, 2) == "34" ||
+                        numero.substring(0, 2) == "35" ||
+                        numero.substring(0, 2) == "37" ||
+                        numero.substring(0, 2) == "38" ||
+                        numero.substring(0, 2) == "41" ||
+                        numero.substring(0, 2) == "42" ||
+                        numero.substring(0, 2) == "43" ||
+                        numero.substring(0, 2) == "44" ||
+                        numero.substring(0, 2) == "45" ||
+                        numero.substring(0, 2) == "46" ||
+                        numero.substring(0, 2) == "47" ||
+                        numero.substring(0, 2) == "48" ||
+                        numero.substring(0, 2) == "49" ||
+                        numero.substring(0, 2) == "51" ||
+                        numero.substring(0, 2) == "53" ||
+                        numero.substring(0, 2) == "54" ||
+                        numero.substring(0, 2) == "55" ||
+                        numero.substring(0, 2) == "61" ||
+                        numero.substring(0, 2) == "62" ||
+                        numero.substring(0, 2) == "63" ||
+                        numero.substring(0, 2) == "64" ||
+                        numero.substring(0, 2) == "65" ||
+                        numero.substring(0, 2) == "66" ||
+                        numero.substring(0, 2) == "67" ||
+                        numero.substring(0, 2) == "68" ||
+                        numero.substring(0, 2) == "69" ||
+                        numero.substring(0, 2) == "71" ||
+                        numero.substring(0, 2) == "73" ||
+                        numero.substring(0, 2) == "75" ||
+                        numero.substring(0, 2) == "77" ||
+                        numero.substring(0, 2) == "79" ||
+                        numero.substring(0, 2) == "81" ||
+                        numero.substring(0, 2) == "82" ||
+                        numero.substring(0, 2) == "83" ||
+                        numero.substring(0, 2) == "84" ||
+                        numero.substring(0, 2) == "85" ||
+                        numero.substring(0, 2) == "86" ||
+                        numero.substring(0, 2) == "87" ||
+                        numero.substring(0, 2) == "88" ||
+                        numero.substring(0, 2) == "89" ||
+                        numero.substring(0, 2) == "91" ||
+                        numero.substring(0, 2) == "92" ||
+                        numero.substring(0, 2) == "93" ||
+                        numero.substring(0, 2) == "94" ||
+                        numero.substring(0, 2) == "95" ||
+                        numero.substring(0, 2) == "96" ||
+                        numero.substring(0, 2) == "97" ||
+                        numero.substring(0, 2) == "98" ||
+                        numero.substring(0, 2) == "99"
+                    ) {
+                        if (numero.substring(2, 3) == "3" ||
+                            numero.substring(2, 3) == "4"
+                        ) {
+                            console.log(numero.substring(2, 3));
+                            return true;
+                        } else return false;
+                    } else return false;
+                },
+                errorMessage: 'Telefone Inválido',
+                errorMessageKey: ''
+            });
 
-                    <div class="column">
-                        <div class="field">
-                            <label for="data-nascimento">Data de Nascimento</label>
-                            <input class="input" th:field=${candidato.dataNascimento} type="date" name=""
-                                id="data-nascimento">
-                        </div>
-                    </div>
-                </div>
-                <div class="columns">
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="genero">Gênero</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select id="genero" th:field=${candidato.sexo}>
-                                        <option value="" selected="selected" disabled>Selecionar...</option>
-                                        <option th:value="'Masculino'" th:text="Masculino"></option>
-                                        <option th:value="'Feminino'" th:text="Feminino"></option>
-                                        <option value="Transexual" th:value="'Transexual'" th:text="Transexual">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="rg-candidato">RG Candidato</label>
-                            <div class="control">
-                                <input class="input" th:field="${candidato.rg}" type="text" id="rg-candidato"
-                                    placeholder="RG">
-                            </div>
-                        </div>
-                    </div>
+            $.formUtils.addValidator({
+                name: 'validar_cpf',
+                validatorFunction: function validaCPF(cpf) {
+                    cpf = cpf.replace(/\D/g, '');
+                    var numeros, digitos, soma, i, resultado, digitos_iguais;
+                    digitos_iguais = 1;
+                    if (cpf.length < 11)
+                        return false;
+                    for (i = 0; i < cpf.length - 1; i++)
+                        if (cpf.charAt(i) != cpf.charAt(i + 1)) {
+                            digitos_iguais = 0;
+                            break;
+                        }
+                    if (!digitos_iguais) {
+                        numeros = cpf.substring(0, 9);
+                        digitos = cpf.substring(9);
+                        soma = 0;
+                        for (i = 10; i > 1; i--)
+                            soma += numeros.charAt(10 - i) * i;
+                        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                        if (resultado != digitos.charAt(0))
+                            return false;
+                        numeros = cpf.substring(0, 10);
+                        soma = 0;
+                        for (i = 11; i > 1; i--)
+                            soma += numeros.charAt(11 - i) * i;
+                        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                        if (resultado != digitos.charAt(1))
+                            return false;
+                        return true;
+                    } else
+                        return false;
+                },
+                errorMessage: 'CPF Inválido',
+                errorMessageKey: ''
 
-
-                    <div class="column">
-                        <div class="field">
-                            <label for="nome-responsavel">Nome responsável</label>
-                            <div class="control">
-                                <input class="input" th:field="${responsavelLegal.nomeCompletoResponsavel}" type="text"
-                                    id="nome-responsavel" placeholder="Nome do Responsável">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="rg-candidato">RG Responsável</label>
-                            <div class="control">
-                                <input class="input" th:field="${responsavelLegal.rgResponsavel}" type="text"
-                                    id="rg-responsavel" placeholder="RG Resp.">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns">
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="genero">Estado Civil</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select th:field=${candidato.estadoCivil}>
-                                        <option value="" selected disabled></option>
-                                        <option th:value="'Solteiro'" th:text="Solteiro"></option>
-                                        <option th:value="'Casado'" th:text="Divorciado"></option>
-                                        <option th:value="'Viuvo'" th:text="Viúvo"></option>
-                                        <option th:value="'Separado'" th:text="Separado"></option>
-                                        <option th:value="'Divorciado'" th:text="Divorciado"></option>
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="">PcD?</label>
-                            <div class="control">
-                                <ul>
-
-                                    <label>Sim</label>
-                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${true}" />
-
-                                    <label>Não</label>
-                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${false}" />
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="column is-a-half">
-                        <div class="field">
-                            <div class="mostrar-nome-social">
-                                <div class="classe-nome-social" id="mostrar-nome-social">
-                                    <label for="">Nome Social Completo</label>
-                                    <div class="control">
-                                        <input class="input" type="text" name="" id="nome-social"
-                                            placeholder="Nome Social Completo">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <h4 class="title is-4">Informações de Contato</h4>
-                <div class="columns">
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label>Telefone Fixo</label>
-                            <div class="control">
-                                <input class="input" id="telefone-candidato" type="text" placeholder="(00) 0000-0000">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="celular-candidato">Celular</label>
-                            <div class="control">
-                                <input class="input" type="text" name="" id="celular-candidato">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label for="email-candidato">E-mail</label>
-                            <div class="control has-icons-left">
-                                <input class="input" type="email" name="" id="celular-candidato">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <h4 class="title is-4">Informações de Endereço</h4>
-                <div class="columns is-gapless">
-                    <div class="column is-one-quarter">
-                        <div class="form">
-                            <label for="cep-candidato">CEP</label>
-                            <div class="control">
-                                <input class="input" type="text" name="cep" id="cep" size="10" maxlength="9"
-                                    onblur="pesquisacep(this.value);">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column is-2">
-                        <div class="form">
-                            <label for="">&nbsp;&nbsp;</label>
-                            <div class="control">
-                                <a class="button is-warning"
-                                    href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCep.cfm"
-                                    target="_blank">Pesquisar nos Correios</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns">
-                    <div class="column is-one-third">
-                        <div class="field">
-                            <label for="rua">Logradouro</label>
-                            <div class="control">
-                                <input class="input" th:field="${endereco.logradouro}" type="text" name="" id="rua"
-                                    disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="field">
-                            <label for="numero-residencial">Número</label>
-                            <div class="control">
-                                <input class="input" type="text" name="" id="numero">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label for="complemento-residencial">Complemento</label>
-                            <div class="control">
-                                <input class="input" type="text" name="" id="complemento">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns">
-                    <div class="column is-one-third">
-                        <div class="field">
-                            <label for="bairro">Bairro</label>
-                            <div class="control">
-                                <input class="input" type="text" name="" id="bairro" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-third">
-                        <div class="field">
-                            <label for="cidade">Localidade</label>
-                            <div class="control">
-                                <input class="input" type="text" name="" id="cidade" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="field">
-                            <label for="uf">UF</label>
-                            <div class="control">
-                                <input class="input" type="text" name="" id="uf" disabled>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <h4 class="title is-4">Escolaridade</h4>
-                <div class="columns">
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="nivel">Nivel</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select>
-                                        <option selected disabled>Selecionar</option>
-                                        <option>Ensino Fundamental</option>
-                                        <option>Ensino Médio</option>
-                                        <option>Ensino Superior</option>
-                                        <option>Técnico</option>
-                                        <option>Educação Básica</option>
-                                        <option>Habilitação Básica</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="grau">Grau de Instrução</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select>
-                                        <option selected disabled>Selecionar</option>
-                                        <option>Completo</option>
-                                        <option>Incompleto</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="modalidade">Modalidade</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select>
-                                        <option selected disabled>Selecionar</option>
-                                        <option>Presencial</option>
-                                        <option>Semi Presencial</option>
-                                        <option>EaD</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="turno">Turno de Estudo</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select>
-                                        <option selected disabled>Selecionar</option>
-                                        <option>Matutino</option>
-                                        <option>Vespertino</option>
-                                        <option>Integral</option>
-                                        <option>Noturno</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <div class="buttons is-right">
-                    <button type="submit">Salvar</button>
-
-                </div>
-            </form>
-        </div>
-    </div>
+            });
+            $.validate({
+                modules: 'brazil',
+                lang: 'pt',
+                modules: 'date'
+            });
+        });
+    </script>
 </body>
 <footer class="footer" style="background: #363636">
     <div class="content has-text-centered">
@@ -454,9 +690,11 @@
             do Curso de Análise e Desenvolvimento de Sistema da Unicuritiba.
         </p>
         <a href="https://bulma.io">
-            <img src="images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
+            <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
         </a>
     </div>
 </footer>
+
+
 
 </html>

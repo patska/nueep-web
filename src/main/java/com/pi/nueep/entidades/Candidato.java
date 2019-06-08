@@ -21,7 +21,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.pi.nueep.entidades.listas.EstadoCivil;
+import com.pi.nueep.entidades.listas.GrauInstrucao;
+import com.pi.nueep.entidades.listas.ModalidadeEnsino;
+import com.pi.nueep.entidades.listas.NivelEnsino;
 import com.pi.nueep.entidades.listas.Sexo;
+import com.pi.nueep.entidades.listas.TurnoEstudo;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,46 +38,62 @@ public class Candidato {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "nome_completo", nullable = false)
+	@Column(name = "nome_completo")
 	private String nomeCompleto;
 
-	@Column(name = "nome_social", nullable = false)
+	@Column(name = "nome_social")
 	private String nomeSocial;
 	
-	@Column(name="ativo", nullable = false)
+	@Column(name="ativo")
 	private boolean ativo;
 	
-	@Column(name="matricula", nullable = false)
+	@Column(name="matricula")
 	private String matricula;
 	
 
-	@Column(name = "data_nascimento", nullable = false)
+	@Column(name = "data_nascimento")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 
-	@Column(name = "cpf", nullable = false)
+	@Column(name = "cpf")
 	private String cpf;
 
-	@Column(name = "rg", nullable = false)
+	@Column(name = "rg")
 	private String rg;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "nivel_ensino")
+	private NivelEnsino nivelEnsino; 
 
-	@Column(name = "email", nullable = false)
+	@Enumerated(EnumType.STRING)
+	@Column(name="grau_instrucao")
+	private GrauInstrucao grauInstrucao;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "modalidade_ensino")
+	private ModalidadeEnsino modalidadeEnsino;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "turno_estudo")
+	private TurnoEstudo turnoEstudo;
+
+
+	@Column(name = "email")
 	private String email;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "sexo", nullable = false)
+	@Column(name = "sexo")
 	private Sexo sexo;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "estado_civil", nullable = false)
+	@Column(name = "estado_civil")
 	private EstadoCivil estadoCivil;
 
-	@Column(name = "condicao_especial", nullable = false)
+	@Column(name = "condicao_especial")
 	boolean condicaoEspecial;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "responsavel_legal_id", nullable = false)
+	@JoinColumn(name = "responsavel_legal_id")
 	private ResponsavelLegal responsavelLegal;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -93,10 +113,7 @@ public class Candidato {
 	}
 
 
-	public Candidato(String nomeCompleto, String nomeSocial, boolean ativo, String matricula, LocalDate dataNascimento,
-			String cpf, String rg, String email, Sexo sexo, EstadoCivil estadoCivil, boolean condicaoEspecial,
-			ResponsavelLegal responsavelLegal, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
-		super();
+	public Candidato(String nomeCompleto, String nomeSocial, boolean ativo, String matricula, LocalDate dataNascimento, String cpf, String rg, NivelEnsino nivelEnsino, GrauInstrucao grauInstrucao, ModalidadeEnsino modalidadeEnsino, TurnoEstudo turnoEstudo, String email, Sexo sexo, EstadoCivil estadoCivil, boolean condicaoEspecial, ResponsavelLegal responsavelLegal, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
 		this.nomeCompleto = nomeCompleto;
 		this.nomeSocial = nomeSocial;
 		this.ativo = ativo;
@@ -104,6 +121,10 @@ public class Candidato {
 		this.dataNascimento = dataNascimento;
 		this.cpf = cpf;
 		this.rg = rg;
+		this.nivelEnsino = nivelEnsino;
+		this.grauInstrucao = grauInstrucao;
+		this.modalidadeEnsino = modalidadeEnsino;
+		this.turnoEstudo = turnoEstudo;
 		this.email = email;
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
@@ -114,6 +135,7 @@ public class Candidato {
 		this.vaga = vaga;
 	}
 
+	
 
 
 
@@ -214,6 +236,7 @@ public class Candidato {
 		this.endereco = endereco;
 	}
 
+
 	public List<Telefone> getTelefone() {
 		return telefone;
 	}
@@ -265,16 +288,45 @@ public class Candidato {
 	public void setResponsavelLegal(String matricula) {
 		this.matricula = matricula;
 	}
-	
 
-	@Override
-	public String toString() {
-		return "Candidato [id=" + id + ", nomeCompleto=" + nomeCompleto + ", nomeSocial=" + nomeSocial + ", ativo="
-				+ ativo + ", matricula=" + matricula + ", dataNascimento=" + dataNascimento + ", cpf=" + cpf + ", rg="
-				+ rg + ", email=" + email + ", sexo=" + sexo + ", estadoCivil=" + estadoCivil + ", condicaoEspecial="
-				+ condicaoEspecial + ", responsavelLegal=" + responsavelLegal + ", endereco=" + endereco + ", telefone="
-				+ telefone + ", vaga=" + vaga + "]";
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
+	public NivelEnsino getNivelEnsino() {
+		return nivelEnsino;
+	}
+
+	public void setNivelEnsino(NivelEnsino nivelEnsino) {
+		this.nivelEnsino = nivelEnsino;
+	}
+
+	public GrauInstrucao getGrauInstrucao() {
+		return grauInstrucao;
+	}
+
+	public void setGrauInstrucao(GrauInstrucao grauInstrucao) {
+		this.grauInstrucao = grauInstrucao;
+	}
+
+	public ModalidadeEnsino getModalidadeEnsino() {
+		return modalidadeEnsino;
+	}
+
+	public void setModalidadeEnsino(ModalidadeEnsino modalidadeEnsino) {
+		this.modalidadeEnsino = modalidadeEnsino;
+	}
+
+	public TurnoEstudo getTurnoEstudo() {
+		return turnoEstudo;
+	}
+
+	public void setTurnoEstudo(TurnoEstudo turnoEstudo) {
+		this.turnoEstudo = turnoEstudo;
+	}
+
+		
+	
 	
 }

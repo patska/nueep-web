@@ -5,4 +5,6 @@ import com.pi.nueep.entidades.Municipio;
 
 public interface MunicipioService{
     public void salvar(Municipio municipio);
+    public void deletarPorId(int id);
+    public Municipio encontrarPorId(int oId);
 }

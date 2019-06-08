@@ -1,6 +1,7 @@
 package com.pi.nueep.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.pi.nueep.dao.EstadoRepository;
 import com.pi.nueep.entidades.Estado;
@@ -23,6 +24,25 @@ public class EstadoServiceImplement implements EstadoService {
 	public void salvar(Estado estado) {
 		estadoRepository.save(estado);
 
+	}
+
+	@Override
+	public Estado encontrarPorId(int oId) {
+		Optional<Estado> resultado = estadoRepository.findById(oId);
+		Estado candidato = null;
+		if(resultado.isPresent()){
+			candidato = resultado.get();
+		}
+		else{
+			throw new RuntimeException("Não encontrado. Candidato - ID: " + oId);
+		}
+
+		return candidato;
+	}
+
+	@Override
+	public void deletarPorId(int id) {
+		estadoRepository.deleteById(id);
 	}
 
 

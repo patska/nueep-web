@@ -6,6 +6,8 @@ public interface TelefoneService {
 	
 
 	public void salvar(Telefone telefone);
+	public void deletarPorId(int id);
+	public Telefone encontrarTelefonePorId(int id);
 	
 
 }

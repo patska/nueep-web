@@ -9,6 +9,7 @@ public interface EnderecoService {
 	
 
 	public void salvar(Endereco endereco);
-	
+	public void deletarPorId(int id);
+	public Endereco encontrarPorId(int oId);
 
 }

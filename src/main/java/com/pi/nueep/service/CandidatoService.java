@@ -7,8 +7,8 @@ import com.pi.nueep.entidades.Candidato;
 public interface CandidatoService {
 
 	public List<Candidato> pesquisar();
-	public Candidato encontrarPorMatricula(int matricula);
+	public Candidato encontrarPorId(int oId);
+	public List<Candidato> encontrarTodos();
 	public void salvar(Candidato candidato);
-	public void deletarPorMatricular(int matricula);
-	
+	public void deletarPorId (int id);
 }
