@@ -63,7 +63,16 @@
                         <td th:text="${tempEmpresas?.cnpj}"></td>
                         <td th:text="${tempEmpresas?.email}"></td>
                         <td th:text="${tempEmpresas?.responsavel}"></td>
-                   
+                        <td>
+                            <a th:href="@{/empresa/atualizar(empresaId=${tempEmpresas?.id})}"
+                                class="button is-info">
+                                Atualizar
+                            </a>
+                            <a th:href="@{/empresa/deletar(empresaId=${tempEmpresas?.id})}"
+                                class="button is-danger" onclick="if(!(confirm('Remover empresa?'))) return false">
+                                Deletar
+                            </a>
+                        </td>
 
                     </tr>
                 </tbody>

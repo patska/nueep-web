@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * EmpresaController
@@ -89,7 +90,14 @@ public class EmpresaController {
 		oEmpresa.addTelefone(oTelefone);
 
 		oEmpresa.setAtivo(true);
-
+        System.out.println("============");
+        System.out.println("TELEFONE");
+        System.out.println(oEmpresa.getTelefone());
+        System.out.println("============");
+        System.out.println("ENDERECO");
+        System.out.println("============");
+        System.out.println(oEmpresa.getEndereco());
+        System.out.println("============");
 		empresaService.salvar(oEmpresa);
 
 		return "redirect:/empresa/listar";
@@ -102,5 +110,41 @@ public class EmpresaController {
         return "empresa/lista";
     }
 
+    @GetMapping("/atualizar")
+	public String mostrarFormulario(
+		@RequestParam("empresaId") int oId, 
+        Model empresaModel,
+        Model telefoneModelo,
+		Model enderecoModelo, 
+		Model telefoeModelo, 
+		Model municipioModelo, 
+		Model estadoModelo
+		){
+
+		Empresa empresa = empresaService.encontrarPorId(oId);
+        Telefone telefone = empresa.getTelefone().get(0);
+        Endereco endereco = empresa.getEndereco().get(0);
+		Municipio municipio = endereco.getMunicipio();
+		Estado estado = municipio.getEstado();
+
+    
+
+
+
+		empresaModel.addAttribute("empresa", empresa);
+		telefoneModelo.addAttribute("telefone", telefone);
+		enderecoModelo.addAttribute("endereco", endereco);
+		municipioModelo.addAttribute("municipio", municipio);
+		estadoModelo.addAttribute("estado", estado);
+		
+		return "empresa/nova-empresa";
+
+	}
+    @GetMapping("/deletar")
+	public String deletar(@RequestParam("empresaId") int oId){
+		empresaService.deletarPorId(oId);
+		
+		return "redirect:/empresa/listar";
+	}
 
 }
