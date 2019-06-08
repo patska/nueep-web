@@ -125,11 +125,11 @@ public class CandidatoController {
 		){
 
 		Candidato candidato = candidatoService.encontrarPorId(oId);
-		ResponsavelLegal responsavelLegal = responsavelLegalService.encontrarPorId(oId);
-		Telefone telefone = telefoneService.encontrarTelefonePorId(oId);
-		Endereco endereco = enderecoService.encontrarPorId(oId);
-		Municipio municipio = municipioService.encontrarPorId(oId);
-		Estado estado = estadoService.encontrarPorId(oId);
+		ResponsavelLegal responsavelLegal = candidato.getResponsavelLegal();
+		Telefone telefone = candidato.getTelefone().get(0);
+		Endereco endereco = candidato.getEndereco().get(0);
+		Municipio municipio = endereco.getMunicipio();
+		Estado estado = municipio.getEstado();
 
 		System.out.println("===================");
 		System.out.println("Nome Completo: " + candidato.getNomeCompleto());
