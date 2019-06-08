@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.pi.nueep.entidades.listas.Porte;
 
 @Entity
 @Table(name="empresa")
@@ -31,12 +35,15 @@ public class Empresa {
 	private String cnpj;
 	@Column(name="responsavel")
 	private String responsavel; 
+	@Enumerated(EnumType.STRING)
 	@Column(name="porte")
-	private String porte; 
+	private Porte porte; 
 	@Column(name="website")
 	private String website;
 	@Column(name="email")
-	private String email; 
+	private String email;
+	@Column(name="ativo")
+	private boolean ativo; 
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "empresa_endereco", joinColumns = @JoinColumn(name = "empresa_id"), inverseJoinColumns = @JoinColumn(name = "endereco_id"))
@@ -54,9 +61,9 @@ public class Empresa {
 		super();
 	}
 
-	public Empresa(String nomeFantasia, String nomeSocial, String cnpj, String responsavel, String porte,
-			String website, String email) {
-		super();
+
+
+	public Empresa(String nomeFantasia, String nomeSocial, String cnpj, String responsavel, Porte porte, String website, String email, boolean ativo, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
 		this.nomeFantasia = nomeFantasia;
 		this.nomeSocial = nomeSocial;
 		this.cnpj = cnpj;
@@ -64,7 +71,13 @@ public class Empresa {
 		this.porte = porte;
 		this.website = website;
 		this.email = email;
+		this.ativo = ativo;
+		this.endereco = endereco;
+		this.telefone = telefone;
+		this.vaga = vaga;
 	}
+	
+
 	
 	
 	public void addTelefone(Telefone tlf) {
@@ -84,4 +97,111 @@ public class Empresa {
 
 		endereco.add(end);
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
+
+	public String getNomeSocial() {
+		return nomeSocial;
+	}
+
+	public void setNomeSocial(String nomeSocial) {
+		this.nomeSocial = nomeSocial;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
+	}
+
+	
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public List<Endereco> getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(List<Endereco> endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Telefone> getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(List<Telefone> telefone) {
+		this.telefone = telefone;
+	}
+
+	public List<Vaga> getVaga() {
+		return vaga;
+	}
+
+	public void setVaga(List<Vaga> vaga) {
+		this.vaga = vaga;
+	}
+
+	public Porte getPorte() {
+		return porte;
+	}
+
+	public void setPorte(Porte porte) {
+		this.porte = porte;
+	}
+
+	@Override
+	public String toString() {
+		return "Empresa [ativo=" + ativo + ", cnpj=" + cnpj + ", email=" + email + ", endereco=" + endereco + ", id="
+				+ id + ", nomeFantasia=" + nomeFantasia + ", nomeSocial=" + nomeSocial + ", porte=" + porte
+				+ ", responsavel=" + responsavel + ", telefone=" + telefone + ", vaga=" + vaga + ", website=" + website
+				+ "]";
+	}
+	
 }

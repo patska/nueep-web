@@ -5,21 +5,37 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title Page</title>
+    <title>NUEEP - Nova Empresa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet"
+        type="text/css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#cnpj').mask('00.000.000/0000-00');
+            $('#cep').mask('00000-000');
+            $('#telefone-candidato').mask('(00) 0000-0000');
+            $('#celular-candidato').mask('(00) 00000-0000');
+        });
+    </script>
+
 </head>
 
 <body style="background-color: #6e6e6e">
     <div id="navbar-default"></div>
-    <section class="hero is-info">
+    <section class="hero is-success">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Cadastrar novo candidato
+                    Cadastrar nova empresa
                 </h1>
                 <h2 class="subtitle">
-                    Preencha o formulário abaixo para cadastrar um novo aluno.
+                    Preencha o formulário abaixo para cadastrar uma nova empresa.
                 </h2>
             </div>
         </div>
@@ -27,21 +43,15 @@
 
     <div class="container">
         <div class="notification">
-            <form action="#" id="formulario" th:action="@{/candidato/salvar}" method="POST" onsyu>
-                <input type="hidden" th:field="${candidato.id}">
-                <input type="hidden" th:field="${responsavelLegal.id}">
-                <input type="hidden" th:field="${telefone.id}">
-                <input type="hidden" th:field="${endereco.id}">
-                <input type="hidden" th:field="${municipio.id}">
-                <input type="hidden" th:field="${estado.id}">
+            <form action="#" id="formulario" th:action="@{/empresa/salvar}" method="POST" onsyu>
 
                 <div class="columns is-gapless">
                     <div class="column is-one-quarter">
                         <div class="form">
-                            <label for="cpf">CPF do Candidato</label>
+                            <label for="cnpj">CNPJ da Empresa</label>
                             <div class="control">
-                                <input class="input" th:field="${candidato.cpf}" type="text" name="cpf" id="cpf"
-                                    data-validation="length validar_cpf" data-validation-length="14">
+                                <input class="input" th:field="${empresa.cnpj}" type="text" name="cnpj" id="cnpj"
+                                    data-validation="length validar_cnpj" data-validation-length="18">
                             </div>
                         </div>
                     </div>
@@ -49,144 +59,66 @@
                         <div class="form">
                             <label for="">&nbsp;&nbsp;</label>
                             <div class="control ">
-                                <input class="button is-info" type="submit" th:field=${candidato.cpf} form="cpf-form"
-                                    value="Pesquisar"> </div>
+                                <input class="button is-info" type="submit" form="cpf-form" value="Pesquisar"> </div>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="columns">
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="matricula">Matrícula</label>
-                            <div class="control">
-                                <input class="input" type="text" data-validation="length number"
-                                    data-validation-length="3-10" th:field=${candidato.matricula} id="matricula"
-                                    placeholder="Matrícula">
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="column is-half">
                         <div class="field">
-                            <label for="nome-completo">Nome completo do Candidato</label>
+                            <label for="nomeFantasia">Nome Fantasia</label>
                             <div class="control">
-                                <input class="input" th:field=${candidato.nomeCompleto}
-                                    onkeyup="this.value = this.value.toUpperCase();" type="text" name=""
-                                    id="nome-completo" data-validation="custom" data-validation-regexp="^[A-Z\s]+$"
-                                    placeholder="Nome Completo">
+                                <input class="input" th:field="${empresa.nomeFantasia}"
+                                    onkeyup="this.value = this.value.toUpperCase();" data-validation="required"
+                                    type="text" name="nomeFantasia" id="nomeFantasia">
                             </div>
                         </div>
                     </div>
-
-                    <div class="column">
+                    <div class="column is-half">
                         <div class="field">
-                            <label for="data-nascimento">Data de Nascimento</label>
-                            <input class="input" th:field=${candidato.dataNascimento} data-validation="required" type="date" name=""
-                                id="data-nascimento">
-                        </div>
-                    </div>
-                </div>
-                <div class="columns">
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="genero">Gênero</label>
+                            <label for="razaoSocial">Razão Social</label>
                             <div class="control">
-                                <div class="select">
-                                    <select data-validation="required" id="genero" th:field=${candidato.sexo}>
-                                        <option id="selecionado" selected="selected" value="">Selecionar...</option>
-                                        <option th:value="'Masculino'" th:text="Masculino"></option>
-                                        <option th:value="'Feminino'" th:text="Feminino"></option>
-                                        <option value="Transexual" th:value="'Transexual'" th:text="Transexual">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="rg-candidato">RG Candidato</label>
-                            <div class="control">
-                                <input class="input" th:field="${candidato.rg}" data-validation="required" type="text"
-                                    id="rg-candidato" placeholder="RG">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="column">
-                        <div class="field">
-                            <label for="nome-responsavel">Nome responsável</label>
-                            <div class="control">
-                                <input class="input" th:field="${responsavelLegal.nomeCompletoResponsavel}" type="text"
-                                    id="nome-responsavel" onkeyup="this.value = this.value.toUpperCase();"
-                                    placeholder="Nome do Responsável">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="rg-candidato">RG Responsável</label>
-                            <div class="control">
-                                <input class="input" th:field="${responsavelLegal.rgResponsavel}" type="text"
-                                    id="rg-responsavel" placeholder="RG Resp.">
+                                <input class="input" th:field="${empresa.nomeSocial}"
+                                    onkeyup="this.value = this.value.toUpperCase();" data-validation="required"
+                                    type="text" name="razaoSocial" id="razaoSocial">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="columns">
-                    <div class="column is-one-fifth">
+                    <div class="column is-one-third">
                         <div class="field">
-                            <label for="genero">Estado Civil</label>
+                            <label for="responsavel">Responsável</label>
                             <div class="control">
-                                <div class="select">
-                                    <select th:field=${candidato.estadoCivil} data-validation="required">
-                                        <option value="">Selecionar...</option>
-                                        <option th:value="'Solteiro'" th:text="Solteiro"></option>
-                                        <option th:value="'Casado'" th:text="Divorciado"></option>
-                                        <option th:value="'Viuvo'" th:text="Viúvo"></option>
-                                        <option th:value="'Separado'" th:text="Separado"></option>
-                                        <option th:value="'Divorciado'" th:text="Divorciado"></option>
-                                    </select>
-                                </div>
+                                <input class="input" th:field="${empresa.responsavel}" onkeyup="this.value = this.value.toUpperCase();" type="text" name="" id="">
                             </div>
                         </div>
                     </div>
-
                     <div class="column is-one-fifth">
-                        <div class="field">
-                            <label for="">PcD?</label>
-                            <div class="control">
-                                <ul>
-
-                                    <label>Sim</label>
-                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${true}" />
-
-                                    <label>Não</label>
-                                    <input type="radio" th:field="${candidato.condicaoEspecial}" th:value="${false}" />
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column is-a-half">
-                        <div class="field">
-                            <div class="mostrar-nome-social">
-                                <div class="classe-nome-social" id="mostrar-nome-social">
-                                    <label for="">Nome Social Completo</label>
+                            <div class="field">
+                                    <label for="porte">Porte</label>
                                     <div class="control">
-                                        <input class="input" onkeyup="this.value = this.value.toUpperCase();"
-                                            th:field="${candidato.nomeSocial}" type="text" name="" id="nome-social"
-                                            placeholder="Nome Social Completo">
+                                        <div class="select">
+                                            <select th:field=${empresa.porte} data-validation="required">
+                                                <option value="">Selecionar...</option>
+                                                <option th:value="'Microempresa'" th:text="Microempresa"></option>
+                                                <option th:value="'EPP'" th:text="EPP"></option>
+                                                <option th:value="'Medio'" th:text="Medio"></option>
+                                                <option th:value="'Grande'" th:text="Grande"></option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="column">
+                        Third column
+                    </div>
+                    <div class="column">
+                        Fourth column
                     </div>
                 </div>
+
                 <br>
                 <h4 class="title is-4">Informações de Contato</h4>
                 <div class="columns">
@@ -204,7 +136,8 @@
                         <div class="field">
                             <label for="celular-candidato">Celular</label>
                             <div class="control">
-                                <input class="input" th:field="${telefone.celular}" type="text" data-validation="length validar_celular"  data-validation-length="15" name=""
+                                <input class="input" th:field="${telefone.celular}" type="text"
+                                    data-validation="length validar_celular" data-validation-length="15" name=""
                                     id="celular-candidato">
                             </div>
                         </div>
@@ -213,7 +146,8 @@
                         <div class="field">
                             <label for="email-candidato">E-mail</label>
                             <div class="control has-icons-left">
-                                <input class="input" th:field="${candidato.email}"  onkeyup="this.value = this.value.toLowerCase();" type="text" data-validation="email"
+                                <input class="input" th:field="${empresa.email}"
+                                    onkeyup="this.value = this.value.toLowerCase();" type="text" data-validation="email"
                                     name="" id="celular-candidato">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-envelope"></i>
@@ -230,7 +164,8 @@
                             <label for="cep-candidato">CEP</label>
                             <div class="control">
                                 <input class="input" type="text" th:field="${endereco.cep}" name="cep" id="cep"
-                                     data-validation="length" data-validation-length="9" onblur="pesquisacep(this.value);">
+                                    data-validation="length" data-validation-length="9"
+                                    onblur="pesquisacep(this.value);">
                             </div>
                         </div>
                     </div>
@@ -251,8 +186,8 @@
                         <div class="field">
                             <label for="rua">Logradouro</label>
                             <div class="control">
-                                <input class="input" th:field="${endereco.logradouro}" data-validation="required" type="text" name="" id="rua"
-                                    readonly="readonly">
+                                <input class="input" th:field="${endereco.logradouro}" data-validation="required"
+                                    type="text" name="" id="rua" readonly="readonly">
                             </div>
                         </div>
                     </div>
@@ -260,7 +195,8 @@
                         <div class="field">
                             <label for="numero-residencial">Número</label>
                             <div class="control">
-                                <input class="input" th:field="${endereco.numero}" data-validation="number" type="text" name="" id="numero">
+                                <input class="input" th:field="${endereco.numero}" data-validation="number" type="text"
+                                    name="" id="numero">
                             </div>
                         </div>
                     </div>
@@ -279,8 +215,8 @@
                         <div class="field">
                             <label for="bairro">Bairro</label>
                             <div class="control">
-                                <input class="input" type="text" th:field="${endereco.bairro}" data-validation="required" name="" id="bairro"
-                                    readonly="readonly">
+                                <input class="input" type="text" th:field="${endereco.bairro}"
+                                    data-validation="required" name="" id="bairro" readonly="readonly">
                             </div>
                         </div>
                     </div>
@@ -288,8 +224,8 @@
                         <div class="field">
                             <label for="cidade">Localidade</label>
                             <div class="control">
-                                <input class="input" th:field="${municipio.nome}" type="text" data-validation="required" name="" id="cidade"
-                                    readonly="readonly">
+                                <input class="input" th:field="${municipio.nome}" type="text" data-validation="required"
+                                    name="" id="cidade" readonly="readonly">
                             </div>
                         </div>
                     </div>
@@ -297,94 +233,22 @@
                         <div class="field">
                             <label for="uf">UF</label>
                             <div class="control">
-                                <input class="input" type="text" th:field="${estado.uf}" data-validation="required" name="" id="uf"
-                                    readonly="readonly">
+                                <input class="input" type="text" th:field="${estado.uf}" data-validation="required"
+                                    name="" id="uf" readonly="readonly">
                             </div>
                         </div>
                     </div>
                 </div>
-                <h4 class="title is-4">Escolaridade</h4>
-                <div class="columns">
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="nivel">Nivel</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select th:field="${candidato.nivelEnsino}" data-validation="required">
-                                        <option value="">Selecionar...</option>
-                                        <option th:value="'EnsinoFundamental'" th:text="EnsinoFundamental"></option>
-                                        <option th:value="'EnsinoMedio'" th:text="EnsinoMedio"></option>
-                                        <option th:value="'EnsinoSuperior'" th:text="EnsinoSuperior"></option>
-                                        <option th:value="'Tecnico'" th:text="Tecnico"></option>
-                                        <option th:value="'EducacaoBasica'" th:text="EducacaoBasica"></option>
-                                        <option th:value="'HabilitacaoBasica'" th:text="HabilitacaoBasica"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="grau">Grau de Instrução</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select th:field="${candidato.grauInstrucao}" data-validation="required">
-                                        <option value="">Selecionar...</option>
-                                        <option th:value="'Completo'" th:text="Completo"></option>
-                                        <option th:value="'Incompleto'" th:text="Incompleto"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="modalidade">Modalidade</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select th:field="${candidato.modalidadeEnsino}" data-validation="required">
-                                        <option value="">Selecionar...</option>
-                                        <option th:value="'Presencial'" th:text="Presencial">Presencial</option>
-                                        <option th:value="'SemiPresencial'" th:text="SemiPresencial"></option>
-                                        <option th:value="'EaD'" th:text="EaD"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="turno">Turno de Estudo</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select th:field="${candidato.turnoEstudo}" data-validation="required">
-                                        <option value="">Selecionar...</option>
-                                        <option th:value="'Matutino'" th:text="Matutino"></option>
-                                        <option th:value="'Vespertino'" th:text="Vespertino"></option>
-                                        <option th:value="'Integral'" th:text="Integral"></option>
-                                        <option th:value="'Noturno'" th:text="Noturno"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <br>
                 <br>
                 <div class="buttons is-right">
                     <button class="button is-warning is-large">Limpar</button>
-                    <button class="button is-success is-large" type="submit">Salvar Candidato</button>
+                    <button class="button is-success is-large" type="submit">Salvar Empresa</button>
                 </div>
             </form>
         </div>
     </div>
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script th:src="@{/js/jquery.mask.js}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet"
-        type="text/css" />
-
     <script>
         function limpa_formulário_cep() {
             document.getElementById('rua').value = ("");
@@ -444,29 +308,7 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function () {
-            $("#mostrar-nome-social").hide();
-            $("#genero").click(function () {
-                if ($("#genero").val() == 'Transexual') {
-                    $("#mostrar-nome-social").show();
-                } else {
-                    $("#mostrar-nome-social").hide();
-                }
-            });
 
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#cpf').mask('000.000.000-00', {
-                reverse: true
-            });
-            $('#cep').mask('00000-000');
-            $('#telefone-candidato').mask('(00) 0000-0000');
-            $('#celular-candidato').mask('(00) 00000-0000');
-        });
-    </script>
     <script>
         $(document).ready(function () {
 
@@ -638,39 +480,61 @@
             });
 
             $.formUtils.addValidator({
-                name: 'validar_cpf',
-                validatorFunction: function validaCPF(cpf) {
-                    cpf = cpf.replace(/\D/g, '');
-                    var numeros, digitos, soma, i, resultado, digitos_iguais;
-                    digitos_iguais = 1;
-                    if (cpf.length < 11)
+                name: 'validar_cnpj',
+                validatorFunction: function validarCNPJ(cnpj) {
+
+                    cnpj = cnpj.replace(/[^\d]+/g, '');
+
+                    if (cnpj == '') return false;
+
+                    if (cnpj.length != 14)
                         return false;
-                    for (i = 0; i < cpf.length - 1; i++)
-                        if (cpf.charAt(i) != cpf.charAt(i + 1)) {
-                            digitos_iguais = 0;
-                            break;
-                        }
-                    if (!digitos_iguais) {
-                        numeros = cpf.substring(0, 9);
-                        digitos = cpf.substring(9);
-                        soma = 0;
-                        for (i = 10; i > 1; i--)
-                            soma += numeros.charAt(10 - i) * i;
-                        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-                        if (resultado != digitos.charAt(0))
-                            return false;
-                        numeros = cpf.substring(0, 10);
-                        soma = 0;
-                        for (i = 11; i > 1; i--)
-                            soma += numeros.charAt(11 - i) * i;
-                        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-                        if (resultado != digitos.charAt(1))
-                            return false;
-                        return true;
-                    } else
+
+                    // Elimina CNPJs invalidos conhecidos
+                    if (cnpj == "00000000000000" ||
+                        cnpj == "11111111111111" ||
+                        cnpj == "22222222222222" ||
+                        cnpj == "33333333333333" ||
+                        cnpj == "44444444444444" ||
+                        cnpj == "55555555555555" ||
+                        cnpj == "66666666666666" ||
+                        cnpj == "77777777777777" ||
+                        cnpj == "88888888888888" ||
+                        cnpj == "99999999999999")
                         return false;
+
+                    // Valida DVs
+                    tamanho = cnpj.length - 2
+                    numeros = cnpj.substring(0, tamanho);
+                    digitos = cnpj.substring(tamanho);
+                    soma = 0;
+                    pos = tamanho - 7;
+                    for (i = tamanho; i >= 1; i--) {
+                        soma += numeros.charAt(tamanho - i) * pos--;
+                        if (pos < 2)
+                            pos = 9;
+                    }
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                    if (resultado != digitos.charAt(0))
+                        return false;
+
+                    tamanho = tamanho + 1;
+                    numeros = cnpj.substring(0, tamanho);
+                    soma = 0;
+                    pos = tamanho - 7;
+                    for (i = tamanho; i >= 1; i--) {
+                        soma += numeros.charAt(tamanho - i) * pos--;
+                        if (pos < 2)
+                            pos = 9;
+                    }
+                    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                    if (resultado != digitos.charAt(1))
+                        return false;
+
+                    return true;
+
                 },
-                errorMessage: 'CPF Inválido',
+                errorMessage: 'CNPJ Inválido',
                 errorMessageKey: ''
 
             });

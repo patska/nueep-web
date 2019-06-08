@@ -33,10 +33,10 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Listar Candidatos
+                    Listar Empresas
                 </h1>
                 <h2 class="subtitle">
-                    Lista de os candidatos <strong>ativos</strong> do sistema
+                    Lista das empresas <strong>ativas</strong> do sistema
                 </h2>
             </div>
         </div>
@@ -49,30 +49,21 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Matrícula</th>
-                        <th>Nome Completo</th>
+                        <th>Nome Fantasia</th>
+                        <th>CNPJ</th>
                         <th>Email</th>
-                        <th>Data de Nascimento</th>
+                        <th>Responsável</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="tempCandidatos :${candidatos}">
-                        <td th:text="${tempCandidatos?.id}"></td>
-                        <td th:text="${tempCandidatos?.matricula}"></td>
-                        <td th:text="${tempCandidatos?.nomeCompleto}"></td>
-                        <td th:text="${tempCandidatos?.email}"></td>
-                        <td th:text="${tempCandidatos?.dataNascimento}"></td>
-                        <td>
-                            <a th:href="@{/candidato/atualizar(candidatoId=${tempCandidatos?.id})}"
-                                class="button is-info" >
-                                Atualizar
-                            </a>
-                            <a th:href="@{/candidato/deletar(candidatoId=${tempCandidatos?.id})}"
-                                class="button is-danger" onclick="if(!(confirm('Remover usuario?'))) return false">
-                                Deletar
-                            </a>
-                        </td>
+                    <tr th:each="tempEmpresas :${empresas}">
+                        <td th:text="${tempEmpresas?.id}"></td>
+                        <td th:text="${tempEmpresas?.nomeFantasia}"></td>
+                        <td th:text="${tempEmpresas?.cnpj}"></td>
+                        <td th:text="${tempEmpresas?.email}"></td>
+                        <td th:text="${tempEmpresas?.responsavel}"></td>
+                   
 
                     </tr>
                 </tbody>
