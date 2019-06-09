@@ -22,11 +22,7 @@ public class EmpresaServiceImplement implements EmpresaService {
         empresaRepository = aEmpresaRepository;
     }
 
-    @Override
-    public List<Empresa> pesquisar() {
-        return null;
-    }
-
+  
     @Override
     public Empresa encontrarPorId(int id) {
         Optional<Empresa> resultado = empresaRepository.findById(id);
@@ -53,6 +49,18 @@ public class EmpresaServiceImplement implements EmpresaService {
     @Override
     public void deletarPorId(int id) {
         empresaRepository.deleteById(id);
+    }
+
+
+
+    @Override
+    public List<Empresa> pesquisar(String termoPesquisa) {
+        return null;
+        }
+
+    @Override
+    public Empresa pesquisarPeloNomeSocial(String NomeSocial) {
+        return empresaRepository.encontrarPorNomeSocial(NomeSocial);
     }
 
     

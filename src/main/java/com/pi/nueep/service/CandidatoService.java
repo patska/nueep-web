@@ -6,7 +6,7 @@ import com.pi.nueep.entidades.Candidato;
 
 public interface CandidatoService {
 
-	public List<Candidato> pesquisar();
+	public Candidato pesquisar(String termoPesquisa);
 	public Candidato encontrarPorId(int oId);
 	public List<Candidato> encontrarTodos();
 	public void salvar(Candidato candidato);

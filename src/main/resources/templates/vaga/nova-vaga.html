@@ -10,13 +10,25 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet"
         type="text/css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script th:src="@{/js/jquery.mask.js}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
-
+    <script src="path/to/jquery.easy-autocomplete.min.js"></script>
     <script>
         $(document).ready(function () {
+            $('#salario').mask('000.000.000.000.000,00', {
+                reverse: true
+            });
+            $('#vr').mask('000.000.000.000.000,00', {
+                reverse: true
+            });
+            $('#vt').mask('000.000.000.000.000,00', {
+                reverse: true
+            });
             $('#cnpj').mask('00.000.000/0000-00');
             $('#cep').mask('00000-000');
             $('#telefone-candidato').mask('(00) 0000-0000');
@@ -43,11 +55,174 @@
 
     <div class="container">
         <div class="notification">
-            <form action="#" id="formulario" method="POST" onsyu>
-   
+            <form action="#" th:action="@{/vaga/salvar}" id="formulario" method="POST" onsyu>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label for="empresa">Selecionar Empresa</label>
+                            <div class="control">
+                                <input class="input" name="EmpresaRazaoSocial" th:value="${EmpresaRazaoSocial}"
+                                    type="text" id="Empresa_Nome">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label for="areaProfissional">Área Profissional</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select name="" id="">
+                                        <option value="">Selecionar...</option>
+                                        <option th:value="'AREA_1'">Administração</option>
+                                        <option th:value="'AREA_2'">Agricultura, Pecuária, Veterinária
+                                        </option>
+                                        <option th:value="'AREA_3'">Alimentação / Gastronomia
+                                        </option>
+                                        <option th:value="'AREA_4'">Arquitetura, Decoração, Design
+                                        </option>
+                                        <option th:value="'AREA_5'">Artes</option>
+                                        <option th:value="'AREA_6'">Auditoria</option>
+                                        <option th:value="'AREA_7'">Ciências, Pesquisa
+                                        </option>
+                                        <option th:value="'AREA_8'">Comercial, Vendas
+                                        </option>
+                                        <option th:value="'AREA_9'">Comércio Exterior, Importação, Exportação
+                                        </option>
+                                        <option th:value="'AREA_10'">Compras</option>
+                                        <option th:value="'AREA_11'">Comunicação, TV, Cinema
+                                        </option>
+                                        <option th:value="'AREA_12'">Construção, Manutenção
+                                        </option>
+                                        <option th:value="'AREA_13'">Contábil, Finanças, Economia
+                                        </option>
+                                        <option th:value="'AREA_14'">Cultura, Lazer, Entretenimento
+                                        </option>
+                                        <option th:value="'AREA_15'">Educação, Ensino, Idiomas
+                                        </option>
+                                        <option th:value="'AREA_16'">Engenharia</option>
+                                        <option th:value="'AREA_17'">Estética</option>
+                                        <option th:value="'AREA_18'">Hotelaria, Turismo
+                                        </option>
+                                        <option th:value="'AREA_19'">Industrial, Produção, Fábrica
+                                        </option>
+                                        <option th:value="'AREA_20'">Informática, TI, Telecomunicações
+                                        </option>
+                                        <option th:value="'AREA_21'">Jurídica</option>
+                                        <option th:value="'AREA_22'">Logística
+                                        </option>
+                                        <option th:value="'AREA_23'">Marketing</option>
+                                        <option th:value="'AREA_24'">Meio Ambiente, Ecologia
+                                        </option>
+                                        <option th:value="'AREA_25'">Moda</option>
+                                        <option th:value="'AREA_26'">Qualidade</option>
+                                        <option th:value="'AREA_27'">Química, Petroquímica
+                                        </option>
+                                        <option th:value="'AREA_28'">Recursos Humanos
+                                        </option>
+                                        <option th:value="'AREA_29'">Saúde</option>
+                                        <option th:value="'AREA_30'">Segurança</option>
+                                        <option th:value="'AREA_31'">Serviços Gerais
+                                        </option>
+                                        <option th:value="'AREA_32'">Serviço Social e Comunitário
+                                        </option>
+                                        <option th:value="'AREA_33'">Telemarketing</option>
+
+                                        <option th:value="'AREA_34'">Transportes</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="field">
+                            <label for="hierarquia">Hierarquia</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select name="" id="">
+                                        <option value="">Selecionar...</option>
+                                        <option th:value="'MENOR_APRENDIZ'">Menor Aprendiz</option>
+                                        <option th:value="'ESTAGIARIO'">Estagiário</option>
+                                        <option th:value="'AUXILIAR'">Auxiliar</option>
+                                        <option th:value="'OPERACIONAL'">Operacional</option>
+                                        <option th:value="'ASSISTENTE'">Assistente</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="jornada">Jornada</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select name="" id="">
+                                        <option value="">Selecionar...</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="columns">
+
+
+
+                </div>
+                <div class="columns">
+                    <div class="column">
+
+                        <div class="field">
+                            <label for="descricao">Descrição</label>
+                            <div class="control">
+                                <textarea class="textarea" placeholder="Descrição da Vaga"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label for="salario">Salário em R$ (0,00 se for "A Combinar")</label>
+                            <input class="input" type="text" name="" id="salario" value="000">
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="vr">V.R. em R$ (0,00 se não houver)</label>
+                            <input class="input" type="text" name="" id="vr">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="vt">V.T. em R$ (0,00 se não houver)</label>
+                            <input class="input" type="text" name="" id="vt">
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons is-right">
+                    <button class="button is-warning is-large">Limpar</button>
+                    <button class="button is-success is-large" type="submit">Salvar Vaga</button>
+                </div>
             </form>
+
         </div>
     </div>
+    <script>
+        $(function () {
+            $("#Empresa_Nome").autocomplete({
+                source: "empresaAutocomplete"
+            });
+        });
+    </script>
+
     <script>
         function limpa_formulário_cep() {
             document.getElementById('rua').value = ("");
@@ -109,13 +284,11 @@
 
 
     <script>
-    
-            $.validate({
-                modules: 'brazil',
-                lang: 'pt',
-                modules: 'date'
-            });
- 
+        $.validate({
+            modules: 'brazil',
+            lang: 'pt',
+            modules: 'date'
+        });
     </script>
 </body>
 <footer class="footer" style="background: #363636">

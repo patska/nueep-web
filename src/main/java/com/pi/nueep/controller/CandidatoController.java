@@ -113,6 +113,9 @@ public class CandidatoController {
 
 		return "candidato/lista";
 	}
+
+
+
 	@GetMapping("/atualizar")
 	public String mostrarFormulario(
 		@RequestParam("candidatoId") int oId, 
@@ -148,10 +151,11 @@ public class CandidatoController {
 
 	}
 
+
 	@GetMapping("/deletar")
 	public String deletar(@RequestParam("candidatoId") int oId){
 		candidatoService.deletarPorId(oId);
-		
+	
 		return "redirect:/candidato/listar";
 	}
 

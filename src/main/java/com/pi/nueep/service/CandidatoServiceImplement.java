@@ -1,5 +1,6 @@
 package com.pi.nueep.service;
 
+import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +21,22 @@ public class CandidatoServiceImplement implements CandidatoService {
 	}
 	
 	@Override
-	public List<Candidato> pesquisar() {
-		return candidatoRepository.findAll();
+	public Candidato pesquisar(String termoPesquisapesquisa) {
+		List<Candidato> todosCandidatos = candidatoRepository.findAll();
+		Optional<Candidato> resultado = null;
+		Candidato candidatoFinal = null;
+		for (Candidato candidato : todosCandidatos) {
+			if(candidato.getCpf() == termoPesquisapesquisa){
+				candidato = resultado.get();
+			}
+		}
+		if(resultado.isPresent()){
+			candidatoFinal = resultado.get();
+		}
+		else{
+			throw new RuntimeException("Não encontrado.");
+		}
+		return candidatoFinal;
 	}
 
 	@Override
