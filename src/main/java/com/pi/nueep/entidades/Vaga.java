@@ -1,5 +1,7 @@
 package com.pi.nueep.entidades;
 
+import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,161 +18,237 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.pi.nueep.entidades.Turno;
+import com.pi.nueep.entidades.listas.NivelEnsino;
+import com.pi.nueep.entidades.listas.Sexo;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.ArrayList;
+import java.util.Locale;
+import javax.persistence.ManyToOne;
+
 @Entity
-@Table(name="vaga")
+@Table(name = "vaga")
 public class Vaga {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
-	@Column(name="titulo")
-	private String titulo;
-	@Column(name="descricao")
-	private String descricao;
-	@Column(name="salario")
-	private double salario;
-	@Column(name="vale_transporte")
-	private double valeTransporte; 
-	@Column(name="vale_refeicao")
-	private double valeRefeicao;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="turno_id")
-	private Turno turno;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="area_id")
-	private List<Area> area;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="hierarquia_id")
-	private List<Hierarquia> hierarquia;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="vaga_candidato",
-				joinColumns = @JoinColumn(name="vaga_id"),
-				inverseJoinColumns = @JoinColumn(name="candidato_id"))
-	private List<Candidato> candidato;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="vaga_empresa",
-				joinColumns = @JoinColumn(name="vaga_id"),
-				inverseJoinColumns = @JoinColumn(name="empresa_id"))
-	private List<Empresa> empresa;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "vaga_id")
+    private int id;
 
+    @Column(name = "descricao")
+    private String descricao;
+    @Column(name = "salario")
+    private double salario;
+    @Column(name = "vale_transporte")
+    private double valeTransporte;
+    @Column(name = "vale_refeicao")
+    private double valeRefeicao;
+    @Column(name = "sexo_exigencia")
+    private Sexo sexo_exigencia;
+    @Column (name = "idade_minima")
+    private int idade_minima;
+    @Column (name="nivel_ensino_exigencia")
+    private NivelEnsino nivel_ensino_exigencia;
+    @Column(name = "data_cadastro")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataCadastro;
+    
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+        CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "area_id")
+    private Area area;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+        CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "turno_id")
+    private Turno turno;
 
-	public Vaga() {
-	}
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+        CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "hierarquia_id")
+    private Hierarquia hierarquia;
 
+    @ManyToMany(
+            cascade = CascadeType.ALL)
+    @JoinTable(
+            name="vagas_candidatos",
+            joinColumns = @JoinColumn(name="vaga_id"), 
+            inverseJoinColumns = @JoinColumn(name="candidato_id")
+    )
+    private List<Candidato> candidatos;
+    
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+        CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 
-	public Vaga(String titulo, String descricao, double salario, double valeTransporte, double valeRefeicao, Turno turno, List<Area> area, List<Hierarquia> hierarquia, List<Candidato> candidato, List<Empresa> empresa) {
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.salario = salario;
-		this.valeTransporte = valeTransporte;
-		this.valeRefeicao = valeRefeicao;
-		this.turno = turno;
-		this.area = area;
-		this.hierarquia = hierarquia;
-		this.candidato = candidato;
-		this.empresa = empresa;
-	}
+    public Vaga() {
+    }
 
-	public String getTitulo() {
-		return titulo;
-	}
+    public Vaga(int id, String descricao, double salario, double valeTransporte, double valeRefeicao, Sexo sexo_exigencia, int idade_minima, NivelEnsino nivel_ensino_exigencia, Area area, Turno turno, Hierarquia hierarquia, Empresa empresa, LocalDate dataCadastro) {
+        this.id = id;
+        this.descricao = descricao;
+        this.salario = salario;
+        this.valeTransporte = valeTransporte;
+        this.valeRefeicao = valeRefeicao;
+        this.sexo_exigencia = sexo_exigencia;
+        this.idade_minima = idade_minima;
+        this.nivel_ensino_exigencia = nivel_ensino_exigencia;
+        this.area = area;
+        this.turno = turno;
+        this.hierarquia = hierarquia;
+        this.empresa = empresa;
+        this.dataCadastro = dataCadastro;
+    }
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+    
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public Vaga(List<Candidato> candidatos) {
+        this.candidatos = candidatos;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public double getSalario() {
-		return salario;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setSalario(double salario) {
-		this.salario = salario;
-	}
+    public double getSalario() {
+        return salario;
+    }
 
-	public double getValeTransporte() {
-		return valeTransporte;
-	}
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
 
-	public void setValeTransporte(double valeTransporte) {
-		this.valeTransporte = valeTransporte;
-	}
+    public String getSalarioReais(){
+        Locale ptBr = new Locale("pt", "BR");
+        String salarioEmReais =  NumberFormat.getCurrencyInstance().format(salario);
+        return salarioEmReais;
+    }
 
-	public double getValeRefeicao() {
-		return valeRefeicao;
-	}
+    public double getValeTransporte() {
+        return valeTransporte;
+    }
 
-	public void setValeRefeicao(double valeRefeicao) {
-		this.valeRefeicao = valeRefeicao;
-	}
+    public void setValeTransporte(double valeTransporte) {
+        this.valeTransporte = valeTransporte;
+    }
 
-	public Turno getTurno() {
-		return turno;
-	}
+    public double getValeRefeicao() {
+        return valeRefeicao;
+    }
 
-	public void setTurno(Turno turno) {
-		this.turno = turno;
-	}
+    public void setValeRefeicao(double valeRefeicao) {
+        this.valeRefeicao = valeRefeicao;
+    }
 
-	public List<Area> getArea() {
-		return area;
-	}
+    public Turno getTurno() {
+        return turno;
+    }
 
-	public void setArea(List<Area> area) {
-		this.area = area;
-	}
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
 
-	public List<Hierarquia> getHierarquia() {
-		return hierarquia;
-	}
+    public Area getArea() {
+        return area;
+    }
 
-	public void setHierarquia(List<Hierarquia> hierarquia) {
-		this.hierarquia = hierarquia;
-	}
+    public void setArea(Area area) {
+        this.area = area;
+    }
 
-	public List<Candidato> getCandidato() {
-		return candidato;
-	}
+    public Hierarquia getHierarquia() {
+        return hierarquia;
+    }
 
-	public void setCandidato(List<Candidato> candidato) {
-		this.candidato = candidato;
-	}
+    public void setHierarquia(Hierarquia hierarquia) {
+        this.hierarquia = hierarquia;
+    }
 
-	public List<Empresa> getEmpresa() {
-		return empresa;
-	}
+    public List<Candidato> getCandidatos() {
+        return candidatos;
+    }
 
-	public void setEmpresa(List<Empresa> empresa) {
-		this.empresa = empresa;
-	}
+    public void setCandidatos(List<Candidato> candidatos) {
+        this.candidatos = candidatos;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Empresa getEmpresa() {
+        return empresa;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 
-	@Override
-	public String toString() {
-		return "Vaga [area=" + area + ", candidato=" + candidato + ", descricao=" + descricao + ", empresa=" + empresa
-				+ ", hierarquia=" + hierarquia + ", id=" + id + ", salario=" + salario + ", titulo=" + titulo
-				+ ", turno=" + turno + ", valeRefeicao=" + valeRefeicao + ", valeTransporte=" + valeTransporte + "]";
-	}
+    public int getId() {
+        return id;
+    }
 
-	
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public Sexo getSexo_exigencia() {
+        return sexo_exigencia;
+    }
+
+    public void setSexo_exigencia(Sexo sexo_exigencia) {
+        this.sexo_exigencia = sexo_exigencia;
+    }
+
+    public int getIdade_minima() {
+        return idade_minima;
+    }
+
+    public void setIdade_minima(int idade_minima) {
+        this.idade_minima = idade_minima;
+    }
+
+    public NivelEnsino getNivel_ensino_exigencia() {
+        return nivel_ensino_exigencia;
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public void setNivel_ensino_exigencia(NivelEnsino nivel_ensino_exigencia) {
+        this.nivel_ensino_exigencia = nivel_ensino_exigencia;
+    }
+
+    public void addCandidato(Candidato tempCandidato) {
+        if (candidatos == null) {
+            candidatos = new ArrayList<>();
+        }
+        candidatos.add(tempCandidato);
+    }
+
+    @Override
+    public String toString() {
+        return "Vaga{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", salario=" + salario +
+                ", valeTransporte=" + valeTransporte +
+                ", valeRefeicao=" + valeRefeicao +
+                ", sexo_exigencia=" + sexo_exigencia +
+                ", idade_minima=" + idade_minima +
+                ", nivel_ensino_exigencia=" + nivel_ensino_exigencia +
+                ", dataCadastro=" + dataCadastro +
+                ", area=" + area +
+                ", turno=" + turno +
+                ", hierarquia=" + hierarquia +
+                ", candidatos=" + candidatos +
+                ", empresa=" + empresa +
+                '}';
+    }
 }

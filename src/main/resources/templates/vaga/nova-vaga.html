@@ -5,13 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NUEEP - Nova Empresa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
+    <title>NUEEP - Nova Vaga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet"
-        type="text/css" />
+          type="text/css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script th:src="@{/js/jquery.mask.js}"></script>
@@ -20,6 +19,7 @@
     <script src="path/to/jquery.easy-autocomplete.min.js"></script>
     <script>
         $(document).ready(function () {
+            $('#desc').restrictLength($('#maxlength'));
             $('#salario').mask('000.000.000.000.000,00', {
                 reverse: true
             });
@@ -30,266 +30,268 @@
                 reverse: true
             });
             $('#cnpj').mask('00.000.000/0000-00');
-            $('#cep').mask('00000-000');
-            $('#telefone-candidato').mask('(00) 0000-0000');
-            $('#celular-candidato').mask('(00) 00000-0000');
         });
     </script>
 
 </head>
 
 <body style="background-color: #6e6e6e">
-    <div id="navbar-default"></div>
-    <section class="hero is-danger">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Cadastrar nova vaga
-                </h1>
-                <h2 class="subtitle">
-                    Preencha o formulário abaixo para cadastrar uma nova vaga.
-                </h2>
-            </div>
-        </div>
-    </section>
-
-    <div class="container">
-        <div class="notification">
-            <form action="#" th:action="@{/vaga/salvar}" id="formulario" method="POST" onsyu>
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label for="empresa">Selecionar Empresa</label>
-                            <div class="control">
-                                <input class="input" name="EmpresaRazaoSocial" th:value="${EmpresaRazaoSocial}"
-                                    type="text" id="Empresa_Nome">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label for="areaProfissional">Área Profissional</label>
-                            <div class="control">
-                                <div class="select is-expanded">
-                                    <select name="" id="">
-                                        <option value="">Selecionar...</option>
-                                        <option th:value="'AREA_1'">Administração</option>
-                                        <option th:value="'AREA_2'">Agricultura, Pecuária, Veterinária
-                                        </option>
-                                        <option th:value="'AREA_3'">Alimentação / Gastronomia
-                                        </option>
-                                        <option th:value="'AREA_4'">Arquitetura, Decoração, Design
-                                        </option>
-                                        <option th:value="'AREA_5'">Artes</option>
-                                        <option th:value="'AREA_6'">Auditoria</option>
-                                        <option th:value="'AREA_7'">Ciências, Pesquisa
-                                        </option>
-                                        <option th:value="'AREA_8'">Comercial, Vendas
-                                        </option>
-                                        <option th:value="'AREA_9'">Comércio Exterior, Importação, Exportação
-                                        </option>
-                                        <option th:value="'AREA_10'">Compras</option>
-                                        <option th:value="'AREA_11'">Comunicação, TV, Cinema
-                                        </option>
-                                        <option th:value="'AREA_12'">Construção, Manutenção
-                                        </option>
-                                        <option th:value="'AREA_13'">Contábil, Finanças, Economia
-                                        </option>
-                                        <option th:value="'AREA_14'">Cultura, Lazer, Entretenimento
-                                        </option>
-                                        <option th:value="'AREA_15'">Educação, Ensino, Idiomas
-                                        </option>
-                                        <option th:value="'AREA_16'">Engenharia</option>
-                                        <option th:value="'AREA_17'">Estética</option>
-                                        <option th:value="'AREA_18'">Hotelaria, Turismo
-                                        </option>
-                                        <option th:value="'AREA_19'">Industrial, Produção, Fábrica
-                                        </option>
-                                        <option th:value="'AREA_20'">Informática, TI, Telecomunicações
-                                        </option>
-                                        <option th:value="'AREA_21'">Jurídica</option>
-                                        <option th:value="'AREA_22'">Logística
-                                        </option>
-                                        <option th:value="'AREA_23'">Marketing</option>
-                                        <option th:value="'AREA_24'">Meio Ambiente, Ecologia
-                                        </option>
-                                        <option th:value="'AREA_25'">Moda</option>
-                                        <option th:value="'AREA_26'">Qualidade</option>
-                                        <option th:value="'AREA_27'">Química, Petroquímica
-                                        </option>
-                                        <option th:value="'AREA_28'">Recursos Humanos
-                                        </option>
-                                        <option th:value="'AREA_29'">Saúde</option>
-                                        <option th:value="'AREA_30'">Segurança</option>
-                                        <option th:value="'AREA_31'">Serviços Gerais
-                                        </option>
-                                        <option th:value="'AREA_32'">Serviço Social e Comunitário
-                                        </option>
-                                        <option th:value="'AREA_33'">Telemarketing</option>
-
-                                        <option th:value="'AREA_34'">Transportes</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="field">
-                            <label for="hierarquia">Hierarquia</label>
-                            <div class="control">
-                                <div class="select is-expanded">
-                                    <select name="" id="">
-                                        <option value="">Selecionar...</option>
-                                        <option th:value="'MENOR_APRENDIZ'">Menor Aprendiz</option>
-                                        <option th:value="'ESTAGIARIO'">Estagiário</option>
-                                        <option th:value="'AUXILIAR'">Auxiliar</option>
-                                        <option th:value="'OPERACIONAL'">Operacional</option>
-                                        <option th:value="'ASSISTENTE'">Assistente</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label for="jornada">Jornada</label>
-                            <div class="control">
-                                <div class="select is-expanded">
-                                    <select name="" id="">
-                                        <option value="">Selecionar...</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="columns">
-
-
-
-                </div>
-                <div class="columns">
-                    <div class="column">
-
-                        <div class="field">
-                            <label for="descricao">Descrição</label>
-                            <div class="control">
-                                <textarea class="textarea" placeholder="Descrição da Vaga"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns">
-                    <div class="column is-half">
-                        <div class="field">
-                            <label for="salario">Salário em R$ (0,00 se for "A Combinar")</label>
-                            <input class="input" type="text" name="" id="salario" value="000">
-                        </div>
-                    </div>
-                    <div class="column is-one-quarter">
-                        <div class="field">
-                            <label for="vr">V.R. em R$ (0,00 se não houver)</label>
-                            <input class="input" type="text" name="" id="vr">
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label for="vt">V.T. em R$ (0,00 se não houver)</label>
-                            <input class="input" type="text" name="" id="vt">
-                        </div>
-                    </div>
-                </div>
-                <div class="buttons is-right">
-                    <button class="button is-warning is-large">Limpar</button>
-                    <button class="button is-success is-large" type="submit">Salvar Vaga</button>
-                </div>
-            </form>
-
+<div id="navbar-default"></div>
+<section class="hero is-danger">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Cadastrar nova vaga
+            </h1>
+            <h2 class="subtitle">
+                Preencha o formulário abaixo para cadastrar uma nova vaga.
+            </h2>
         </div>
     </div>
-    <script>
-        $(function () {
-            $("#Empresa_Nome").autocomplete({
-                source: "empresaAutocomplete"
-            });
+</section>
+
+<div class="container">
+    <div class="notification">
+        <form action="#" th:action="@{/vaga/salvar}" id="formulario" method="POST" onsyu>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label for="empresa">Selecionar Empresa</label>
+                        <div class="control">
+                            <input class="input" name="EmpresaRazaoSocial"
+                                   type="text" id="Empresa_Nome" data-validation="required">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="columns">
+                <div class="column is-one-third">
+                    <div class="field is-narrow">
+                        <label>Área Profissional</label>
+                        <div class="control">
+                            <div class="select is-expanded">
+                                <select th:field="${area.nome}" data-validation="required">
+                                    <option value="">Selecionar...</option>
+
+                                    <option
+                                            th:each="areaProfissional :  ${tiposDeArea}"
+                                            th:text="${areaProfissional.name}"
+                                            th:value="${areaProfissional}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-one-third">
+                    <div class="field is-narrow">
+                        <label for="">Hierarquia</label>
+                        <div class="control">
+                            <div class="select is-expanded">
+                                <select th:field="${hierarquias.nivel}" data-validation="required">
+                                    <option value="">Selecionar...</option>
+
+
+                                    <option
+                                            th:each="hierarquia :  ${tipoHierarquia}"
+                                            th:text="${hierarquia.name}"
+                                            th:value="${hierarquia}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-third">
+                    <div class="field is-narrow">
+                        <label for="">Jornada</label>
+                        <div class="control">
+                            <div class="select is-expanded">
+                                <select th:field="${turnos.periodo}" data-validation="required">
+                                    <option value="">Selecionar...</option>
+                                    <option
+                                            th:each="tipoEstudo :  ${tipoTurno}"
+                                            th:text="${tipoEstudo.name}"
+                                            th:value="${tipoEstudo}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="columns">
+
+
+            </div>
+            <div class="columns">
+                <div class="column">
+
+                    <div class="field">
+                        <label for="descricao">Descrição</label>
+                        <div class="control">
+                            Restam <span id="maxlength">2000</span> caracteres
+                            <textarea class="textarea" id="desc" placeholder="Descrição da Vaga"
+                                      th:field="${vaga.descricao}"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="field">
+                        <label for="salario">Salário em R$ (0,00 se for "A Combinar")</label>
+                        <input class="input" type="text" name="salarioString" id="salario" value="000"
+                               data-validation="required">
+                    </div>
+                </div>
+                <div class="column is-one-quarter">
+                    <div class="field">
+                        <label for="vr">V.R. em R$ (0,00 se não houver)</label>
+                        <input class="input" type="text" name="vrString" id="vr" value="000" data-validation="required">
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label for="vt">V.T. em R$ (0,00 se não houver)</label>
+                        <input class="input" type="text" name="vtString" id="vt" value="000" data-validation="required">
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-one-fifth">
+                    <div class="field">
+                        <label for="">Idade mínima</label>
+                        <div class="control">
+                            <input class="input" type="text" data-validation="number"
+                                   data-validation-allowing="range[14;120]" name="" value="16"
+                                   th:field="${vaga.idade_minima}">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-quarter">
+                    <div class="field">
+                        <label>Nivel minimo</label>
+                        <div class="control">
+                            <div class="select is-expanded">
+                                <select th:field="${vaga.nivel_ensino_exigencia}" data-validation="required">
+                                    <option value="">Selecionar...</option>
+                                    <option
+                                            th:each="nivelEnsino :  ${tipoEnsino}"
+                                            th:text="${nivelEnsino.name}"
+                                            th:value="${nivelEnsino}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-one-fifth">
+                    <div class="field">
+                        <label>Sexo</label>
+                        <div class="control">
+                            <div class="select is-expanded">
+                                <select th:field="${vaga.sexo_exigencia}" data-validation="required">
+                                    <option value="">Selecionar...</option>
+                                    <option
+                                            th:each="sexo :  ${tipoSexo}"
+                                            th:text="${sexo.name}"
+                                            th:value="${sexo}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="buttons is-right">
+        <button class="button is-warning is-large">Limpar</button>
+        <button class="button is-success is-large" type="submit">Salvar Vaga</button>
+    </div>
+    </form>
+
+</div>
+</div>
+<script>
+    $(function () {
+        $("#Empresa_Nome").autocomplete({
+            source: "empresaAutocomplete"
         });
-    </script>
+    });
+</script>
 
-    <script>
-        function limpa_formulário_cep() {
-            document.getElementById('rua').value = ("");
-            document.getElementById('bairro').value = ("");
-            document.getElementById('cidade').value = ("");
-            document.getElementById('uf').value = ("");
+<script>
+    function limpa_formulário_cep() {
+        document.getElementById('rua').value = ("");
+        document.getElementById('bairro').value = ("");
+        document.getElementById('cidade').value = ("");
+        document.getElementById('uf').value = ("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            document.getElementById('rua').value = (conteudo.logradouro);
+            document.getElementById('bairro').value = (conteudo.bairro);
+            document.getElementById('cidade').value = (conteudo.localidade);
+            document.getElementById('uf').value = (conteudo.uf);
+
+        } else {
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
         }
+    }
 
-        function meu_callback(conteudo) {
-            if (!("erro" in conteudo)) {
-                document.getElementById('rua').value = (conteudo.logradouro);
-                document.getElementById('bairro').value = (conteudo.bairro);
-                document.getElementById('cidade').value = (conteudo.localidade);
-                document.getElementById('uf').value = (conteudo.uf);
+    function pesquisacep(valor) {
+
+        var cep = valor.replace(/\D/g, '');
+
+        if (cep != "") {
+
+            var validacep = /^[0-9]{8}$/;
+
+            if (validacep.test(cep)) {
+
+                document.getElementById('rua').value = "...";
+                document.getElementById('bairro').value = "...";
+                document.getElementById('cidade').value = "...";
+                document.getElementById('uf').value = "...";
+                document.getElementById('numero').value = ("");
+                document.getElementById('complemento').value = ("");
+
+                var script = document.createElement('script');
+
+                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                document.body.appendChild(script);
 
             } else {
                 limpa_formulário_cep();
-                alert("CEP não encontrado.");
+                alert("Formato de CEP inválido.");
             }
+        } else {
+            limpa_formulário_cep();
         }
-
-        function pesquisacep(valor) {
-
-            var cep = valor.replace(/\D/g, '');
-
-            if (cep != "") {
-
-                var validacep = /^[0-9]{8}$/;
-
-                if (validacep.test(cep)) {
-
-                    document.getElementById('rua').value = "...";
-                    document.getElementById('bairro').value = "...";
-                    document.getElementById('cidade').value = "...";
-                    document.getElementById('uf').value = "...";
-                    document.getElementById('numero').value = ("");
-                    document.getElementById('complemento').value = ("");
-
-                    var script = document.createElement('script');
-
-                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
-
-                    document.body.appendChild(script);
-
-                } else {
-                    limpa_formulário_cep();
-                    alert("Formato de CEP inválido.");
-                }
-            } else {
-                limpa_formulário_cep();
-            }
-        };
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#navbar-default").load("/navbar.html");
-        });
-    </script>
+    };
+</script>
+<script>
+    $(document).ready(function () {
+        $("#navbar-default").load("/navbar.html");
+    });
+</script>
 
 
-    <script>
-        $.validate({
-            modules: 'brazil',
-            lang: 'pt',
-            modules: 'date'
-        });
-    </script>
+<script>
+    $.validate({
+        modules: 'brazil',
+        lang: 'pt',
+        modules: 'date'
+    });
+</script>
 </body>
 <footer class="footer" style="background: #363636">
     <div class="content has-text-centered">
@@ -303,7 +305,6 @@
         </a>
     </div>
 </footer>
-
 
 
 </html>

@@ -11,7 +11,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.pi.nueep.entidades.listas.TurnoEstudo;
-
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 /**
  * Turno
@@ -25,16 +28,19 @@ public class Turno {
     @Column(name = "id")
     private int id;
     @Enumerated(EnumType.STRING)
-    @Column(name="turno")
-    private TurnoEstudo turno;
-
+    @Column(name = "periodo")
+    private TurnoEstudo periodo;
+    @OneToMany(mappedBy = "turno",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Vaga> vagas;
 
     public Turno() {
     }
 
-
-    public Turno(TurnoEstudo turno, Vaga vaga) {
-        this.turno = turno;
+    public Turno(TurnoEstudo periodo, List<Vaga> vagas) {
+        this.periodo = periodo;
+        this.vagas = vagas;
     }
 
     public int getId() {
@@ -45,22 +51,28 @@ public class Turno {
         this.id = id;
     }
 
-    public TurnoEstudo getTurno() {
-        return turno;
+    public TurnoEstudo getPeriodo() {
+        return periodo;
     }
 
-    public void setTurno(TurnoEstudo turno) {
-        this.turno = turno;
+    public void setPeriodo(TurnoEstudo periodo) {
+        this.periodo = periodo;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "Turno [id=" + id + ", turno=" + turno + "]";
+    public List<Vaga> getVagas() {
+        return vagas;
     }
 
-    
+    public void setVagas(List<Vaga> vagas) {
+        this.vagas = vagas;
+    }
 
-    
+    public void addVaga(Vaga tempVaga) {
+        if (vagas == null) {
+            vagas = new ArrayList<>();
+        }
+        vagas.add(tempVaga);
+        tempVaga.setTurno(this);
+    }
+
 }

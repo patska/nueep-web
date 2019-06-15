@@ -33,300 +33,291 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "candidato")
 public class Candidato {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-
-	@Column(name = "nome_completo")
-	private String nomeCompleto;
-
-	@Column(name = "nome_social")
-	private String nomeSocial;
-	
-	@Column(name="ativo")
-	private boolean ativo;
-	
-	@Column(name="matricula")
-	private String matricula;
-	
-
-	@Column(name = "data_nascimento")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dataNascimento;
-
-	@Column(name = "cpf")
-	private String cpf;
-
-	@Column(name = "rg")
-	private String rg;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "nivel_ensino")
-	private NivelEnsino nivelEnsino; 
-
-	@Enumerated(EnumType.STRING)
-	@Column(name="grau_instrucao")
-	private GrauInstrucao grauInstrucao;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "modalidade_ensino")
-	private ModalidadeEnsino modalidadeEnsino;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "turno_estudo")
-	private TurnoEstudo turnoEstudo;
-
-
-	@Column(name = "email")
-	private String email;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "sexo")
-	private Sexo sexo;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "estado_civil")
-	private EstadoCivil estadoCivil;
-
-	@Column(name = "condicao_especial")
-	boolean condicaoEspecial;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "responsavel_legal_id")
-	private ResponsavelLegal responsavelLegal;
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "candidato_endereco", joinColumns = @JoinColumn(name = "candidato_id"), inverseJoinColumns = @JoinColumn(name = "endereco_id"))
-	private List<Endereco> endereco;
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "candidato_telefone", joinColumns = @JoinColumn(name = "candidato_id"), inverseJoinColumns = @JoinColumn(name = "telefone_id"))
-	private List<Telefone> telefone;
-	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "vaga_candidato", joinColumns = @JoinColumn(name = "candidato_id"), inverseJoinColumns = @JoinColumn(name = "vaga_id"))
-	private List<Vaga> vaga;
-	
-	public Candidato() {
-		super();
-	}
-
-
-	public Candidato(String nomeCompleto, String nomeSocial, boolean ativo, String matricula, LocalDate dataNascimento, String cpf, String rg, NivelEnsino nivelEnsino, GrauInstrucao grauInstrucao, ModalidadeEnsino modalidadeEnsino, TurnoEstudo turnoEstudo, String email, Sexo sexo, EstadoCivil estadoCivil, boolean condicaoEspecial, ResponsavelLegal responsavelLegal, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
-		this.nomeCompleto = nomeCompleto;
-		this.nomeSocial = nomeSocial;
-		this.ativo = ativo;
-		this.matricula = matricula;
-		this.dataNascimento = dataNascimento;
-		this.cpf = cpf;
-		this.rg = rg;
-		this.nivelEnsino = nivelEnsino;
-		this.grauInstrucao = grauInstrucao;
-		this.modalidadeEnsino = modalidadeEnsino;
-		this.turnoEstudo = turnoEstudo;
-		this.email = email;
-		this.sexo = sexo;
-		this.estadoCivil = estadoCivil;
-		this.condicaoEspecial = condicaoEspecial;
-		this.responsavelLegal = responsavelLegal;
-		this.endereco = endereco;
-		this.telefone = telefone;
-		this.vaga = vaga;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "candidato_id")
+    private int id;
+
+    @Column(name = "nome_completo")
+    private String nomeCompleto;
+
+    @Column(name = "nome_social")
+    private String nomeSocial;
+
+    @Column(name = "ativo")
+    private boolean ativo;
+
+    @Column(name = "matricula")
+    private String matricula;
+
+    @Column(name = "data_nascimento")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataNascimento;
+
+    @Column(name = "cpf")
+    private String cpf;
+
+    @Column(name = "rg")
+    private String rg;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel_ensino")
+    private NivelEnsino nivelEnsino;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "grau_instrucao")
+    private GrauInstrucao grauInstrucao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "modalidade_ensino")
+    private ModalidadeEnsino modalidadeEnsino;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "turno_estudo")
+    private TurnoEstudo turnoEstudo;
+
+    @Column(name = "email")
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexo")
+    private Sexo sexo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_civil")
+    private EstadoCivil estadoCivil;
+
+    @Column(name = "condicao_especial")
+    boolean condicaoEspecial;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "responsavel_legal_id")
+    private ResponsavelLegal responsavelLegal;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "candidato_endereco", joinColumns = @JoinColumn(name = "candidato_id"), inverseJoinColumns = @JoinColumn(name = "endereco_id"))
+    private List<Endereco> endereco;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "candidato_telefone", joinColumns = @JoinColumn(name = "candidato_id"), inverseJoinColumns = @JoinColumn(name = "telefone_id"))
+    private List<Telefone> telefone;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name="vagas_candidatos",
+            joinColumns = @JoinColumn(name="candidato_id"),
+            inverseJoinColumns = @JoinColumn(name="vaga_id")
+    )
+    private List<Vaga> vaga;
+
+    public Candidato() {
+        super();
+    }
+
+    public Candidato(String nomeCompleto, String nomeSocial, boolean ativo, String matricula, LocalDate dataNascimento, String cpf, String rg, NivelEnsino nivelEnsino, GrauInstrucao grauInstrucao, ModalidadeEnsino modalidadeEnsino, TurnoEstudo turnoEstudo, String email, Sexo sexo, EstadoCivil estadoCivil, boolean condicaoEspecial, ResponsavelLegal responsavelLegal, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
+        this.nomeCompleto = nomeCompleto;
+        this.nomeSocial = nomeSocial;
+        this.ativo = ativo;
+        this.matricula = matricula;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.nivelEnsino = nivelEnsino;
+        this.grauInstrucao = grauInstrucao;
+        this.modalidadeEnsino = modalidadeEnsino;
+        this.turnoEstudo = turnoEstudo;
+        this.email = email;
+        this.sexo = sexo;
+        this.estadoCivil = estadoCivil;
+        this.condicaoEspecial = condicaoEspecial;
+        this.responsavelLegal = responsavelLegal;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.vaga = vaga;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
 
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
 
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
 
+    public void setNomeSocial(String nomeSocial) {
+        this.nomeSocial = nomeSocial;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	public String getNomeSocial() {
-		return nomeSocial;
-	}
+    public String getRg() {
+        return rg;
+    }
 
-	public void setNomeSocial(String nomeSocial) {
-		this.nomeSocial = nomeSocial;
-	}
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
 
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public Sexo getSexo() {
+        return sexo;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
 
-	public String getRg() {
-		return rg;
-	}
+    public EstadoCivil getEstadoCivil() {
+        return estadoCivil;
+    }
 
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
+    public void setEstadoCivil(EstadoCivil estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public boolean isCondicaoEspecial() {
+        return condicaoEspecial;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setCondicaoEspecial(boolean condicaoEspecial) {
+        this.condicaoEspecial = condicaoEspecial;
+    }
 
-	public Sexo getSexo() {
-		return sexo;
-	}
+    public ResponsavelLegal getResponsavelLegal() {
+        return responsavelLegal;
+    }
 
-	public void setSexo(Sexo sexo) {
-		this.sexo = sexo;
-	}
+    public void setResponsavelLegal(ResponsavelLegal responsavelLegal) {
+        this.responsavelLegal = responsavelLegal;
+    }
 
-	public EstadoCivil getEstadoCivil() {
-		return estadoCivil;
-	}
+    public List<Endereco> getEndereco() {
+        return endereco;
+    }
 
-	public void setEstadoCivil(EstadoCivil estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
+    public void setEndereco(List<Endereco> endereco) {
+        this.endereco = endereco;
+    }
 
-	public boolean isCondicaoEspecial() {
-		return condicaoEspecial;
-	}
+    public List<Telefone> getTelefone() {
+        return telefone;
+    }
 
-	public void setCondicaoEspecial(boolean condicaoEspecial) {
-		this.condicaoEspecial = condicaoEspecial;
-	}
+    public void setTelefone(List<Telefone> telefone) {
+        this.telefone = telefone;
+    }
 
-	public ResponsavelLegal getResponsavelLegal() {
-		return responsavelLegal;
-	}
+    public void addTelefone(Telefone tlf) {
 
-	public void setResponsavelLegal(ResponsavelLegal responsavelLegal) {
-		this.responsavelLegal = responsavelLegal;
-	}
+        if (telefone == null) {
+            telefone = new ArrayList();
+        }
 
-	public List<Endereco> getEndereco() {
-		return endereco;
-	}
+        telefone.add(tlf);
+    }
 
-	public void setEndereco(List<Endereco> endereco) {
-		this.endereco = endereco;
-	}
+    public List<Vaga> getVaga() {
+        return vaga;
+    }
 
+    public void setVaga(List<Vaga> vaga) {
+        this.vaga = vaga;
+    }
 
-	public List<Telefone> getTelefone() {
-		return telefone;
-	}
+    public boolean isAtivo() {
+        return ativo;
+    }
 
-	public void setTelefone(List<Telefone> telefone) {
-		this.telefone = telefone;
-	}
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 
-	public void addTelefone(Telefone tlf) {
+    public void addEndereco(Endereco end) {
 
-		if (telefone == null) {
-			telefone = new ArrayList();
-		}
+        if (endereco == null) {
+            endereco = new ArrayList();
+        }
 
-		telefone.add(tlf);
-	}
-	
-	
+        endereco.add(end);
+    }
 
-	public List<Vaga> getVaga() {
-		return vaga;
-	}
+    public String getMatricula() {
+        return matricula;
+    }
 
-	public void setVaga(List<Vaga> vaga) {
-		this.vaga = vaga;
-	}
+    public void setResponsavelLegal(String matricula) {
+        this.matricula = matricula;
+    }
 
-	public boolean isAtivo() {
-		return ativo;
-	}
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
+    public NivelEnsino getNivelEnsino() {
+        return nivelEnsino;
+    }
 
-	public void addEndereco(Endereco end) {
+    public void setNivelEnsino(NivelEnsino nivelEnsino) {
+        this.nivelEnsino = nivelEnsino;
+    }
 
-		if (endereco == null) {
-			endereco = new ArrayList();
-		}
+    public GrauInstrucao getGrauInstrucao() {
+        return grauInstrucao;
+    }
 
-		endereco.add(end);
-	}
-	
-	public String getMatricula() {
-		return matricula;
-	}
+    public void setGrauInstrucao(GrauInstrucao grauInstrucao) {
+        this.grauInstrucao = grauInstrucao;
+    }
 
-	public void setResponsavelLegal(String matricula) {
-		this.matricula = matricula;
-	}
+    public ModalidadeEnsino getModalidadeEnsino() {
+        return modalidadeEnsino;
+    }
 
+    public void setModalidadeEnsino(ModalidadeEnsino modalidadeEnsino) {
+        this.modalidadeEnsino = modalidadeEnsino;
+    }
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
+    public TurnoEstudo getTurnoEstudo() {
+        return turnoEstudo;
+    }
 
-	public NivelEnsino getNivelEnsino() {
-		return nivelEnsino;
-	}
+    public void setTurnoEstudo(TurnoEstudo turnoEstudo) {
+        this.turnoEstudo = turnoEstudo;
+    }
 
-	public void setNivelEnsino(NivelEnsino nivelEnsino) {
-		this.nivelEnsino = nivelEnsino;
-	}
-
-	public GrauInstrucao getGrauInstrucao() {
-		return grauInstrucao;
-	}
-
-	public void setGrauInstrucao(GrauInstrucao grauInstrucao) {
-		this.grauInstrucao = grauInstrucao;
-	}
-
-	public ModalidadeEnsino getModalidadeEnsino() {
-		return modalidadeEnsino;
-	}
-
-	public void setModalidadeEnsino(ModalidadeEnsino modalidadeEnsino) {
-		this.modalidadeEnsino = modalidadeEnsino;
-	}
-
-	public TurnoEstudo getTurnoEstudo() {
-		return turnoEstudo;
-	}
-
-	public void setTurnoEstudo(TurnoEstudo turnoEstudo) {
-		this.turnoEstudo = turnoEstudo;
-	}
-
-		
-	
-	
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="vaga_area_especializacao")
+@Table(name="area_profissional_espec")
 public class Especializacao {
 	
 	@Id

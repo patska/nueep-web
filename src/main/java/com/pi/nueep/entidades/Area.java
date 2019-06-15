@@ -15,58 +15,74 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.pi.nueep.entidades.listas.AreaProfissional;
+import java.util.ArrayList;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table(name="vaga_area")
+@Table(name = "area_profissional")
 public class Area {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; 
-	@Enumerated(EnumType.STRING)
-	@Column(name="nome")
-	private AreaProfissional nome; 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Especializacao especializacao;
-	
-	
-	public Area() {
-		super();
-	}
-	
 
-	public Area(AreaProfissional nome, Especializacao especializacao) {
-		this.nome = nome;
-		this.especializacao = especializacao;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nome")
+    private AreaProfissional nome;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Especializacao especializacao;
+    @OneToMany(mappedBy = "area",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Vaga> vagas;
 
-	public int getId() {
-		return id;
-	}
+    public Area() {
+        super();
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Area(AreaProfissional nome, Especializacao especializacao, List<Vaga> vagas) {
+        this.nome = nome;
+        this.especializacao = especializacao;
+        this.vagas = vagas;
+    }
 
-	public AreaProfissional getNome() {
-		return nome;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setNome(AreaProfissional nome) {
-		this.nome = nome;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public Especializacao getEspecializacao() {
-		return especializacao;
-	}
+    public AreaProfissional getNome() {
+        return nome;
+    }
 
-	public void setEspecializacao(Especializacao especializacao) {
-		this.especializacao = especializacao;
-	}
-	
-	
-	
-	
-	
-	
-	
+    public void setNome(AreaProfissional nome) {
+        this.nome = nome;
+    }
+
+    public Especializacao getEspecializacao() {
+        return especializacao;
+    }
+
+    public void setEspecializacao(Especializacao especializacao) {
+        this.especializacao = especializacao;
+    }
+
+    public List<Vaga> getVagas() {
+        return vagas;
+    }
+
+    public void setVagas(List<Vaga> vagas) {
+        this.vagas = vagas;
+    }
+    
+    public void addVaga(Vaga tempVaga){
+        if (vagas == null){
+            vagas = new ArrayList<>();
+        }
+        vagas.add(tempVaga);
+        tempVaga.setArea(this);
+    }
+
 }

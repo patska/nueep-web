@@ -19,189 +19,190 @@ import javax.persistence.Table;
 
 import com.pi.nueep.entidades.listas.Porte;
 
+import javax.persistence.OneToMany;
+
 @Entity
-@Table(name="empresa")
+@Table(name = "empresa")
 public class Empresa {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id; 
-	@Column(name="nome_fantasia")
-	private String nomeFantasia;
-	@Column(name="nome_social")
-	private String nomeSocial; 
-	@Column(name="cnpj")
-	private String cnpj;
-	@Column(name="responsavel")
-	private String responsavel; 
-	@Enumerated(EnumType.STRING)
-	@Column(name="porte")
-	private Porte porte; 
-	@Column(name="website")
-	private String website;
-	@Column(name="email")
-	private String email;
-	@Column(name="ativo")
-	private boolean ativo; 
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "empresa_endereco", joinColumns = @JoinColumn(name = "empresa_id"), inverseJoinColumns = @JoinColumn(name = "endereco_id"))
-	private List<Endereco> endereco;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "empresa_id")
+    private int id;
+    @Column(name = "nome_fantasia")
+    private String nomeFantasia;
+    @Column(name = "nome_social")
+    private String nomeSocial;
+    @Column(name = "cnpj")
+    private String cnpj;
+    @Column(name = "responsavel")
+    private String responsavel;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "porte")
+    private Porte porte;
+    @Column(name = "website")
+    private String website;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "ativo")
+    private boolean ativo;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "empresa_telefone", joinColumns = @JoinColumn(name = "empresa_id"), inverseJoinColumns = @JoinColumn(name = "telefone_id"))
-	private List<Telefone> telefone;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "empresa_endereco", joinColumns = @JoinColumn(name = "empresa_id"), inverseJoinColumns = @JoinColumn(name = "endereco_id"))
+    private List<Endereco> endereco;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "vaga_empresa", joinColumns = @JoinColumn(name = "empresa_id"), inverseJoinColumns = @JoinColumn(name = "vaga_id"))
-	private List<Vaga> vaga;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "empresa_telefone", joinColumns = @JoinColumn(name = "empresa_id"), inverseJoinColumns = @JoinColumn(name = "telefone_id"))
+    private List<Telefone> telefone;
 
-	public Empresa() {
-		super();
-	}
+    @OneToMany(mappedBy = "area",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Vaga> vagas;
 
 
+    public Empresa() {
+        super();
+    }
 
-	public Empresa(String nomeFantasia, String nomeSocial, String cnpj, String responsavel, Porte porte, String website, String email, boolean ativo, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
-		this.nomeFantasia = nomeFantasia;
-		this.nomeSocial = nomeSocial;
-		this.cnpj = cnpj;
-		this.responsavel = responsavel;
-		this.porte = porte;
-		this.website = website;
-		this.email = email;
-		this.ativo = ativo;
-		this.endereco = endereco;
-		this.telefone = telefone;
-		this.vaga = vaga;
-	}
-	
 
-	
-	
-	public void addTelefone(Telefone tlf) {
+    public Empresa(String nomeFantasia, String nomeSocial, String cnpj, String responsavel, Porte porte, String website, String email, boolean ativo, List<Endereco> endereco, List<Telefone> telefone, List<Vaga> vaga) {
+        this.nomeFantasia = nomeFantasia;
+        this.nomeSocial = nomeSocial;
+        this.cnpj = cnpj;
+        this.responsavel = responsavel;
+        this.porte = porte;
+        this.website = website;
+        this.email = email;
+        this.ativo = ativo;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.vagas = vagas;
+    }
 
-		if (telefone == null) {
-			telefone = new ArrayList();
-		}
 
-		telefone.add(tlf);
-	}
+    public void addTelefone(Telefone tlf) {
 
-	public void addEndereco(Endereco end) {
+        if (telefone == null) {
+            telefone = new ArrayList();
+        }
 
-		if (endereco == null) {
-			endereco = new ArrayList();
-		}
+        telefone.add(tlf);
+    }
 
-		endereco.add(end);
-	}
+    public void addEndereco(Endereco end) {
 
-	public int getId() {
-		return id;
-	}
+        if (endereco == null) {
+            endereco = new ArrayList();
+        }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+        endereco.add(end);
+    }
 
-	public String getNomeFantasia() {
-		return nomeFantasia;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setNomeFantasia(String nomeFantasia) {
-		this.nomeFantasia = nomeFantasia;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getNomeSocial() {
-		return nomeSocial;
-	}
+    public String getNomeFantasia() {
+        return nomeFantasia;
+    }
 
-	public void setNomeSocial(String nomeSocial) {
-		this.nomeSocial = nomeSocial;
-	}
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
+    }
 
-	public String getCnpj() {
-		return cnpj;
-	}
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
 
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
+    public void setNomeSocial(String nomeSocial) {
+        this.nomeSocial = nomeSocial;
+    }
 
-	public String getResponsavel() {
-		return responsavel;
-	}
+    public String getCnpj() {
+        return cnpj;
+    }
 
-	public void setResponsavel(String responsavel) {
-		this.responsavel = responsavel;
-	}
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
 
-	
+    public String getResponsavel() {
+        return responsavel;
+    }
 
-	public String getWebsite() {
-		return website;
-	}
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
 
-	public void setWebsite(String website) {
-		this.website = website;
-	}
 
-	public String getEmail() {
-		return email;
-	}
+    public String getWebsite() {
+        return website;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-	public boolean isAtivo() {
-		return ativo;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public List<Endereco> getEndereco() {
-		return endereco;
-	}
+    public boolean isAtivo() {
+        return ativo;
+    }
 
-	public void setEndereco(List<Endereco> endereco) {
-		this.endereco = endereco;
-	}
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 
-	public List<Telefone> getTelefone() {
-		return telefone;
-	}
+    public List<Endereco> getEndereco() {
+        return endereco;
+    }
 
-	public void setTelefone(List<Telefone> telefone) {
-		this.telefone = telefone;
-	}
+    public void setEndereco(List<Endereco> endereco) {
+        this.endereco = endereco;
+    }
 
-	public List<Vaga> getVaga() {
-		return vaga;
-	}
+    public List<Telefone> getTelefone() {
+        return telefone;
+    }
 
-	public void setVaga(List<Vaga> vaga) {
-		this.vaga = vaga;
-	}
+    public void setTelefone(List<Telefone> telefone) {
+        this.telefone = telefone;
+    }
 
-	public Porte getPorte() {
-		return porte;
-	}
+    public List<Vaga> getVaga() {
+        return vagas;
+    }
 
-	public void setPorte(Porte porte) {
-		this.porte = porte;
-	}
+    public void setVaga(List<Vaga> vaga) {
+        this.vagas = vaga;
+    }
 
-	@Override
-	public String toString() {
-		return "Empresa [ativo=" + ativo + ", cnpj=" + cnpj + ", email=" + email + ", endereco=" + endereco + ", id="
-				+ id + ", nomeFantasia=" + nomeFantasia + ", nomeSocial=" + nomeSocial + ", porte=" + porte
-				+ ", responsavel=" + responsavel + ", telefone=" + telefone + ", vaga=" + vaga + ", website=" + website
-				+ "]";
-	}
-	
+    public Porte getPorte() {
+        return porte;
+    }
+
+    public void setPorte(Porte porte) {
+        this.porte = porte;
+    }
+
+    public void addVaga(Vaga tempVaga) {
+        if (vagas == null) {
+            vagas = new ArrayList<>();
+        }
+        vagas.add(tempVaga);
+        tempVaga.setEmpresa(this);
+    }
+
+
 }

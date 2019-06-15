@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listar Vagas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#navbar-default").load("/navbar.html");
+        });
+    </script>
+
+</head>
+
+<body style="background-color: #6e6e6e">
+<div id="navbar-default"></div>
+<section class="hero is-danger">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                <span th:text="${vaga.hierarquia.getNivel().getName()}"></span> de <span th:text="${vaga.area.getNome().getName()}"></span> <br> Empresa: <span th:text="${vaga.empresa.getNomeSocial()}"></span>
+            </h1>
+            <h2 class="subtitle">
+                Data de inclusão: <i><span th:text="${vaga.dataCadastro}"></span></i>
+            </h2>
+        </div>
+    </div>
+</section>
+
+<div class="">
+    <div class="notification">
+
+    </div>
+</div>
+
+</body>
+<footer class="footer" style="background: #363636">
+    <div class="content has-text-centered">
+        <p style="color: white">
+            <strong style="color: white"> NUEEP Estágio</strong> é um sistema desenvolvido para o Projeto Integrador do
+            Terceiro Semestre<br>
+            do Curso de Análise e Desenvolvimento de Sistema da Unicuritiba.
+        </p>
+        <a href="https://bulma.io">
+            <img src="images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
+        </a>
+    </div>
+</footer>
+
+</html>
