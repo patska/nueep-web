@@ -232,23 +232,6 @@ public class Vaga {
         candidatos.add(tempCandidato);
     }
 
-    @Override
-    public String toString() {
-        return "Vaga{" +
-                "id=" + id +
-                ", descricao='" + descricao + '\'' +
-                ", salario=" + salario +
-                ", valeTransporte=" + valeTransporte +
-                ", valeRefeicao=" + valeRefeicao +
-                ", sexo_exigencia=" + sexo_exigencia +
-                ", idade_minima=" + idade_minima +
-                ", nivel_ensino_exigencia=" + nivel_ensino_exigencia +
-                ", dataCadastro=" + dataCadastro +
-                ", area=" + area +
-                ", turno=" + turno +
-                ", hierarquia=" + hierarquia +
-                ", candidatos=" + candidatos +
-                ", empresa=" + empresa +
-                '}';
-    }
+
+
 }

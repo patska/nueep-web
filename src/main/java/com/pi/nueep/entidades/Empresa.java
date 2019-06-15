@@ -182,23 +182,4 @@ public class Empresa {
         this.vagas = vagas;
     }
 
-    @Override
-    public String toString() {
-        return "Empresa{" +
-                "id=" + id +
-                ", ativo=" + ativo +
-                ", nomeFantasia='" + nomeFantasia + '\'' +
-                ", nomeSocial='" + nomeSocial + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                ", responsavel='" + responsavel + '\'' +
-                ", porte=" + porte +
-                ", website='" + website + '\'' +
-                ", email='" + email + '\'' +
-                ", numero='" + numero + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", endereco=" + endereco +
-                ", telefone=" + telefone +
-                ", vagas=" + vagas +
-                '}';
-    }
 }

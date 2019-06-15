@@ -120,9 +120,21 @@ public class VagaController {
     public String incluirCandidato(@RequestParam("candidato") int candidatoId, @RequestParam("vaga") int vagaId) {
         Vaga vaga = vagaService.encontrarPorId(vagaId);
         Candidato candidato = candidatoService.encontrarPorId(candidatoId);
-        vaga.addCandidato(candidato);
+        if (!vaga.getCandidatos().contains(candidato)) {
+            vaga.addCandidato(candidato);
+            vagaService.salvar(vaga);
+        }
+        String retorno = "redirect:/vaga/ficha?vagaId=" + vagaId;
+        return retorno;
+    }
+
+    @GetMapping("/excluirCandidato")
+    public String excluirCandidato(@RequestParam("candidato") int candidatoId, @RequestParam("vaga") int vagaId) {
+        Vaga vaga = vagaService.encontrarPorId(vagaId);
+        Candidato candidato = candidatoService.encontrarPorId(candidatoId);
+        vaga.getCandidatos().remove(candidato);
         vagaService.salvar(vaga);
-        String retorno = ("redirect:ficha?vagaId=" + vaga.getId());
+        String retorno = "redirect:/vaga/ficha?vagaId=" + vagaId;
         return retorno;
     }
 

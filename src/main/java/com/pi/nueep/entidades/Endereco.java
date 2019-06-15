@@ -44,18 +44,7 @@ public class Endereco {
 		this.empresas = empresas;
 	}
 
-	@Override
-	public String toString() {
-		return "Endereco{" +
-				"id=" + id +
-				", cep='" + cep + '\'' +
-				", bairro='" + bairro + '\'' +
-				", logradouro='" + logradouro + '\'' +
-				", municipio=" + municipio +
-				", candidato=" + candidatos +
-				", empresas=" + empresas +
-				'}';
-	}
+
 
 	public void addCandidato(Candidato candidato){
 		if(candidatos == null) candidatos = new ArrayList<>();

@@ -62,7 +62,7 @@
             <tr th:each="tempVagas :${vagas}">
                 <td th:text="${tempVagas?.empresa.getNomeSocial()}"></td>
                 <td th:text="${tempVagas?.area.getNome().getName()}"></td>
-                <td th:text="${tempVagas?.hierarquia.getNivel()}"></td>
+                <td th:text="${tempVagas?.hierarquia.getNivel().getName()}"></td>
                 <td th:text="${tempVagas?.getSalarioReais()}"></td>
                 <td th:text="${tempVagas?.valeTransporte}"></td>
                 <td th:text="${tempVagas?.valeRefeicao}"></td>

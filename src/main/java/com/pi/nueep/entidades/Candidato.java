@@ -42,9 +42,9 @@ public class Candidato {
     private String rg;
     @Column(name = "email")
     private String email;
-    @Column(name="numero")
+    @Column(name = "numero")
     private String numero;
-    @Column(name="complemento")
+    @Column(name = "complemento")
     private String complemento;
     @Column(name = "condicao_especial")
     boolean condicaoEspecial;
@@ -76,24 +76,25 @@ public class Candidato {
 
     // ENDERECO
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="endereco_id")
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
     // TELEFONE
     @OneToOne
-    @JoinColumn(name="telefone_id")
+    @JoinColumn(name = "telefone_id")
     private Telefone telefone;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                CascadeType.DETACH, CascadeType.REFRESH})
+                    CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
-            name="vagas_candidatos",
-            joinColumns = @JoinColumn(name="candidato_id"),
-            inverseJoinColumns = @JoinColumn(name="vaga_id")
+            name = "vagas_candidatos",
+            joinColumns = @JoinColumn(name = "candidato_id"),
+            inverseJoinColumns = @JoinColumn(name = "vaga_id")
     )
     private List<Vaga> vaga;
 
-    public Candidato(){}
+    public Candidato() {
+    }
 
     public Candidato(String nomeCompleto, String nomeSocial, boolean ativo, String matricula, LocalDate dataNascimento, String cpf, String rg, String email, String numero, String complemento, boolean condicaoEspecial, NivelEnsino nivelEnsino, GrauInstrucao grauInstrucao, ModalidadeEnsino modalidadeEnsino, TurnoEstudo turnoEstudo, Sexo sexo, EstadoCivil estadoCivil, ResponsavelLegal responsavelLegal, Endereco endereco, Telefone telefone, List<Vaga> vaga) {
         this.nomeCompleto = nomeCompleto;
@@ -191,6 +192,11 @@ public class Candidato {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public int getIdade() {
+        int idade = Period.between(dataNascimento, LocalDate.now()).getYears();
+        return idade;
     }
 
     public String getCpf() {
@@ -319,5 +325,19 @@ public class Candidato {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public int getCompatibilidade(Vaga vaga) {
+        int aux_compatibilidade = 0;
+        if (this.getEndereco().getMunicipio() == vaga.getEmpresa().getEndereco().getMunicipio()) {
+            aux_compatibilidade += 7;
+            if(this.getEndereco().getBairro() == vaga.getEmpresa().getEndereco().getBairro()) aux_compatibilidade += 15;
+        }
+        if(this.getGrauInstrucao().name() == vaga.getArea().getNome().getName()) aux_compatibilidade += 15;
+        if(this.getSexo().getName() == vaga.getSexo_exigencia().getName()) aux_compatibilidade += 20;
+        if(this.getIdade() >= vaga.getIdade_minima()) aux_compatibilidade += 12;
+
+
+        return aux_compatibilidade;
     }
 }

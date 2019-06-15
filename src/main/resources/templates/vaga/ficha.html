@@ -50,12 +50,13 @@
         </div>
         <h4 class="title is-4">Detalhes da Vaga</h4>
         <p><i>Vaga Id:</i> <span th:text="${vaga.id}"></span></p>
-        <p>Área: <span th:text="${vaga.hierarquia.getNivel().getName()}"></span></p>
-        <p>Função: <span th:text="${vaga.area.getNome().getName()}"></span></p>
+        <p>Função: <span th:text="${vaga.hierarquia.getNivel().getName()}"></span></p>
+        <p>Área: <span th:text="${vaga.area.getNome().getName()}"></span></p>
         <p>Período: <span th:text="${vaga.turno.getPeriodo().getName()}"></span></p>
         <p>Salário: <strong><span th:text="${vaga.salarioReais}"></span></strong></p>
         <p>Vale Transporte: <span th:text="${vaga.valeTransporte}"></span></p>
         <p>Vale Refeição: <span th:text="${vaga.valeRefeicao}"></span></p>
+        <p>Idade minima exigida: <span th:text="${vaga.idade_minima}"></span></p>
         <p>Descrição da Vaga:<i> <span th:text="${vaga.descricao}"></span></i></p>
         <br>
         <h4 class="title is-4">Detalhes da Empresa</h4>
@@ -67,12 +68,12 @@
         <p>Email: <span th:text="${vaga.getEmpresa().getEmail()}"></span></p>
         <br>
         <h4 class="title is-4">Endereço</h4>
-        <p>Endereço Completo: <span th:text="${vaga.getEmpresa().getEndereco().get(0).getLogradouro()}"></span>, <span
-                th:text="${vaga.getEmpresa().getEndereco().get(0).getNumero()}"></span>. <span
-                th:text="${vaga.getEmpresa().getEndereco().get(0).getComplemento()}"></span>. <span
-                th:text="${vaga.getEmpresa().getEndereco().get(0).getMunicipio().getNome()}"></span>/ <span
-                th:text="${vaga.getEmpresa().getEndereco().get(0).getMunicipio().getEstado().getUf()}"></span>. CEP:
-            <span th:text="${vaga.getEmpresa().getEndereco().get(0).getCep()}"></span></p>
+        <p>Endereço Completo: <span th:text="${vaga.getEmpresa().getEndereco().getLogradouro()}"></span>, <span
+                th:text="${vaga.getEmpresa().numero}"></span>. <span
+                th:text="${vaga.getEmpresa().complemento}"></span>. <span
+                th:text="${vaga.getEmpresa().getEndereco().municipio.getNome()}"></span>/ <span
+                th:text="${vaga.getEmpresa().getEndereco().municipio.estado.getUf()}"></span>. CEP:
+            <span th:text="${vaga.getEmpresa().getEndereco().getCep()}"></span></p>
         <br>
         <h4 class="title is-4">Candidatos selecionados</h4>
         <table id="tabelaCandidatoSelecionado" class="display">
@@ -89,16 +90,16 @@
             <tr th:each="tempVagas :${candidatosVaga}">
                 <td th:text="${tempVagas?.getMatricula()}"></td>
                 <td th:text="${tempVagas?.getNomeCompleto()}"></td>
-                <td th:text="${tempVagas?.getTelefone().get(0).getCelular()}"></td>
+                <td th:text="${tempVagas?.getTelefone().getCelular()}"></td>
                 <td th:text="${tempVagas?.getIdade()}">Anos</td>
                 <td>
-                    <a class="button is-small is-success" target="_blank" th:href="@{https://api.whatsapp.com/send(${tempVagas.getTelefone().get(0).getCelularWhatsap()})}" >
+                    <a class="button is-small is-success" target="_blank" >
                         <span class="icon">
                             <i class="fab fa-whatsapp"></i>
                         </span>
-                        <span>Whatsapp<span>2</span></span>
+                        <span>Whatsapp</span>
                     </a>
-                    <a class="button is-small is-danger">
+                    <a class="button is-small is-danger" th:href="@{/vaga/excluirCandidato(candidato=${tempVagas.getId()},vaga=${vaga.getId()})}">
                         Remover
                     </a>
                 </td>
@@ -115,6 +116,7 @@
                 <th>Nome Completo</th>
                 <th>Telefone</th>
                 <th>Idade</th>
+                <th>Compatibilidade (%)</th>
                 <th>Ação</th>
             </tr>
             </thead>
@@ -122,8 +124,9 @@
             <tr th:each="tempCandidatos :${candidatos}">
                 <td th:text="${tempCandidatos?.matricula}"></td>
                 <td th:text="${tempCandidatos?.nomeCompleto}"></td>
-                <td th:text="${tempCandidatos?.getTelefone().get(0).getCelular()}"></td>
+                <td th:text="${tempCandidatos?.getTelefone().getCelular()}"></td>
                 <td th:text="${tempCandidatos?.idade}">Anos</td>
+                <td th:text="${tempCandidatos?.getCompatibilidade(vaga)}"></td>
                 <td>
                     <a th:href="@{/vaga/incluirCandidato(candidato=${tempCandidatos.getId()},vaga=${vaga.getId()})}"
                        class="button is-small is-info">

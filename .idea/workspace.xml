@@ -2,35 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ead4b0d2-29a0-4a05-b778-4850294d02c1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/CandidatoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/CandidatoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/EmpresaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/EmpresaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/VagaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/VagaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EmpresaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EmpresaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EnderecoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EnderecoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EstadoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EstadoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/MunicipioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/MunicipioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/ResponsavelLegalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/ResponsavelLegalRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Candidato.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Candidato.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Empresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Empresa.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Endereco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Endereco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Estado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Estado.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Municipio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Municipio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Telefone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Telefone.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Vaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Vaga.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EmpresaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EmpresaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EmpresaServiceImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EmpresaServiceImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EnderecoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EnderecoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EnderecoServiceImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EnderecoServiceImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EstadoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EstadoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EstadoServiceImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EstadoServiceImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/MunicipioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/MunicipioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/MunicipioServiceImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/MunicipioServiceImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/ResponsavelLegalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/ResponsavelLegalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/ResponsavelLegalServiceImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/ResponsavelLegalServiceImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/candidato/novo-candidato.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/candidato/novo-candidato.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/empresa/nova-empresa.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/empresa/nova-empresa.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/vaga/ficha.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/vaga/ficha.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/vaga/lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/vaga/lista.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/controller/CandidatoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/controller/CandidatoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Candidato.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Candidato.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Empresa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Empresa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Endereco.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Endereco.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Estado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Estado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Municipio.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Municipio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Telefone.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Telefone.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Vaga.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pi/nueep/entidades/Vaga.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/candidato/novo-candidato.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/candidato/novo-candidato.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -48,29 +35,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/vaga/ficha.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1145">
+              <caret line="58" column="67" selection-start-line="58" selection-start-column="67" selection-end-line="58" selection-end-column="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/VagaController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="25">
+              <caret line="135" column="31" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#5911#5919#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Vaga.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="233" selection-start-line="233" selection-end-line="233" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/CandidatoController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Candidato.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-213">
-              <caret line="89" column="56" selection-start-line="89" selection-start-column="56" selection-end-line="89" selection-end-column="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/candidato/novo-candidato.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2776">
-              <caret line="258" column="45" lean-forward="true" selection-start-line="258" selection-start-column="45" selection-end-line="258" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/EmpresaController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="139" column="50" lean-forward="true" selection-start-line="122" selection-start-column="7" selection-end-line="139" selection-end-column="50" />
+            <state relative-caret-position="195">
+              <caret line="337" column="29" selection-start-line="337" selection-start-column="29" selection-end-line="337" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -87,7 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>idade</find>
       <find>desc</find>
       <find>faltam</find>
       <find>salário</find>
@@ -95,12 +94,18 @@
       <find>titulo</find>
       <find>data</find>
       <find>var</find>
-      <find>ficha</find>
       <find>replace</find>
       <find>lograd</find>
       <find>complemento</find>
       <find>numero</find>
       <find>responsa</find>
+      <find>ficha</find>
+      <find>idade</find>
+      <find>toString</find>
+      <find>ToStrin</find>
+      <find>incluir</find>
+      <find>redi</find>
+      <find>what</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,16 +134,10 @@
         <option value="$PROJECT_DIR$/src/main/resources/static/navbar.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/VagaService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/VagaServiceImplements.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/vaga/lista.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Hierarquia.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Vaga.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/VagaController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/vaga/ficha.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Estado.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Municipio.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Endereco.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Telefone.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Empresa.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EstadoRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EstadoService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/EstadoServiceImplement.java" />
@@ -156,9 +155,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/ResponsavelLegalRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/ResponsavelLegalService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/service/ResponsavelLegalServiceImplement.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Candidato.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/candidato/novo-candidato.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/CandidatoController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Endereco.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/vaga/lista.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Empresa.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/VagaController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Vaga.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/vaga/ficha.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Candidato.java" />
       </list>
     </option>
   </component>
@@ -286,6 +291,15 @@
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="empresa" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="nueep" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nueep-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="vaga" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -349,15 +363,24 @@
       <option name="presentableId" value="Default" />
       <updated>1560599898654</updated>
       <workItem from="1560599902685" duration="15447000" />
-      <workItem from="1560616085146" duration="15879000" />
+      <workItem from="1560616085146" duration="18922000" />
     </task>
+    <task id="LOCAL-00001" summary="Reestruturação do banco de dados empresa, candidato, endereço, telefone, municipio e estado.">
+      <created>1560632427396</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1560632427396</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31326000" />
+    <option name="totallyTimeSpent" value="34369000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49512196" visible="true" weight="0.19591528" />
       <window_info id="Structure" order="1" sideWeight="0.50487804" side_tool="true" weight="0.19591528" />
@@ -369,7 +392,7 @@
       <window_info id="Web" order="7" sideWeight="0.50487804" side_tool="true" weight="0.19288956" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -381,7 +404,7 @@
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3289689" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.3289689" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="14" visible="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -397,17 +420,11 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Reestruturação do banco de dados empresa, candidato, endereço, telefone, municipio e estado." />
+    <option name="LAST_COMMIT_MESSAGE" value="Reestruturação do banco de dados empresa, candidato, endereço, telefone, municipio e estado." />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/HierarquiaRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="79" selection-start-line="6" selection-start-column="79" selection-end-line="6" selection-end-column="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/TurnoRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -557,13 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/vaga/lista.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="70" column="52" selection-start-line="70" selection-start-column="52" selection-end-line="70" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/service/VagaServiceImplements.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -599,23 +609,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/vaga/ficha.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="94" column="114" selection-start-line="94" selection-start-column="114" selection-end-line="94" selection-end-column="114" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.19/tomcat-embed-core-9.0.19.jar!/org/apache/tomcat/util/net/NioEndpoint.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-969" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Vaga.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-646">
-          <caret line="33" column="7" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="55" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Telefone.java">
@@ -670,17 +666,6 @@
           <folding>
             <element signature="e#978#979#0" expanded="true" />
             <element signature="e#996#997#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Endereco.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="65" column="43" selection-start-line="65" selection-start-column="43" selection-end-line="65" selection-end-column="43" />
-          <folding>
-            <element signature="e#2053#2054#0" expanded="true" />
-            <element signature="e#2073#2074#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -793,16 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/VagaController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="91" column="53" lean-forward="true" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/dao/EmpresaRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -839,30 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Empresa.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="37" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Candidato.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="298" lean-forward="true" selection-start-line="298" selection-end-line="298" />
-          <folding>
-            <element signature="e#8577#8578#0" expanded="true" />
-            <element signature="e#8606#8607#0" expanded="true" />
-            <element signature="e#8650#8651#0" expanded="true" />
-            <element signature="e#8686#8687#0" expanded="true" />
-            <element signature="e#8724#8725#0" expanded="true" />
-            <element signature="e#8758#8759#0" expanded="true" />
-            <element signature="e#8812#8813#0" expanded="true" />
-            <element signature="e#8858#8859#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/EmpresaController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
@@ -877,10 +828,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/CandidatoController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-213">
-          <caret line="89" column="56" selection-start-line="89" selection-start-column="56" selection-end-line="89" selection-end-column="56" />
+        <state relative-caret-position="127">
+          <caret line="109" column="71" lean-forward="true" selection-start-line="109" selection-start-column="71" selection-end-line="109" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Endereco.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="e#2053#2054#0" expanded="true" />
+            <element signature="e#2073#2074#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/vaga/lista.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="71" column="29" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Empresa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="175" lean-forward="true" selection-start-line="175" selection-end-line="175" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/controller/VagaController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="135" column="31" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5911#5919#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Vaga.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="233" selection-start-line="233" selection-end-line="233" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/vaga/ficha.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1145">
+          <caret line="58" column="67" selection-start-line="58" selection-start-column="67" selection-end-line="58" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/pi/nueep/entidades/Candidato.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="337" column="29" selection-start-line="337" selection-start-column="29" selection-end-line="337" selection-end-column="29" />
         </state>
       </provider>
     </entry>
