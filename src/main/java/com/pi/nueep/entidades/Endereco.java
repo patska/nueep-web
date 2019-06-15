@@ -1,20 +1,10 @@
 package com.pi.nueep.entidades;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="endereco")
@@ -28,41 +18,56 @@ public class Endereco {
 	private String bairro; 
 	@Column(name="logradouro")
 	private String logradouro;
-	@Column(name="numero")
-	private String numero;
-	@Column(name="complemento")
-	private String complemento;
-	@OneToOne(cascade = CascadeType.ALL)
+
+	// CIDADE
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="municipio_id")
 	private Municipio municipio;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="candidato_endereco",
-				joinColumns = @JoinColumn(name="endereco_id"),
-				inverseJoinColumns = @JoinColumn(name="candidato_id"))
-	private List<Candidato> candidato;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="empresa_endereco",
-				joinColumns = @JoinColumn(name="endereco_id"),
-				inverseJoinColumns = @JoinColumn(name="empresa_id"))
-	private List<Empresa> empresa;
+	// CANDIDATO
+	@OneToMany(mappedBy = "endereco",fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Candidato> candidatos;
+	// EMPRESA
+	@OneToMany(mappedBy = "endereco",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Empresa> empresas;
 
-	public Endereco() {
-		super();
+	public Endereco(){
 	}
 
-	
-
-	public Endereco(String cep, String bairro, String logradouro, String numero, String complemento) {
-		super();
+	public Endereco(String cep, String bairro, String logradouro, Municipio municipio, List<Candidato> candidato, List<Empresa> empresas) {
 		this.cep = cep;
 		this.bairro = bairro;
 		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
+		this.municipio = municipio;
+		this.candidatos = candidato;
+		this.empresas = empresas;
 	}
 
+	@Override
+	public String toString() {
+		return "Endereco{" +
+				"id=" + id +
+				", cep='" + cep + '\'' +
+				", bairro='" + bairro + '\'' +
+				", logradouro='" + logradouro + '\'' +
+				", municipio=" + municipio +
+				", candidato=" + candidatos +
+				", empresas=" + empresas +
+				'}';
+	}
+
+	public void addCandidato(Candidato candidato){
+		if(candidatos == null) candidatos = new ArrayList<>();
+		candidatos.add(candidato);
+		candidato.setEndereco(this);
+	}
+
+	public void addEmpresa(Empresa empresa){
+		if(empresas == null) empresas = new ArrayList<>();
+		empresas.add(empresa);
+		empresa.setEndereco(this);
+	}
 
 
 	public int getId() {
@@ -97,22 +102,6 @@ public class Endereco {
 		this.logradouro = logradouro;
 	}
 
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
 	public Municipio getMunicipio() {
 		return municipio;
 	}
@@ -121,33 +110,19 @@ public class Endereco {
 		this.municipio = municipio;
 	}
 
-	public List<Candidato> getCandidato() {
-		return candidato;
+	public List<Candidato> getCandidatos() {
+		return candidatos;
 	}
 
-	public void setCandidato(List<Candidato> candidato) {
-		this.candidato = candidato;
+	public void setCandidatos(List<Candidato> candidato) {
+		this.candidatos = candidato;
 	}
 
-	
-	public List<Empresa> getEmpresa() {
-		return empresa;
+	public List<Empresa> getEmpresas() {
+		return empresas;
 	}
 
-
-
-	public void setEmpresa(List<Empresa> empresa) {
-		this.empresa = empresa;
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
 	}
-
-
-
-	@Override
-	public String toString() {
-		return "Endereco [id=" + id + ", cep=" + cep + ", bairro=" + bairro + ", logradouro=" + logradouro + ", numero="
-				+ numero + ", complemento=" + complemento + ", municipio=" + municipio + ", candidato=" + candidato
-				+ "]";
-	}
-	
-	
 }

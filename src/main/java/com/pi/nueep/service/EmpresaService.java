@@ -14,5 +14,6 @@ public interface EmpresaService {
     public List<Empresa> encontrarTodos();
     public void salvar(Empresa empresa);
     public void deletarPorId(int id);
-    public Empresa pesquisarPeloNomeSocial(String NomeSocial);    
+    public Empresa pesquisarPeloNomeSocial(String NomeSocial);
+    public Empresa pesquisarPeloCnpj(String cnpj);
 }

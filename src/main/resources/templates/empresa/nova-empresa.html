@@ -112,11 +112,14 @@
                                 </div>
                     </div>
                     <div class="column">
-                        Third column
+                        <div class="field">
+                            <label>Website</label>
+                            <div class="control">
+                                <input class="input" type="text" name="" id="" placeholder="Site da empresa" th:field="${empresa.website}">
+                            </div>
+                        </div>
                     </div>
-                    <div class="column">
-                        Fourth column
-                    </div>
+
                 </div>
 
                 <br>
@@ -148,7 +151,7 @@
                             <div class="control has-icons-left">
                                 <input class="input" th:field="${empresa.email}"
                                     onkeyup="this.value = this.value.toLowerCase();" type="text" data-validation="email"
-                                    name="" id="celular-candidato">
+                                    name="">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-envelope"></i>
                                 </span>
@@ -195,7 +198,7 @@
                         <div class="field">
                             <label for="numero-residencial">Número</label>
                             <div class="control">
-                                <input class="input" th:field="${endereco.numero}" data-validation="number" type="text"
+                                <input class="input" th:field="${empresa.numero}" data-validation="number" type="text"
                                     name="" id="numero">
                             </div>
                         </div>
@@ -204,7 +207,7 @@
                         <div class="field">
                             <label for="complemento-residencial">Complemento</label>
                             <div class="control">
-                                <input class="input" th:field="${endereco.complemento}" type="text" name=""
+                                <input class="input" th:field="${empresa.complemento}" type="text" name=""
                                     id="complemento">
                             </div>
                         </div>

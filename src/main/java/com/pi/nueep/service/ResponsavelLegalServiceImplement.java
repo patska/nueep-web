@@ -39,6 +39,11 @@ public class ResponsavelLegalServiceImplement implements ResponsavelLegalService
     }
 
     @Override
+    public ResponsavelLegal encontrarPorRg(String rgResponsavel) {
+        return responsavelLegalRepository.encontrarPorRg(rgResponsavel);
+    }
+
+    @Override
     public void deletarPorId(int id) {
         responsavelLegalRepository.deleteById(id);
     }

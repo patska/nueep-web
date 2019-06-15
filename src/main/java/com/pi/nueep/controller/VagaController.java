@@ -4,12 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pi.nueep.entidades.Area;
-import com.pi.nueep.entidades.Empresa;
-import com.pi.nueep.entidades.Turno;
-import com.pi.nueep.entidades.Vaga;
+import com.pi.nueep.entidades.*;
 import com.pi.nueep.entidades.listas.AreaProfissional;
-import com.pi.nueep.entidades.Hierarquia;
 import com.pi.nueep.entidades.listas.NivelEnsino;
 import com.pi.nueep.entidades.listas.Sexo;
 import com.pi.nueep.entidades.listas.TurnoEstudo;
@@ -30,16 +26,18 @@ public class VagaController {
     private AreaService areaService;
     private HierarquiaService hierarquiaService;
     private TurnoService turnoService;
+    private CandidatoService candidatoService;
 
     public VagaController(EmpresaService aEmpresaService, VagaService aVagaService,
                           AreaService oAreaService, HierarquiaService hierarquiaService1,
-                          TurnoService turnoService1){
+                          TurnoService turnoService1, CandidatoService candidatoService1) {
 
         empresaService = aEmpresaService;
         vagaService = aVagaService;
         areaService = oAreaService;
         hierarquiaService = hierarquiaService1;
         turnoService = turnoService1;
+        candidatoService = candidatoService1;
     }
 
     @GetMapping("/novo")
@@ -54,7 +52,7 @@ public class VagaController {
             Model modelTurnoTipo,
             Model modelTipoEnsino,
             Model modelTipoSexo
-    ){
+    ) {
         Empresa empresa = new Empresa();
         Vaga vaga = new Vaga();
         Area area = new Area();
@@ -82,8 +80,7 @@ public class VagaController {
                                 @ModelAttribute("vaga") Vaga aVaga,
                                 @ModelAttribute("area") Area oArea,
                                 @ModelAttribute("hierarquia") Hierarquia aHierarquia,
-                                @ModelAttribute("turno") Turno oTurno)
-    {
+                                @ModelAttribute("turno") Turno oTurno) {
 
         Empresa empresa = empresaService.pesquisarPeloNomeSocial(razaoSocial);
         aVaga.setHierarquia(aHierarquia);
@@ -94,9 +91,9 @@ public class VagaController {
         salarioString = salarioString.replaceAll("[^0-9]", "");
         vtString = vtString.replaceAll("[^0-9]", "");
         vrString = vrString.replaceAll("[^0-9]", "");
-        double salarioDouble = Double.parseDouble(salarioString)/100;
-        double vtDouble = Double.parseDouble(vtString)/100;
-        double vrDouble = Double.parseDouble(vrString)/100;
+        double salarioDouble = Double.parseDouble(salarioString) / 100;
+        double vtDouble = Double.parseDouble(vtString) / 100;
+        double vrDouble = Double.parseDouble(vrString) / 100;
         System.out.println("Salário em double é: " + salarioDouble);
         System.out.println("VT em double é: " + vtDouble);
         System.out.println("VR em double é: " + vrDouble);
@@ -108,21 +105,35 @@ public class VagaController {
         vagaService.salvar(aVaga);
 
 
-		return "redirect:/vaga/listar";
+        return "redirect:/vaga/listar";
     }
 
 
     @GetMapping("/listar")
-    public String listarVagas(Model theModel){
+    public String listarVagas(Model theModel) {
         List<Vaga> vagas = vagaService.encontrarTodos();
         theModel.addAttribute("vagas", vagas);
         return "vaga/lista";
     }
 
+    @GetMapping("/incluirCandidato")
+    public String incluirCandidato(@RequestParam("candidato") int candidatoId, @RequestParam("vaga") int vagaId) {
+        Vaga vaga = vagaService.encontrarPorId(vagaId);
+        Candidato candidato = candidatoService.encontrarPorId(candidatoId);
+        vaga.addCandidato(candidato);
+        vagaService.salvar(vaga);
+        String retorno = ("redirect:ficha?vagaId=" + vaga.getId());
+        return retorno;
+    }
+
     @GetMapping("/ficha")
-    public String fichaVaga(@RequestParam("vagaId") int id, Model modelVaga){
+    public String fichaVaga(@RequestParam("vagaId") int id, Model modelVaga, Model modelVagas, Model modelCandidato) {
         Vaga vaga = vagaService.encontrarPorId(id);
         modelVaga.addAttribute("vaga", vaga);
+        List<Candidato> candidatosVaga = vaga.getCandidatos();
+        modelVagas.addAttribute("candidatosVaga", candidatosVaga);
+        List<Candidato> candidatos = candidatoService.encontrarTodos();
+        modelCandidato.addAttribute("candidatos", candidatos);
         System.out.println(vaga.toString());
         return "vaga/ficha";
     }
@@ -130,13 +141,13 @@ public class VagaController {
 
     @RequestMapping("/empresaAutocomplete")
     @ResponseBody
-    public List<String> empresaAutoCompletar(){
+    public List<String> empresaAutoCompletar() {
         List<Empresa> listaEmpresa = empresaService.encontrarTodos();
         List<String> sugg = new ArrayList<String>();
         for (Empresa empresa : listaEmpresa) {
             sugg.add(empresa.getNomeSocial());
         }
-        
+
         return sugg;
     }
 }

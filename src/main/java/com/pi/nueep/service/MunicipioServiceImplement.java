@@ -42,6 +42,11 @@ public class MunicipioServiceImplement implements MunicipioService{
     }
 
 	@Override
+	public Municipio encontrarPorNome(String nome) {
+		return municipioRepository.encontrarPorNome(nome);
+	}
+
+	@Override
 	public void deletarPorId(int id) {
 		municipioRepository.deleteById(id);
 	}

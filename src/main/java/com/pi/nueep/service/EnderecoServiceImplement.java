@@ -37,6 +37,11 @@ public class EnderecoServiceImplement implements EnderecoService {
 	}
 
 	@Override
+	public Endereco encontrarPorCep(String cep) {
+		return enderecoRepository.encontrarPorCep(cep);
+	}
+
+	@Override
 	public void deletarPorId(int id) {
 		enderecoRepository.deleteById(id);
 	}

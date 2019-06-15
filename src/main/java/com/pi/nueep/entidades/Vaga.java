@@ -35,7 +35,7 @@ public class Vaga {
     @Column(name = "vaga_id")
     private int id;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", columnDefinition="TEXT")
     private String descricao;
     @Column(name = "salario")
     private double salario;

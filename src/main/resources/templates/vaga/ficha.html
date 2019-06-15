@@ -18,6 +18,8 @@
     <script>
         $(document).ready(function () {
             $("#navbar-default").load("/navbar.html");
+            $('#tabelaCandidato').DataTable();
+            $('#tabelaCandidatoSelecionado').DataTable();
         });
     </script>
 
@@ -29,7 +31,9 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <span th:text="${vaga.hierarquia.getNivel().getName()}"></span> de <span th:text="${vaga.area.getNome().getName()}"></span> <br> Empresa: <span th:text="${vaga.empresa.getNomeSocial()}"></span>
+                <span th:text="${vaga.hierarquia.getNivel().getName()}"></span> de <span
+                    th:text="${vaga.area.getNome().getName()}"></span> <br> Empresa: <span
+                    th:text="${vaga.empresa.getNomeSocial()}"></span>
             </h1>
             <h2 class="subtitle">
                 Data de inclusão: <i><span th:text="${vaga.dataCadastro}"></span></i>
@@ -38,11 +42,103 @@
     </div>
 </section>
 
-<div class="">
+<div class="container">
     <div class="notification">
+        <div class="buttons is-right">
+            <a class="button is-primary">Editar Vaga</a>
+            <a class="button is-danger">Remover Vaga</a>
+        </div>
+        <h4 class="title is-4">Detalhes da Vaga</h4>
+        <p><i>Vaga Id:</i> <span th:text="${vaga.id}"></span></p>
+        <p>Área: <span th:text="${vaga.hierarquia.getNivel().getName()}"></span></p>
+        <p>Função: <span th:text="${vaga.area.getNome().getName()}"></span></p>
+        <p>Período: <span th:text="${vaga.turno.getPeriodo().getName()}"></span></p>
+        <p>Salário: <strong><span th:text="${vaga.salarioReais}"></span></strong></p>
+        <p>Vale Transporte: <span th:text="${vaga.valeTransporte}"></span></p>
+        <p>Vale Refeição: <span th:text="${vaga.valeRefeicao}"></span></p>
+        <p>Descrição da Vaga:<i> <span th:text="${vaga.descricao}"></span></i></p>
+        <br>
+        <h4 class="title is-4">Detalhes da Empresa</h4>
+        <p>Nome Fantasia: <span th:text="${vaga.empresa.getNomeFantasia()}"></span></p>
+        <p>Razão Social: <span th:text="${vaga.empresa.getNomeSocial()}"></span></p>
+        <p>CNPJ: <span th:text="${vaga.empresa.getCnpj()}"></span></p>
+        <p>Responsável: <span th:text="${vaga.empresa.getResponsavel()}"></span></p>
+        <!--<p>Telefone: <span th:text="${vaga.getEmpresa().getTelefone().get(0).getFixo()}"></span></p>-->
+        <p>Email: <span th:text="${vaga.getEmpresa().getEmail()}"></span></p>
+        <br>
+        <h4 class="title is-4">Endereço</h4>
+        <p>Endereço Completo: <span th:text="${vaga.getEmpresa().getEndereco().get(0).getLogradouro()}"></span>, <span
+                th:text="${vaga.getEmpresa().getEndereco().get(0).getNumero()}"></span>. <span
+                th:text="${vaga.getEmpresa().getEndereco().get(0).getComplemento()}"></span>. <span
+                th:text="${vaga.getEmpresa().getEndereco().get(0).getMunicipio().getNome()}"></span>/ <span
+                th:text="${vaga.getEmpresa().getEndereco().get(0).getMunicipio().getEstado().getUf()}"></span>. CEP:
+            <span th:text="${vaga.getEmpresa().getEndereco().get(0).getCep()}"></span></p>
+        <br>
+        <h4 class="title is-4">Candidatos selecionados</h4>
+        <table id="tabelaCandidatoSelecionado" class="display">
+            <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome Completo</th>
+                <th>Telefone</th>
+                <th>Idade</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tempVagas :${candidatosVaga}">
+                <td th:text="${tempVagas?.getMatricula()}"></td>
+                <td th:text="${tempVagas?.getNomeCompleto()}"></td>
+                <td th:text="${tempVagas?.getTelefone().get(0).getCelular()}"></td>
+                <td th:text="${tempVagas?.getIdade()}">Anos</td>
+                <td>
+                    <a class="button is-small is-success" target="_blank" th:href="@{https://api.whatsapp.com/send(${tempVagas.getTelefone().get(0).getCelularWhatsap()})}" >
+                        <span class="icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </span>
+                        <span>Whatsapp<span>2</span></span>
+                    </a>
+                    <a class="button is-small is-danger">
+                        Remover
+                    </a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <h4 class="title is-4">Candidatos por compatibilidade</h4>
+        <table id="tabelaCandidato" class="display">
+            <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome Completo</th>
+                <th>Telefone</th>
+                <th>Idade</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tempCandidatos :${candidatos}">
+                <td th:text="${tempCandidatos?.matricula}"></td>
+                <td th:text="${tempCandidatos?.nomeCompleto}"></td>
+                <td th:text="${tempCandidatos?.getTelefone().get(0).getCelular()}"></td>
+                <td th:text="${tempCandidatos?.idade}">Anos</td>
+                <td>
+                    <a th:href="@{/vaga/incluirCandidato(candidato=${tempCandidatos.getId()},vaga=${vaga.getId()})}"
+                       class="button is-small is-info">
+                        Selecionar
+                    </a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
 
     </div>
 </div>
+
 
 </body>
 <footer class="footer" style="background: #363636">

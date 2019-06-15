@@ -1,5 +1,6 @@
 package com.pi.nueep.controller;
 
+import com.pi.nueep.entidades.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-import com.pi.nueep.entidades.Candidato;
-import com.pi.nueep.entidades.Endereco;
-import com.pi.nueep.entidades.Estado;
-import com.pi.nueep.entidades.Municipio;
-import com.pi.nueep.entidades.ResponsavelLegal;
-import com.pi.nueep.entidades.Telefone;
 import com.pi.nueep.service.CandidatoService;
 import com.pi.nueep.service.EnderecoService;
 import com.pi.nueep.service.EstadoService;
@@ -84,23 +79,47 @@ public class CandidatoController {
 		@ModelAttribute("responsavelLegal") ResponsavelLegal oResponsavelLegal) {
 
 
-		estadoService.salvar(oEstado);
-		oMunicipio.setEstado(oEstado);
-		municipioService.salvar(oMunicipio);
+		//VALIDAÇÃO DE RESPONSÁVEL LEGAL
 
-		oEndereco.setMunicipio(oMunicipio);
-		enderecoService.salvar(oEndereco);
-		oCandidato.addEndereco(oEndereco);
+		if(responsavelLegalService.encontrarPorRg(oResponsavelLegal.getRgResponsavel()) == null){
+			if(oResponsavelLegal.getRgResponsavel() != null) responsavelLegalService.salvar(oResponsavelLegal);
+		}
+		else{
+			oResponsavelLegal = responsavelLegalService.encontrarPorRg(oResponsavelLegal.getRgResponsavel());
+		}
+		oCandidato.setResponsavelLegal(oResponsavelLegal);
+		// VALIDAÇÃO DE ESTADO
+		if(estadoService.encontrarPorUf(oEstado.getUf()) == null) estadoService.salvar(oEstado);
+		else {
+			oEstado = estadoService.encontrarPorUf(oEstado.getUf());
+		}
 
+		// VALIDAÇÃO DE MUNICIPIO
+		if(municipioService.encontrarPorNome(oMunicipio.getNome()) == null){
+			oMunicipio.setEstado(oEstado);
+			municipioService.salvar(oMunicipio);
+		}
+		else {
+			oMunicipio = municipioService.encontrarPorNome(oMunicipio.getNome());
+		}
+
+		// VALIDAÇÃO DE ENDEREÇO
+		if(enderecoService.encontrarPorCep(oEndereco.getCep()) == null){
+			oEndereco.setMunicipio(oMunicipio);
+			enderecoService.salvar(oEndereco);
+		} else oEndereco = enderecoService.encontrarPorCep(oEndereco.getCep());
+		oCandidato.setEndereco(oEndereco);
+
+		// TELEFONE
 		telefoneService.salvar(oTelefone);
-		oCandidato.addTelefone(oTelefone);
+		oCandidato.setTelefone(oTelefone);
+
 
 		oCandidato.setAtivo(true);
-		responsavelLegalService.salvar(oResponsavelLegal);
-		oCandidato.setResponsavelLegal(oResponsavelLegal);
 
-		responsavelLegalService.salvar(oResponsavelLegal);
 		candidatoService.salvar(oCandidato);
+
+
 
 		return "redirect:/candidato/listar";
 	}
@@ -118,35 +137,30 @@ public class CandidatoController {
 
 	@GetMapping("/atualizar")
 	public String mostrarFormulario(
-		@RequestParam("candidatoId") int oId, 
-		Model candidatoModelo, 
-		Model responsavelLegalModelo,
-		Model enderecoModelo, 
-		Model telefoneModelo, 
-		Model municipioModelo, 
-		Model estadoModelo
-		){
+		@RequestParam("candidatoId") int oId,
+		Model candidatoModelo,
+		Model telefoneModelo,
+		Model enderecoModelo,
+		Model municipioModelo,
+		Model estadoModelo,
+		Model responsavelLegalModelo
+	){
 
 		Candidato candidato = candidatoService.encontrarPorId(oId);
+		Endereco endereco = candidato.getEndereco();
+		Telefone telefone = candidato.getTelefone();
+		Municipio municipio = candidato.getEndereco().getMunicipio();
+		Estado estado = candidato.getEndereco().getMunicipio().getEstado();
 		ResponsavelLegal responsavelLegal = candidato.getResponsavelLegal();
-		Telefone telefone = candidato.getTelefone().get(0);
-		Endereco endereco = candidato.getEndereco().get(0);
-		Municipio municipio = endereco.getMunicipio();
-		Estado estado = municipio.getEstado();
-
-		System.out.println("===================");
-		System.out.println("Nome Completo: " + candidato.getNomeCompleto());
-		System.out.println("CPF: " + candidato.getCpf());
-		System.out.println("Data de Nascimento: " + candidato.getDataNascimento());
-		System.out.println("===================");
 
 		candidatoModelo.addAttribute("candidato", candidato);
-		responsavelLegalModelo.addAttribute("responsavelLegal", responsavelLegal);
-		telefoneModelo.addAttribute("telefone", telefone);
 		enderecoModelo.addAttribute("endereco", endereco);
+		telefoneModelo.addAttribute("telefone", telefone);
 		municipioModelo.addAttribute("municipio", municipio);
 		estadoModelo.addAttribute("estado", estado);
-		
+		responsavelLegalModelo.addAttribute("responsavelLegal", responsavelLegal);
+
+
 		return "candidato/novo-candidato";
 
 	}

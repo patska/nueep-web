@@ -41,6 +41,11 @@ public class EstadoServiceImplement implements EstadoService {
 	}
 
 	@Override
+	public Estado encontrarPorUf(String uf) {
+		return estadoRepository.encontrarPorUf(uf);
+	}
+
+	@Override
 	public void deletarPorId(int id) {
 		estadoRepository.deleteById(id);
 	}

@@ -72,34 +72,41 @@ public class EmpresaController {
     
     @PostMapping("/salvar")
     public String salvarEmpresa(
-        @ModelAttribute("endereco") Endereco oEndereco, 
         @ModelAttribute("empresa") Empresa oEmpresa,
+        @ModelAttribute("endereco") Endereco oEndereco,
 		@ModelAttribute("municipio") Municipio oMunicipio,
 		@ModelAttribute("estado") Estado oEstado,
-		@ModelAttribute("telefone") Telefone oTelefone    
+		@ModelAttribute("telefone") Telefone oTelefone
     ){
-        estadoService.salvar(oEstado);
-		oMunicipio.setEstado(oEstado);
-		municipioService.salvar(oMunicipio);
 
-		oEndereco.setMunicipio(oMunicipio);
-		enderecoService.salvar(oEndereco);
-		oEmpresa.addEndereco(oEndereco);
+        // VALIDAÇÃO DE ESTADO
+        if(estadoService.encontrarPorUf(oEstado.getUf()) == null) estadoService.salvar(oEstado);
+        else {
+            oEstado = estadoService.encontrarPorUf(oEstado.getUf());
+        }
 
-		telefoneService.salvar(oTelefone);
-		oEmpresa.addTelefone(oTelefone);
+        // VALIDAÇÃO DE MUNICIPIO
+        if(municipioService.encontrarPorNome(oMunicipio.getNome()) == null){
+            oMunicipio.setEstado(oEstado);
+            municipioService.salvar(oMunicipio);
+        }
+        else {
+            oMunicipio = municipioService.encontrarPorNome(oMunicipio.getNome());
+        }
 
-		oEmpresa.setAtivo(true);
-        System.out.println("============");
-        System.out.println("TELEFONE");
-        System.out.println(oEmpresa.getTelefone());
-        System.out.println("============");
-        System.out.println("ENDERECO");
-        System.out.println("============");
-        System.out.println(oEmpresa.getEndereco());
-        System.out.println("============");
-		empresaService.salvar(oEmpresa);
+        // VALIDAÇÃO DE ENDEREÇO
+        if(enderecoService.encontrarPorCep(oEndereco.getCep()) == null){
+            oEndereco.setMunicipio(oMunicipio);
+            enderecoService.salvar(oEndereco);
+        } else oEndereco = enderecoService.encontrarPorCep(oEndereco.getCep());
+        oEmpresa.setEndereco(oEndereco);
 
+        // TELEFONE
+        telefoneService.salvar(oTelefone);
+        oEmpresa.setTelefone(oTelefone);
+
+        oEmpresa.setAtivo(true);
+        empresaService.salvar(oEmpresa);
 		return "redirect:/empresa/listar";
     }
 
@@ -115,27 +122,22 @@ public class EmpresaController {
 		@RequestParam("empresaId") int oId, 
         Model empresaModel,
         Model telefoneModelo,
-		Model enderecoModelo, 
-		Model telefoeModelo, 
-		Model municipioModelo, 
+		Model enderecoModelo,
+		Model municipioModelo,
 		Model estadoModelo
 		){
 
-		Empresa empresa = empresaService.encontrarPorId(oId);
-        Telefone telefone = empresa.getTelefone().get(0);
-        Endereco endereco = empresa.getEndereco().get(0);
-		Municipio municipio = endereco.getMunicipio();
-		Estado estado = municipio.getEstado();
+        Empresa empresa = empresaService.encontrarPorId(oId);
+        Endereco endereco = empresa.getEndereco();
+        Telefone telefone = empresa.getTelefone();
+        Municipio municipio = empresa.getEndereco().getMunicipio();
+        Estado estado = empresa.getEndereco().getMunicipio().getEstado();
 
-    
-
-
-
-		empresaModel.addAttribute("empresa", empresa);
-		telefoneModelo.addAttribute("telefone", telefone);
-		enderecoModelo.addAttribute("endereco", endereco);
-		municipioModelo.addAttribute("municipio", municipio);
-		estadoModelo.addAttribute("estado", estado);
+        empresaModel.addAttribute("empresa", empresa);
+        enderecoModelo.addAttribute("endereco", endereco);
+        telefoneModelo.addAttribute("telefone", telefone);
+        municipioModelo.addAttribute("municipio", municipio);
+        estadoModelo.addAttribute("estado", estado);
 		
 		return "empresa/nova-empresa";
 

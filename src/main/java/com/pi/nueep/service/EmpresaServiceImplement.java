@@ -63,5 +63,10 @@ public class EmpresaServiceImplement implements EmpresaService {
         return empresaRepository.encontrarPorNomeSocial(NomeSocial);
     }
 
-    
+    @Override
+    public Empresa pesquisarPeloCnpj(String cnpj) {
+        return empresaRepository.encontrarPorCnpj(cnpj);
+    }
+
+
 }

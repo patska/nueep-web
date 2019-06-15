@@ -1,12 +1,9 @@
 package com.pi.nueep.entidades;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="estado")
@@ -20,20 +17,19 @@ public class Estado {
 	private String nome;
 	@Column(name = "uf")
 	private String uf;
+
+	@OneToMany(mappedBy = "estado",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Municipio> municipios;
 	
-	public Estado() {
-		super();
+	public Estado(){
 	}
 
-	public Estado(String nome, String uf) {
-		super();
+	public Estado(String nome, String uf, List<Municipio> municipios) {
 		this.nome = nome;
 		this.uf = uf;
-	}
-
-	@Override
-	public String toString() {
-		return "Estado [id=" + id + ", nome=" + nome + ", uf=" + uf + "]";
+		this.municipios = municipios;
 	}
 
 	public int getId() {
@@ -59,7 +55,20 @@ public class Estado {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
-	
-	
+
+	public List<Municipio> getMunicipios() {
+		return municipios;
+	}
+
+	public void setMunicipios(List<Municipio> municipios) {
+		this.municipios = municipios;
+	}
+
+	public void add(Municipio municipio){
+		if(municipios == null){
+			municipios = new ArrayList<>();
+		}
+		municipios.add(municipio);
+		municipio.setEstado(this);
+	}
 }
