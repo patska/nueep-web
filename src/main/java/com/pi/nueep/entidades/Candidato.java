@@ -329,13 +329,46 @@ public class Candidato {
 
     public int getCompatibilidade(Vaga vaga) {
         int aux_compatibilidade = 0;
+        // CIDADE E BAIRRO
         if (this.getEndereco().getMunicipio() == vaga.getEmpresa().getEndereco().getMunicipio()) {
             aux_compatibilidade += 7;
-            if(this.getEndereco().getBairro() == vaga.getEmpresa().getEndereco().getBairro()) aux_compatibilidade += 15;
+            if (this.getEndereco().getBairro() == vaga.getEmpresa().getEndereco().getBairro())
+                aux_compatibilidade += 15;
         }
-        if(this.getGrauInstrucao().name() == vaga.getArea().getNome().getName()) aux_compatibilidade += 15;
-        if(this.getSexo().getName() == vaga.getSexo_exigencia().getName()) aux_compatibilidade += 20;
-        if(this.getIdade() >= vaga.getIdade_minima()) aux_compatibilidade += 12;
+        // SEXO
+        if(vaga.getSexo_exigencia() == null) aux_compatibilidade += 20;
+        else{
+            if(this.getSexo().getName() == vaga.getSexo_exigencia().getName()) aux_compatibilidade += 20;
+        }
+
+        if (this.getIdade() >= vaga.getIdade_minima()) aux_compatibilidade += 12;
+
+
+        if(vaga.getNivel_ensino_exigencia() ==  NivelEnsino.EnsinoFundamental){
+            if(this.getNivelEnsino() == NivelEnsino.EnsinoFundamental) aux_compatibilidade += 15;
+        }
+        else if(vaga.getNivel_ensino_exigencia() ==  NivelEnsino.EnsinoMedio){
+            if(this.getNivelEnsino() == NivelEnsino.EnsinoMedio) aux_compatibilidade += 15;
+            else if(this.getNivelEnsino() == NivelEnsino.EnsinoFundamental) aux_compatibilidade += 10;
+        }
+        else if(vaga.getNivel_ensino_exigencia() == NivelEnsino.EnsinoSuperior){
+            if(this.getNivelEnsino() == NivelEnsino.EnsinoSuperior) aux_compatibilidade += 15;
+            else if(this.getNivelEnsino() == NivelEnsino.EnsinoMedio) aux_compatibilidade += 10;
+            else if(this.getNivelEnsino() == NivelEnsino.EnsinoFundamental) aux_compatibilidade += 5;
+        }
+
+        if(vaga.getTurno().getPeriodo() == TurnoEstudo.Diurno){
+            if(this.getTurnoEstudo() != TurnoEstudo.Diurno && this.getTurnoEstudo() != TurnoEstudo.Integral) aux_compatibilidade += 31;
+        }
+        else if(vaga.getTurno().getPeriodo() == TurnoEstudo.Vespertino){
+            if(this.getTurnoEstudo() != TurnoEstudo.Vespertino && this.getTurnoEstudo() != TurnoEstudo.Integral) aux_compatibilidade += 31;
+        }
+        else if(vaga.getTurno().getPeriodo() == TurnoEstudo.Integral){
+            if(this.getTurnoEstudo() != TurnoEstudo.Vespertino && this.getTurnoEstudo() != TurnoEstudo.Integral && this.getTurnoEstudo() != TurnoEstudo.Diurno) aux_compatibilidade += 31;
+        }
+        else if(vaga.getTurno().getPeriodo() == TurnoEstudo.Noturno){
+            if(this.getTurnoEstudo() != TurnoEstudo.Noturno) aux_compatibilidade += 31;
+        }
 
 
         return aux_compatibilidade;

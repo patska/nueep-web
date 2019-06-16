@@ -1,6 +1,7 @@
 package com.pi.nueep.controller;
 
 import com.pi.nueep.entidades.*;
+import com.pi.nueep.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,168 +12,182 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-import com.pi.nueep.service.CandidatoService;
-import com.pi.nueep.service.EnderecoService;
-import com.pi.nueep.service.EstadoService;
-import com.pi.nueep.service.MunicipioService;
-import com.pi.nueep.service.ResponsavelLegalService;
-import com.pi.nueep.service.TelefoneService;
-
 @Controller
 @RequestMapping("/candidato")
 public class CandidatoController {
 
-	private CandidatoService candidatoService;
-	private EnderecoService enderecoService;
-	private MunicipioService municipioService;
-	private EstadoService estadoService;
-	private TelefoneService telefoneService;
-	private ResponsavelLegalService responsavelLegalService;
+    private CandidatoService candidatoService;
+    private EnderecoService enderecoService;
+    private MunicipioService municipioService;
+    private EstadoService estadoService;
+    private TelefoneService telefoneService;
+    private ResponsavelLegalService responsavelLegalService;
+    private VagaService vagaService;
 
-	public CandidatoController(CandidatoService oCandidatoService,
-		EnderecoService oEnderecoService,
-		MunicipioService oMunicipioService,
-		EstadoService oEstadoService,
-		TelefoneService oTelefoneService,
-		ResponsavelLegalService oResponsavelLegalService) {
+    public CandidatoController(CandidatoService oCandidatoService,
+                               EnderecoService oEnderecoService,
+                               MunicipioService oMunicipioService,
+                               EstadoService oEstadoService,
+                               TelefoneService oTelefoneService,
+                               ResponsavelLegalService oResponsavelLegalService,
+                               VagaService vagaService1) {
 
-		candidatoService = oCandidatoService;
-		enderecoService = oEnderecoService;
-		municipioService = oMunicipioService;
-		estadoService = oEstadoService;
-		telefoneService = oTelefoneService;
-		responsavelLegalService = oResponsavelLegalService;
-	}
-
-
-	@GetMapping("/novo")
-	public String novoCandidato(
-		Model modeloCandidato,
-		Model modeloTelefone, 
-		Model modeloMunicipio,
-		Model modeloEstado, 
-		Model modelResponsavelLegal,
-		Model modeloEndereco) {
-
-		Candidato candidato = new Candidato();
-		Endereco endereco = new Endereco();
-		Telefone telefone = new Telefone();
-		Municipio municipio = new Municipio();
-		Estado estado = new Estado(); 
-		ResponsavelLegal responsavelLegal = new ResponsavelLegal();
-
-		modeloEndereco.addAttribute("endereco", endereco);
-		modeloCandidato.addAttribute("candidato", candidato);
-		modeloEstado.addAttribute("estado", estado);
-		modeloMunicipio.addAttribute("municipio", municipio);
-		modeloTelefone.addAttribute("telefone", telefone);
-		modelResponsavelLegal.addAttribute("responsavelLegal", responsavelLegal);
-
-		return "candidato/novo-candidato";
-	}
-
-	@PostMapping("/salvar")
-	public String salvarCandidato(@ModelAttribute("endereco") Endereco oEndereco, @ModelAttribute("candidato") Candidato oCandidato,
-		@ModelAttribute("municipio") Municipio oMunicipio,
-		@ModelAttribute("estado") Estado oEstado,
-		@ModelAttribute("telefone") Telefone oTelefone,
-		@ModelAttribute("responsavelLegal") ResponsavelLegal oResponsavelLegal) {
+        candidatoService = oCandidatoService;
+        enderecoService = oEnderecoService;
+        municipioService = oMunicipioService;
+        estadoService = oEstadoService;
+        telefoneService = oTelefoneService;
+        responsavelLegalService = oResponsavelLegalService;
+        vagaService = vagaService1;
+    }
 
 
-		//VALIDAÇÃO DE RESPONSÁVEL LEGAL
+    @GetMapping("/novo")
+    public String novoCandidato(
+            Model modeloCandidato,
+            Model modeloTelefone,
+            Model modeloMunicipio,
+            Model modeloEstado,
+            Model modelResponsavelLegal,
+            Model modeloEndereco) {
 
-		if(responsavelLegalService.encontrarPorRg(oResponsavelLegal.getRgResponsavel()) == null){
-			if(oResponsavelLegal.getRgResponsavel() != null) responsavelLegalService.salvar(oResponsavelLegal);
-		}
-		else{
-			oResponsavelLegal = responsavelLegalService.encontrarPorRg(oResponsavelLegal.getRgResponsavel());
-		}
-		oCandidato.setResponsavelLegal(oResponsavelLegal);
-		// VALIDAÇÃO DE ESTADO
-		if(estadoService.encontrarPorUf(oEstado.getUf()) == null) estadoService.salvar(oEstado);
-		else {
-			oEstado = estadoService.encontrarPorUf(oEstado.getUf());
-		}
+        Candidato candidato = new Candidato();
+        Endereco endereco = new Endereco();
+        Telefone telefone = new Telefone();
+        Municipio municipio = new Municipio();
+        Estado estado = new Estado();
+        ResponsavelLegal responsavelLegal = new ResponsavelLegal();
 
-		// VALIDAÇÃO DE MUNICIPIO
-		if(municipioService.encontrarPorNome(oMunicipio.getNome()) == null){
-			oMunicipio.setEstado(oEstado);
-			municipioService.salvar(oMunicipio);
-		}
-		else {
-			oMunicipio = municipioService.encontrarPorNome(oMunicipio.getNome());
-		}
+        modeloEndereco.addAttribute("endereco", endereco);
+        modeloCandidato.addAttribute("candidato", candidato);
+        modeloEstado.addAttribute("estado", estado);
+        modeloMunicipio.addAttribute("municipio", municipio);
+        modeloTelefone.addAttribute("telefone", telefone);
+        modelResponsavelLegal.addAttribute("responsavelLegal", responsavelLegal);
 
-		// VALIDAÇÃO DE ENDEREÇO
-		if(enderecoService.encontrarPorCep(oEndereco.getCep()) == null){
-			oEndereco.setMunicipio(oMunicipio);
-			enderecoService.salvar(oEndereco);
-		} else oEndereco = enderecoService.encontrarPorCep(oEndereco.getCep());
-		oCandidato.setEndereco(oEndereco);
+        return "candidato/novo-candidato";
+    }
 
-		// TELEFONE
-		telefoneService.salvar(oTelefone);
-		oCandidato.setTelefone(oTelefone);
+    @PostMapping("/salvar")
+    public String salvarCandidato(@ModelAttribute("endereco") Endereco oEndereco, @ModelAttribute("candidato") Candidato oCandidato,
+                                  @ModelAttribute("municipio") Municipio oMunicipio,
+                                  @ModelAttribute("estado") Estado oEstado,
+                                  @ModelAttribute("telefone") Telefone oTelefone,
+                                  @ModelAttribute("responsavelLegal") ResponsavelLegal oResponsavelLegal) {
 
 
-		oCandidato.setAtivo(true);
+        //VALIDAÇÃO DE RESPONSÁVEL LEGAL
 
-		candidatoService.salvar(oCandidato);
+        if (responsavelLegalService.encontrarPorRg(oResponsavelLegal.getRgResponsavel()) == null) {
+            if (oResponsavelLegal.getRgResponsavel() != null) responsavelLegalService.salvar(oResponsavelLegal);
+        } else {
+            oResponsavelLegal = responsavelLegalService.encontrarPorRg(oResponsavelLegal.getRgResponsavel());
+        }
+        oCandidato.setResponsavelLegal(oResponsavelLegal);
+        // VALIDAÇÃO DE ESTADO
+        if (estadoService.encontrarPorUf(oEstado.getUf()) == null) estadoService.salvar(oEstado);
+        else {
+            oEstado = estadoService.encontrarPorUf(oEstado.getUf());
+        }
 
+        // VALIDAÇÃO DE MUNICIPIO
+        if (municipioService.encontrarPorNome(oMunicipio.getNome()) == null) {
+            oMunicipio.setEstado(oEstado);
+            municipioService.salvar(oMunicipio);
+        } else {
+            oMunicipio = municipioService.encontrarPorNome(oMunicipio.getNome());
+        }
 
+        // VALIDAÇÃO DE ENDEREÇO
+        if (enderecoService.encontrarPorCep(oEndereco.getCep()) == null) {
+            oEndereco.setMunicipio(oMunicipio);
+            enderecoService.salvar(oEndereco);
+        } else oEndereco = enderecoService.encontrarPorCep(oEndereco.getCep());
+        oCandidato.setEndereco(oEndereco);
 
-		return "redirect:/candidato/listar";
-	}
-
-	@GetMapping("/listar")
-	public String listarCandidatos(Model theModel){
-		List<Candidato> candidatos = candidatoService.encontrarTodos();
-
-		theModel.addAttribute("candidatos", candidatos);
-
-		return "candidato/lista";
-	}
-
-
-
-	@GetMapping("/atualizar")
-	public String mostrarFormulario(
-		@RequestParam("candidatoId") int oId,
-		Model candidatoModelo,
-		Model telefoneModelo,
-		Model enderecoModelo,
-		Model municipioModelo,
-		Model estadoModelo,
-		Model responsavelLegalModelo
-	){
-
-		Candidato candidato = candidatoService.encontrarPorId(oId);
-		Endereco endereco = candidato.getEndereco();
-		Telefone telefone = candidato.getTelefone();
-		Municipio municipio = candidato.getEndereco().getMunicipio();
-		Estado estado = candidato.getEndereco().getMunicipio().getEstado();
-		ResponsavelLegal responsavelLegal = candidato.getResponsavelLegal();
-
-		candidatoModelo.addAttribute("candidato", candidato);
-		enderecoModelo.addAttribute("endereco", endereco);
-		telefoneModelo.addAttribute("telefone", telefone);
-		municipioModelo.addAttribute("municipio", municipio);
-		estadoModelo.addAttribute("estado", estado);
-		responsavelLegalModelo.addAttribute("responsavelLegal", responsavelLegal);
+        // TELEFONE
+        telefoneService.salvar(oTelefone);
+        oCandidato.setTelefone(oTelefone);
 
 
-		return "candidato/novo-candidato";
+        oCandidato.setAtivo(true);
 
-	}
+        candidatoService.salvar(oCandidato);
 
 
-	@GetMapping("/deletar")
-	public String deletar(@RequestParam("candidatoId") int oId){
-		candidatoService.deletarPorId(oId);
-	
-		return "redirect:/candidato/listar";
-	}
+        return "redirect:/candidato/listar";
+    }
 
+    @GetMapping("/listar")
+    public String listarCandidatos(Model theModel) {
+        List<Candidato> candidatos = candidatoService.encontrarTodosAtivos();
+
+        theModel.addAttribute("candidatos", candidatos);
+
+        return "candidato/lista";
+    }
+
+    @GetMapping("/inativos")
+    public String listarCandidatosDesativados(Model theModel) {
+        List<Candidato> candidatos = candidatoService.encontrarTodosInativos();
+        theModel.addAttribute("candidatos", candidatos);
+
+        return "candidato/desativados";
+    }
+
+    @GetMapping("/ativar")
+    public String reativarCandidato(@RequestParam("candidatoId") int id){
+        Candidato candidato = candidatoService.encontrarPorId(id);
+        candidato.setAtivo(true);
+        candidatoService.salvar(candidato);
+        return "redirect:/candidato/inativos";
+    }
+
+    @GetMapping("/atualizar")
+    public String mostrarFormulario(
+            @RequestParam("candidatoId") int oId,
+            Model candidatoModelo,
+            Model telefoneModelo,
+            Model enderecoModelo,
+            Model municipioModelo,
+            Model estadoModelo,
+            Model responsavelLegalModelo
+    ) {
+
+        Candidato candidato = candidatoService.encontrarPorId(oId);
+        Endereco endereco = candidato.getEndereco();
+        Telefone telefone = candidato.getTelefone();
+        Municipio municipio = candidato.getEndereco().getMunicipio();
+        Estado estado = candidato.getEndereco().getMunicipio().getEstado();
+        ResponsavelLegal responsavelLegal = candidato.getResponsavelLegal();
+
+        candidatoModelo.addAttribute("candidato", candidato);
+        enderecoModelo.addAttribute("endereco", endereco);
+        telefoneModelo.addAttribute("telefone", telefone);
+        municipioModelo.addAttribute("municipio", municipio);
+        estadoModelo.addAttribute("estado", estado);
+        responsavelLegalModelo.addAttribute("responsavelLegal", responsavelLegal);
+
+
+        return "candidato/novo-candidato";
+
+    }
+
+
+    @GetMapping("/deletar")
+    public String deletar(@RequestParam("candidatoId") int oId) {
+
+        Candidato candidato = candidatoService.encontrarPorId(oId);
+        List<Vaga> vagas = vagaService.encontrarTodos();
+        if (!vagas.contains(candidato)) {
+            candidato.setAtivo(false);
+            candidatoService.salvar(candidato);
+        } else {
+
+        }
+
+        return "redirect:/candidato/listar";
+    }
 
 
 }

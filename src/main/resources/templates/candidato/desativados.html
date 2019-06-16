@@ -67,14 +67,14 @@
 
     <body style="background-color: #6e6e6e">
         <div id="navbar-default"></div>
-        <section class="hero is-info">
+        <section class="hero is-dark">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        Listar Candidatos
+                        Listar Candidatos Inativos
                     </h1>
                     <h2 class="subtitle">
-                        Lista de os candidatos <strong>ativos</strong> do sistema
+                        Lista de os candidatos <strong>inativos</strong> no sistema
                     </h2>
                 </div>
             </div>
@@ -102,14 +102,10 @@
                             <td th:text="${tempCandidatos?.email}"></td>
                             <td th:text="${tempCandidatos?.dataNascimento}"></td>
                             <td>
-                                <a th:href="@{/candidato/atualizar(candidatoId=${tempCandidatos?.id})}"
-                                   class="button is-info is-small" >
-                                    Atualizar
-                                </a>
-                                <a th:href="@{/candidato/deletar(candidatoId=${tempCandidatos?.id})}"
-                                   class="button is-danger is-small" onclick="if (!(confirm('Remover usuario?')))
+                                <a th:href="@{/candidato/ativar(candidatoId=${tempCandidatos?.id})}"
+                                   class="button is-success is-small" onclick="if (!(confirm('Reativar usuário?')))
                                                return false">
-                                    Desativar
+                                    Ativar
                                 </a>
                             </td>
 

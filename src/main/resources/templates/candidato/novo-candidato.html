@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title Page</title>
+    <title>Candidato - Novo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -61,7 +61,7 @@
                             <label for="matricula">Matrícula</label>
                             <div class="control">
                                 <input class="input" type="text" data-validation="length number"
-                                    data-validation-length="3-10" th:field=${candidato.matricula} id="matricula"
+                                    data-validation-length="5" th:field=${candidato.matricula} id="matricula"
                                     placeholder="Matrícula">
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                         <option id="selecionado" selected="selected" value="">Selecionar...</option>
                                         <option th:value="'Masculino'" th:text="Masculino"></option>
                                         <option th:value="'Feminino'" th:text="Feminino"></option>
-                                        <option value="Transexual" th:value="'Transexual'" th:text="Transexual">
+                                        <option value="Transexual" th:value="'Transexual'">Transexual
                                         </option>
                                     </select>
                                 </div>
@@ -315,9 +315,7 @@
                                         <option th:value="'EnsinoFundamental'">Ensino Fundamental</option>
                                         <option th:value="'EnsinoMedio'">Ensino Médio</option>
                                         <option th:value="'EnsinoSuperior'">Ensino Superior</option>
-                                        <option th:value="'Tecnico'">Técnico</option>
-                                        <option th:value="'EducacaoBasica'">Educação Básica</option>
-                                        <option th:value="'HabilitacaoBasica'">Habilitação Básica</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -339,7 +337,7 @@
                     </div>
                     <div class="column is-one-quarter">
                         <div class="field">
-                            <label for="modalidade">Modalidade</label>
+                            <label for="modalidade">Último curso</label>
                             <div class="control">
                                 <div class="select">
                                     <select th:field="${candidato.modalidadeEnsino}" data-validation="required">
@@ -354,7 +352,7 @@
                     </div>
                     <div class="column is-one-quarter">
                         <div class="field">
-                            <label for="turno">Turno de Estudo</label>
+                            <label for="turno">Período de Estudo (Potencialize)</label>
                             <div class="control">
                                 <div class="select">
                                     <select th:field="${candidato.turnoEstudo}" data-validation="required">

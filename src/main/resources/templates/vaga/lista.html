@@ -5,18 +5,51 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Listar Vagas</title>
+    <title>Listar - Vagas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script th:src="@{/js/jquery.mask.js}"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!-- DATA TABLE -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js "></script>
     <script>
         $(document).ready(function () {
-            $('#tabelaVaga').DataTable();
+            $('#tabelaVaga').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        className: 'button is-success is-outlined'
+                    },
+                    {
+                        extend:'csvHtml5',
+                        text:'CSV',
+                        className:'button is-info is-outlined'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        className: 'button is-danger is-outlined'
+                    }
+                ],
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+                }
+
+
+
+            });
         });
     </script>
     <script>
@@ -36,13 +69,13 @@
                 Listar Vagas
             </h1>
             <h2 class="subtitle">
-                Lista das vagas <strong>ativas</strong> do sistema
+                Lista das vagas <strong>em aberto</strong> no sistema
             </h2>
         </div>
     </div>
 </section>
 
-<div class="">
+<div class="container">
     <div class="notification">
 
         <table id="tabelaVaga" class="display">
@@ -52,7 +85,6 @@
                     <th>Area</th>
                     <th>Hierarquia</th>
                     <th>Salario</th>
-                    <th>VT</th>
                     <th>VR</th>
                     <th>Data de cadastro</th>
                     <th>Ação</th>
@@ -64,8 +96,7 @@
                 <td th:text="${tempVagas?.area.getNome().getName()}"></td>
                 <td th:text="${tempVagas?.hierarquia.getNivel().getName()}"></td>
                 <td th:text="${tempVagas?.getSalarioReais()}"></td>
-                <td th:text="${tempVagas?.valeTransporte}"></td>
-                <td th:text="${tempVagas?.valeRefeicao}"></td>
+                <td th:text="${tempVagas?.getVrReais()}"></td>
                 <td th:text="${tempVagas?.dataCadastro}"></td>
                 <td>
                     <a th:href="@{/vaga/ficha(vagaId=${tempVagas?.id})}" class="button is-info is-small">
@@ -92,7 +123,6 @@
                 <th>Area</th>
                 <th>Hierarquia</th>
                 <th>Salario</th>
-                <th>VT</th>
                 <th>VR</th>
                 <th>Data de cadastro</th>
                 <th>Ação</th>

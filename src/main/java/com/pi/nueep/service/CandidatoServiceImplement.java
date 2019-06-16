@@ -55,6 +55,16 @@ public class CandidatoServiceImplement implements CandidatoService {
 	}
 
 	@Override
+	public List<Candidato> encontrarTodosAtivos() {
+		return candidatoRepository.encontrarTodosAtivos();
+	}
+
+	@Override
+	public List<Candidato> encontrarTodosInativos() {
+		return candidatoRepository.encontrarTodosInativos();
+	}
+
+	@Override
 	public void salvar(Candidato candidato) {
 		candidatoRepository.save(candidato);
 

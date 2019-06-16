@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.pi.nueep.entidades.Turno;
+import com.pi.nueep.entidades.listas.GrauInstrucao;
 import com.pi.nueep.entidades.listas.NivelEnsino;
 import com.pi.nueep.entidades.listas.Sexo;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,7 +41,7 @@ public class Vaga {
     @Column(name = "salario")
     private double salario;
     @Column(name = "vale_transporte")
-    private double valeTransporte;
+    private boolean valeTransporte;
     @Column(name = "vale_refeicao")
     private double valeRefeicao;
     @Column(name = "sexo_exigencia")
@@ -57,6 +58,8 @@ public class Vaga {
         CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "area_id")
     private Area area;
+
+    private GrauInstrucao grauExigido;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
         CascadeType.DETACH, CascadeType.REFRESH})
@@ -85,8 +88,7 @@ public class Vaga {
     public Vaga() {
     }
 
-    public Vaga(int id, String descricao, double salario, double valeTransporte, double valeRefeicao, Sexo sexo_exigencia, int idade_minima, NivelEnsino nivel_ensino_exigencia, Area area, Turno turno, Hierarquia hierarquia, Empresa empresa, LocalDate dataCadastro) {
-        this.id = id;
+    public Vaga(String descricao, double salario, boolean valeTransporte, double valeRefeicao, Sexo sexo_exigencia, int idade_minima, NivelEnsino nivel_ensino_exigencia, LocalDate dataCadastro, Area area, GrauInstrucao grauExigido, Turno turno, Hierarquia hierarquia, Empresa empresa) {
         this.descricao = descricao;
         this.salario = salario;
         this.valeTransporte = valeTransporte;
@@ -94,14 +96,13 @@ public class Vaga {
         this.sexo_exigencia = sexo_exigencia;
         this.idade_minima = idade_minima;
         this.nivel_ensino_exigencia = nivel_ensino_exigencia;
+        this.dataCadastro = dataCadastro;
         this.area = area;
+        this.grauExigido = grauExigido;
         this.turno = turno;
         this.hierarquia = hierarquia;
         this.empresa = empresa;
-        this.dataCadastro = dataCadastro;
     }
-
-    
 
     public Vaga(List<Candidato> candidatos) {
         this.candidatos = candidatos;
@@ -125,18 +126,23 @@ public class Vaga {
 
     public String getSalarioReais(){
         Locale ptBr = new Locale("pt", "BR");
-        String salarioEmReais =  NumberFormat.getCurrencyInstance().format(salario);
+        String salarioEmReais =  NumberFormat.getCurrencyInstance(ptBr).format(salario);
         return salarioEmReais;
     }
 
-    public double getValeTransporte() {
+    public boolean isValeTransporte() {
         return valeTransporte;
     }
 
-    public void setValeTransporte(double valeTransporte) {
+    public void setValeTransporte(boolean valeTransporte) {
         this.valeTransporte = valeTransporte;
     }
 
+    public String getVrReais(){
+        Locale ptBr = new Locale("pt", "BR");
+        String vrEmReais =  NumberFormat.getCurrencyInstance(ptBr).format(valeRefeicao);
+        return vrEmReais;
+    }
     public double getValeRefeicao() {
         return valeRefeicao;
     }
@@ -232,6 +238,11 @@ public class Vaga {
         candidatos.add(tempCandidato);
     }
 
+    public GrauInstrucao getGrauExigido() {
+        return grauExigido;
+    }
 
-
+    public void setGrauExigido(GrauInstrucao grauExigido) {
+        this.grauExigido = grauExigido;
+    }
 }

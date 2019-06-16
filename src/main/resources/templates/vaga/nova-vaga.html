@@ -156,15 +156,25 @@
                 </div>
                 <div class="column">
                     <div class="field">
-                        <label for="vt">V.T. em R$ (0,00 se não houver)</label>
-                        <input class="input" type="text" name="vtString" id="vt" value="000" data-validation="required">
+                        <label for="">Vale Transporte?</label>
+                        <div class="control">
+                            <ul>
+
+                                <label>Sim</label>
+                                <input type="radio" th:field="${vaga.valeTransporte}" th:value="${true}" />
+
+                                <label>Não</label>
+                                <input type="radio" th:field="${vaga.valeTransporte}" th:value="${false}" />
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="columns">
-                <div class="column is-one-fifth">
+                <div class="column ">
                     <div class="field">
-                        <label for="">Idade mínima</label>
+                        <label for="">Idade mínima (16 se estágio)</label>
                         <div class="control">
                             <input class="input" type="text" data-validation="number"
                                    data-validation-allowing="range[14;120]" name="" value="16"
@@ -172,9 +182,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="column is-one-quarter">
+                <div class="column">
                     <div class="field">
-                        <label>Nivel minimo</label>
+                        <label>Escolaridade mínima</label>
                         <div class="control">
                             <div class="select is-expanded">
                                 <select th:field="${vaga.nivel_ensino_exigencia}" data-validation="required">
@@ -189,30 +199,49 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="column is-one-fifth">
+                <div class="column ">
                     <div class="field">
-                        <label>Sexo</label>
+                        <label>Status acadêmico</label>
                         <div class="control">
                             <div class="select is-expanded">
-                                <select th:field="${vaga.sexo_exigencia}" data-validation="required">
+                                <select th:field="${vaga.grauExigido}" data-validation="required">
                                     <option value="">Selecionar...</option>
                                     <option
-                                            th:each="sexo :  ${tipoSexo}"
-                                            th:text="${sexo.name}"
-                                            th:value="${sexo}"
+                                            th:each="grauInstrucao :  ${tipoGrau}"
+                                            th:text="${grauInstrucao.name}"
+                                            th:value="${grauInstrucao}"
                                     ></option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="column">
+                    <div class="field">
+                        <label>Sexo</label>
+                        <div class="control">
+                            <div class="select is-expanded">
+                                <select th:field="${vaga.sexo_exigencia}">
+                                    <option value="">Selecionar...</option>
+                                    <option value="">Indiferente</option>
+                                    <option
+                                            th:each="sexo :  ${tipoSexo}"
+                                            th:text="${sexo.name}"
+                                            th:value="${sexo}"
+                                    ></option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-    </div>
-    <div class="buttons is-right">
-        <button class="button is-warning is-large">Limpar</button>
-        <button class="button is-success is-large" type="submit">Salvar Vaga</button>
-    </div>
+
+            <div class="buttons is-right">
+                <button class="button is-warning is-large">Limpar</button>
+                <button class="button is-success is-large" type="submit">Salvar Vaga</button>
+            </div>
     </form>
 
 </div>

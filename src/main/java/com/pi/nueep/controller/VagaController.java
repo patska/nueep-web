@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pi.nueep.entidades.*;
-import com.pi.nueep.entidades.listas.AreaProfissional;
-import com.pi.nueep.entidades.listas.NivelEnsino;
-import com.pi.nueep.entidades.listas.Sexo;
-import com.pi.nueep.entidades.listas.TurnoEstudo;
+import com.pi.nueep.entidades.Hierarquia;
+import com.pi.nueep.entidades.listas.*;
 import com.pi.nueep.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +49,8 @@ public class VagaController {
             Model modelTurno,
             Model modelTurnoTipo,
             Model modelTipoEnsino,
-            Model modelTipoSexo
+            Model modelTipoSexo,
+            Model modelGrauInstrucao
     ) {
         Empresa empresa = new Empresa();
         Vaga vaga = new Vaga();
@@ -68,6 +67,7 @@ public class VagaController {
         modelTurnoTipo.addAttribute("tipoTurno", TurnoEstudo.values());
         modelTipoEnsino.addAttribute("tipoEnsino", NivelEnsino.values());
         modelTipoSexo.addAttribute("tipoSexo", Sexo.values());
+        modelGrauInstrucao.addAttribute("tipoGrau", GrauInstrucao.values());
 
         return "vaga/nova-vaga";
     }
@@ -75,7 +75,6 @@ public class VagaController {
     @PostMapping("/salvar")
     public String salvarEmpresa(@RequestParam("EmpresaRazaoSocial") String razaoSocial,
                                 @RequestParam("salarioString") String salarioString,
-                                @RequestParam("vtString") String vtString,
                                 @RequestParam("vrString") String vrString,
                                 @ModelAttribute("vaga") Vaga aVaga,
                                 @ModelAttribute("area") Area oArea,
@@ -89,17 +88,13 @@ public class VagaController {
         aVaga.setEmpresa(empresa);
         // SALÁRIO, VT E VR STRING TO DOUBLE
         salarioString = salarioString.replaceAll("[^0-9]", "");
-        vtString = vtString.replaceAll("[^0-9]", "");
         vrString = vrString.replaceAll("[^0-9]", "");
         double salarioDouble = Double.parseDouble(salarioString) / 100;
-        double vtDouble = Double.parseDouble(vtString) / 100;
         double vrDouble = Double.parseDouble(vrString) / 100;
         System.out.println("Salário em double é: " + salarioDouble);
-        System.out.println("VT em double é: " + vtDouble);
         System.out.println("VR em double é: " + vrDouble);
         aVaga.setSalario(salarioDouble);
         aVaga.setValeRefeicao(vrDouble);
-        aVaga.setValeTransporte(vtDouble);
         System.out.println(aVaga.toString());
         aVaga.setDataCadastro(LocalDate.now());
         vagaService.salvar(aVaga);
