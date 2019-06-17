@@ -178,6 +178,12 @@
                         </span>
                         <span>Whatsapp</span>
                     </a>
+                    <a class="button is-small is-primary" target="_blank"  th:href="'mailto:' + ${tempVagas?.email}">
+                        <span class="icon">
+                            <i class="fab fa-envelope"></i>
+                        </span>
+                        <span>E-mail</span>
+                    </a>
                     <a class="button is-small is-danger"
                        th:href="@{/vaga/excluirCandidato(candidato=${tempVagas.getId()},vaga=${vaga.getId()})}">
                         Remover

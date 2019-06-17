@@ -23,49 +23,72 @@
 
 <div class="container">
     <div class="notification">
-        <div class="tile">
-            <div class="tile is-parent is-vertical">
-                <article class="tile is-child notification is-danger">
-                    <p class="title">Vagas</p>
-                    <p class="content">
-                        Vagas em aberto: <span th:text="${vagas}"></span>
-                        <br>
-                        Vagas encerradas: <span th:text="${vagas}"></span>
-                        <br>
-                        Total histórico: <span th:text="${vagas.size()}"></span>
-                    </p>
-                </article>
+        <section class="hero is-danger">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Vagas
+                    </h1>
+                    <h2 class="subtitle">
+                        <p class="content">
+                            Vagas em aberto: <span th:text="${vagas.size()}"></span>
+                            <br>
+                            Vagas encerradas: <span th:text="0"></span>
+                            <br>
+                            Total histórico: <span th:text="${vagas.size()}"></span>
+                        </p>
+                    </h2>
+                </div>
             </div>
-            <div class="tile is-parent is-vertical">
-                <article class="tile is-child notification is-info">
-                    <p class="title">Candidatos</p>
-                    <p class="content">
-                        Total de candidatos: <span th:text="${candidatos.size()}"></span>
-                        <br>
-                        Último candidato cadastrado: <span
-                            th:text="${candidatos.get(candidatos.size() - 1).nomeCompleto}"></span>
-                    </p>
-
-
-                </article>
+        </section>
+        <section class="hero is-info">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Candidatos
+                    </h1>
+                    <h2 class="subtitle">
+                        <p class="content">
+                            Total de candidatos: <span th:text="${candidatos.size()}"></span>
+                            <br>
+                            Último candidato cadastrado: <span
+                                th:text="${candidatos.get(candidatos.size() - 1).nomeCompleto}"></span>
+                        </p>
+                    </h2>
+                </div>
             </div>
-            <div class="tile is-parent is-vertical">
-
-                <article class="tile is-child notification is-success">
-                    <p class="title">Empresas</p>
-                    <p class="content">
-                        Total de empresas cadastradas: <span th:text="${empresas.size()}"></span>
-                        <br>
-                        Último empresa cadastrada: <span
-                           ></span>
-                    </p>
-                    </p>
-                </article>
+        </section>
+        <section class="hero is-success">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Empresas
+                    </h1>
+                    <h2 class="subtitle">
+                        <p class="content">
+                            Vagas em aberto: <span th:text="${vagas.size()}"></span>
+                            <br>
+                            Vagas encerradas: <span th:text="0"></span>
+                            <br>
+                            Total histórico: <span th:text="${vagas.size()}"></span>
+                        </p>
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <div class="hero is-light is-small">
+            <div class="hero-body">
+                <p class="title">Vagas</p>
+                <p class="content">
+                    Total de empresas cadastradas: <span th:text="${empresas.size()}"></span>
+                    <br>
+                    Último empresa cadastrada: <span th:text="${empresas.get(empresas.size()-1).nomeFantasia}"
+                ></span>
+                </p>
             </div>
         </div>
+        <br><br>
     </div>
-    <br><br>
-</div>
 </div>
 
 </body>

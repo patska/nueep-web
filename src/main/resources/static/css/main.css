@@ -1,7 +1,7 @@
 
 .interactive-bg {
   height: 100vh;
-  background-color: #008e6c;
+  background-color: #f9cb2f;
   -webkit-box-shadow: inset 24px 4px 64px -24px rgba(71,71,71,1);
   -moz-box-shadow: inset 24px 4px 64px -24px rgba(71,71,71,1);
   box-shadow: inset 24px 4px 64px -24px rgba(71,71,71,1);
@@ -33,10 +33,3 @@
 .columns{
   margin: 0px;
 }
-
-#particles-js {
-
-  background-color: #008e6c;
-
-}
-
