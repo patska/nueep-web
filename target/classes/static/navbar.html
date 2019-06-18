@@ -1,87 +1,89 @@
-<nav class="navbar is-warning role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="http://localhost:8080/">
-            <img src="/images/nueep-logo.png" width="140" height="40">
-        </a>
+<nav class="navbar is-warning role=" navigation" aria-label="main navigation">
+<div class="navbar-brand">
+    <a class="navbar-item" href="http://localhost:8080/">
+        <img src="/images/nueep-logo.png" width="140" height="40">
+    </a>
 
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-            data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+       data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+</div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    Vagas
+<div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Vagas
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/vaga/novo">
+                    Nova...
                 </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" href="http://localhost:8080/vaga/novo">
-                        Nova...
-                    </a>
-                    <a class="navbar-item" href="http://localhost:8080/vaga/listar">
-                        Listar Vagas em aberto
-                    </a>
-                    <a class="navbar-item">
-                        Vagas Encerradas
-                    </a>
-                </div>
-            </div>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    Candidatos
+                <a class="navbar-item" href="http://localhost:8080/vaga/listar">
+                    Vagas em aberto
                 </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" href="http://localhost:8080/candidato/novo">
-                        Novo...
-                    </a>
-                    <a class="navbar-item" href="http://localhost:8080/candidato/listar">
-                        Listar Candidatos
-                    </a>
-                    <a class="navbar-item" href="http://localhost:8080/candidato/inativos">
-                        Candidatos Inativos
-                    </a>
-                </div>
-            </div>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    Empresa
+                <a class="navbar-item" href="http://localhost:8080/vaga/vagasEncerradas">
+                    Vagas Encerradas
                 </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" href="http://localhost:8080/empresa/novo">
-                        Nova...
-                    </a>
-                    <a class="navbar-item" href="http://localhost:8080/empresa/listar">
-                        Listar Empresas
-                    </a>
-                </div>
             </div>
-
         </div>
 
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-info" href="http://localhost:8080/usuarios">
-                        Usuários
-                    </a>
-                </div>
-            </div>
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-danger">
-                        Sair
-                    </a>
-                </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Candidatos
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/candidato/novo">
+                    Novo...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/listar">
+                    Listar Candidatos
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/inativos">
+                    Candidatos Inativos
+                </a>
             </div>
         </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Empresa
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/empresa/novo">
+                    Nova...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listar">
+                    Listar Empresas
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listarInativas">
+                    Empresas Inativas
+                </a>
+            </div>
+        </div>
+
     </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons">
+                <a class="button is-info" href="http://localhost:8080/usuario">
+                    Usuários
+                </a>
+            </div>
+        </div>
+        <div class="navbar-item">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="button is-danger">Logout</button>
+            </form>
+
+        </div>
+    </div>
+</div>
 </nav>

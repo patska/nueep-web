@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NUEEP - Nova Vaga</title>
+    <title>Vaga - Nova</title>
+    <link rel="icon" th:href="@{/images/nueep-icone.png}" type="image/x-icon"/>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet"
@@ -36,7 +38,95 @@
 </head>
 
 <body style="background-color: #6e6e6e">
-<div id="navbar-default"></div>
+<nav class="navbar is-warning" role=" navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="http://localhost:8080/">
+            <img src="/images/nueep-logo.png" width="140" height="40">
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+           data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Vagas
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="http://localhost:8080/vaga/novo">
+                        Nova...
+                    </a>
+                    <a class="navbar-item" href="http://localhost:8080/vaga/listar">
+                        Vagas em aberto
+                    </a>
+                    <a class="navbar-item" href="http://localhost:8080/vaga/vagasEncerradas">
+                        Vagas Encerradas
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Candidatos
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="http://localhost:8080/candidato/novo">
+                        Novo...
+                    </a>
+                    <a class="navbar-item" href="http://localhost:8080/candidato/listar">
+                        Listar Candidatos
+                    </a>
+                    <a class="navbar-item" href="http://localhost:8080/candidato/inativos">
+                        Candidatos Inativos
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Empresa
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="http://localhost:8080/empresa/novo">
+                        Nova...
+                    </a>
+                    <a class="navbar-item" href="http://localhost:8080/empresa/listar">
+                        Listar Empresas
+                    </a>
+                    <a class="navbar-item" href="http://localhost:8080/empresa/listarInativas">
+                        Empresas Inativas
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-info" href="http://localhost:8080/usuario">
+                        Usuários
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button is-danger">Logout</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</nav>
 <section class="hero is-danger">
     <div class="hero-body">
         <div class="container">
@@ -52,275 +142,278 @@
 
 <div class="container">
     <div class="notification">
-        <form action="#" th:action="@{/vaga/salvar}" id="formulario" method="POST" onsyu>
-            <div class="columns">
-                <div class="column">
-                    <div class="field">
-                        <label for="empresa">Selecionar Empresa</label>
-                        <div class="control">
-                            <input class="input" name="EmpresaRazaoSocial"
-                                   type="text" id="Empresa_Nome" data-validation="required">
+        <div class="notification">
+            <form action="#" th:action="@{/vaga/salvar}" id="formulario" method="POST" onsyu>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label for="empresa">Selecionar Empresa</label>
+                            <div class="control">
+                                <input class="input" name="EmpresaRazaoSocial"
+                                       type="text" id="Empresa_Nome" data-validation="required">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="hidden" name="" th:field="${vaga.id}">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <div class="field is-narrow">
+                            <label>Área Profissional</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select th:field="${area.nome}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+
+                                        <option
+                                                th:each="areaProfissional :  ${tiposDeArea}"
+                                                th:text="${areaProfissional.name}"
+                                                th:value="${areaProfissional}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-one-third">
+                        <div class="field is-narrow">
+                            <label for="">Hierarquia</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select th:field="${hierarquias.nivel}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+
+
+                                        <option
+                                                th:each="hierarquia :  ${tipoHierarquia}"
+                                                th:text="${hierarquia.name}"
+                                                th:value="${hierarquia}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="field is-narrow">
+                            <label for="">Jornada</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select th:field="${turnos.periodo}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option
+                                                th:each="tipoEstudo :  ${tipoTurno}"
+                                                th:text="${tipoEstudo.name}"
+                                                th:value="${tipoEstudo}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="columns">
+
+
+                </div>
+                <div class="columns">
+                    <div class="column">
+
+                        <div class="field">
+                            <label for="descricao">Descrição</label>
+                            <div class="control">
+                                Restam <span id="maxlength">2000</span> caracteres
+                                <textarea class="textarea" id="desc" placeholder="Descrição da Vaga"
+                                          th:field="${vaga.descricao}"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label for="salario">Salário em R$ (0,00 se for "A Combinar")</label>
+                            <input class="input" type="text" name="salarioString" id="salario" value="000"
+                                   data-validation="required">
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label for="vr">V.R. em R$ (0,00 se não houver)</label>
+                            <input class="input" type="text" name="vrString" id="vr" value="000"
+                                   data-validation="required">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label for="">Vale Transporte?</label>
+                            <div class="control">
+                                <ul>
 
-            </div>
-            <div class="columns">
-                <div class="column is-one-third">
-                    <div class="field is-narrow">
-                        <label>Área Profissional</label>
-                        <div class="control">
-                            <div class="select is-expanded">
-                                <select th:field="${area.nome}" data-validation="required">
-                                    <option value="">Selecionar...</option>
+                                    <label>Sim</label>
+                                    <input type="radio" th:field="${vaga.valeTransporte}" th:value="${true}"/>
 
-                                    <option
-                                            th:each="areaProfissional :  ${tiposDeArea}"
-                                            th:text="${areaProfissional.name}"
-                                            th:value="${areaProfissional}"
-                                    ></option>
-                                </select>
+                                    <label>Não</label>
+                                    <input type="radio" th:field="${vaga.valeTransporte}" th:value="${false}"/>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column ">
+                        <div class="field">
+                            <label for="">Idade mínima (16 se estágio)</label>
+                            <div class="control">
+                                <input class="input" type="text" data-validation="number"
+                                       data-validation-allowing="range[14;120]" name="" value="16"
+                                       th:field="${vaga.idade_minima}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label>Escolaridade mínima</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select th:field="${vaga.nivel_ensino_exigencia}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option
+                                                th:each="nivelEnsino :  ${tipoEnsino}"
+                                                th:text="${nivelEnsino.name}"
+                                                th:value="${nivelEnsino}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column ">
+                        <div class="field">
+                            <label>Status acadêmico</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select th:field="${vaga.grauExigido}" data-validation="required">
+                                        <option value="">Selecionar...</option>
+                                        <option
+                                                th:each="grauInstrucao :  ${tipoGrau}"
+                                                th:text="${grauInstrucao.name}"
+                                                th:value="${grauInstrucao}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="field">
+                            <label>Sexo</label>
+                            <div class="control">
+                                <div class="select is-expanded">
+                                    <select th:field="${vaga.sexo_exigencia}" data>
+                                        <option value="">Selecionar...</option>
+                                        <option value="">Indiferente</option>
+                                        <option
+                                                th:each="sexo :  ${tipoSexo}"
+                                                th:text="${sexo.name}"
+                                                th:value="${sexo}"
+                                        ></option>
+
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="column is-one-third">
-                    <div class="field is-narrow">
-                        <label for="">Hierarquia</label>
-                        <div class="control">
-                            <div class="select is-expanded">
-                                <select th:field="${hierarquias.nivel}" data-validation="required">
-                                    <option value="">Selecionar...</option>
-
-
-                                    <option
-                                            th:each="hierarquia :  ${tipoHierarquia}"
-                                            th:text="${hierarquia.name}"
-                                            th:value="${hierarquia}"
-                                    ></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                <div class="buttons is-right">
+                    <button class="button is-warning is-large">Limpar</button>
+                    <button class="button is-success is-large" type="submit">Salvar Vaga</button>
                 </div>
-                <div class="column is-one-third">
-                    <div class="field is-narrow">
-                        <label for="">Jornada</label>
-                        <div class="control">
-                            <div class="select is-expanded">
-                                <select th:field="${turnos.periodo}" data-validation="required">
-                                    <option value="">Selecionar...</option>
-                                    <option
-                                            th:each="tipoEstudo :  ${tipoTurno}"
-                                            th:text="${tipoEstudo.name}"
-                                            th:value="${tipoEstudo}"
-                                    ></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </form>
 
-            </div>
-            <div class="columns">
-
-
-            </div>
-            <div class="columns">
-                <div class="column">
-
-                    <div class="field">
-                        <label for="descricao">Descrição</label>
-                        <div class="control">
-                            Restam <span id="maxlength">2000</span> caracteres
-                            <textarea class="textarea" id="desc" placeholder="Descrição da Vaga"
-                                      th:field="${vaga.descricao}"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="columns">
-                <div class="column is-half">
-                    <div class="field">
-                        <label for="salario">Salário em R$ (0,00 se for "A Combinar")</label>
-                        <input class="input" type="text" name="salarioString" id="salario" value="000"
-                               data-validation="required">
-                    </div>
-                </div>
-                <div class="column is-one-quarter">
-                    <div class="field">
-                        <label for="vr">V.R. em R$ (0,00 se não houver)</label>
-                        <input class="input" type="text" name="vrString" id="vr" value="000" data-validation="required">
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="field">
-                        <label for="">Vale Transporte?</label>
-                        <div class="control">
-                            <ul>
-
-                                <label>Sim</label>
-                                <input type="radio" th:field="${vaga.valeTransporte}" th:value="${true}" />
-
-                                <label>Não</label>
-                                <input type="radio" th:field="${vaga.valeTransporte}" th:value="${false}" />
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="columns">
-                <div class="column ">
-                    <div class="field">
-                        <label for="">Idade mínima (16 se estágio)</label>
-                        <div class="control">
-                            <input class="input" type="text" data-validation="number"
-                                   data-validation-allowing="range[14;120]" name="" value="16"
-                                   th:field="${vaga.idade_minima}">
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="field">
-                        <label>Escolaridade mínima</label>
-                        <div class="control">
-                            <div class="select is-expanded">
-                                <select th:field="${vaga.nivel_ensino_exigencia}" data-validation="required">
-                                    <option value="">Selecionar...</option>
-                                    <option
-                                            th:each="nivelEnsino :  ${tipoEnsino}"
-                                            th:text="${nivelEnsino.name}"
-                                            th:value="${nivelEnsino}"
-                                    ></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column ">
-                    <div class="field">
-                        <label>Status acadêmico</label>
-                        <div class="control">
-                            <div class="select is-expanded">
-                                <select th:field="${vaga.grauExigido}" data-validation="required">
-                                    <option value="">Selecionar...</option>
-                                    <option
-                                            th:each="grauInstrucao :  ${tipoGrau}"
-                                            th:text="${grauInstrucao.name}"
-                                            th:value="${grauInstrucao}"
-                                    ></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="column">
-                    <div class="field">
-                        <label>Sexo</label>
-                        <div class="control">
-                            <div class="select is-expanded">
-                                <select th:field="${vaga.sexo_exigencia}">
-                                    <option value="">Selecionar...</option>
-                                    <option value="">Indiferente</option>
-                                    <option
-                                            th:each="sexo :  ${tipoSexo}"
-                                            th:text="${sexo.name}"
-                                            th:value="${sexo}"
-                                    ></option>
-
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="buttons is-right">
-                <button class="button is-warning is-large">Limpar</button>
-                <button class="button is-success is-large" type="submit">Salvar Vaga</button>
-            </div>
-    </form>
-
-</div>
-</div>
-<script>
-    $(function () {
-        $("#Empresa_Nome").autocomplete({
-            source: "empresaAutocomplete"
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#Empresa_Nome").autocomplete({
+                source: "empresaAutocomplete"
+            });
         });
-    });
-</script>
+    </script>
 
-<script>
-    function limpa_formulário_cep() {
-        document.getElementById('rua').value = ("");
-        document.getElementById('bairro').value = ("");
-        document.getElementById('cidade').value = ("");
-        document.getElementById('uf').value = ("");
-    }
-
-    function meu_callback(conteudo) {
-        if (!("erro" in conteudo)) {
-            document.getElementById('rua').value = (conteudo.logradouro);
-            document.getElementById('bairro').value = (conteudo.bairro);
-            document.getElementById('cidade').value = (conteudo.localidade);
-            document.getElementById('uf').value = (conteudo.uf);
-
-        } else {
-            limpa_formulário_cep();
-            alert("CEP não encontrado.");
+    <script>
+        function limpa_formulário_cep() {
+            document.getElementById('rua').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
         }
-    }
 
-    function pesquisacep(valor) {
-
-        var cep = valor.replace(/\D/g, '');
-
-        if (cep != "") {
-
-            var validacep = /^[0-9]{8}$/;
-
-            if (validacep.test(cep)) {
-
-                document.getElementById('rua').value = "...";
-                document.getElementById('bairro').value = "...";
-                document.getElementById('cidade').value = "...";
-                document.getElementById('uf').value = "...";
-                document.getElementById('numero').value = ("");
-                document.getElementById('complemento').value = ("");
-
-                var script = document.createElement('script');
-
-                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
-
-                document.body.appendChild(script);
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                document.getElementById('rua').value = (conteudo.logradouro);
+                document.getElementById('bairro').value = (conteudo.bairro);
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
 
             } else {
                 limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
+                alert("CEP não encontrado.");
             }
-        } else {
-            limpa_formulário_cep();
         }
-    };
-</script>
-<script>
-    $(document).ready(function () {
-        $("#navbar-default").load("/navbar.html");
-    });
-</script>
+
+        function pesquisacep(valor) {
+
+            var cep = valor.replace(/\D/g, '');
+
+            if (cep != "") {
+
+                var validacep = /^[0-9]{8}$/;
+
+                if (validacep.test(cep)) {
+
+                    document.getElementById('rua').value = "...";
+                    document.getElementById('bairro').value = "...";
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
+                    document.getElementById('numero').value = ("");
+                    document.getElementById('complemento').value = ("");
+
+                    var script = document.createElement('script');
+
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    document.body.appendChild(script);
+
+                } else {
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } else {
+                limpa_formulário_cep();
+            }
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-default").load("/navbar.html");
+        });
+    </script>
 
 
-<script>
-    $.validate({
-        modules: 'brazil',
-        lang: 'pt',
-        modules: 'date'
-    });
-</script>
+    <script>
+        $.validate({
+            modules: 'brazil',
+            lang: 'pt',
+            modules: 'date'
+        });
+    </script>
 </body>
 <footer class="footer" style="background: #363636">
     <div class="content has-text-centered">

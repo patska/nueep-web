@@ -53,6 +53,10 @@ public class Vaga {
     @Column(name = "data_cadastro")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataCadastro;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataEncerramento;
+    @Column(name="ativo")
+    private boolean ativo;
     
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
         CascadeType.DETACH, CascadeType.REFRESH})
@@ -238,11 +242,27 @@ public class Vaga {
         candidatos.add(tempCandidato);
     }
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
     public GrauInstrucao getGrauExigido() {
         return grauExigido;
     }
 
     public void setGrauExigido(GrauInstrucao grauExigido) {
         this.grauExigido = grauExigido;
+    }
+
+    public LocalDate getDataEncerramento() {
+        return dataEncerramento;
+    }
+
+    public void setDataEncerramento(LocalDate dataEncerramento) {
+        this.dataEncerramento = dataEncerramento;
     }
 }

@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Listar Vagas</title>
+    <title>Vaga - Ficha</title>
+    <link rel="icon" th:href="@{/images/nueep-icone.png}" type="image/x-icon" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
@@ -62,6 +64,7 @@
         $(document).ready(function () {
             $('#tabelaCandidatoSelecionado').DataTable({
                 dom: 'Bfrtip',
+                order: [4, "desc"],
                 buttons: [
                     {
                         extend: 'excelHtml5',
@@ -99,12 +102,102 @@
             });
         });
     </script>
+    <script>
+
+    </script>
 
 </head>
 
 <body style="background-color: #6e6e6e">
-<div id="navbar-default"></div>
-<section class="hero is-danger">
+<nav class="navbar is-warning" role=" navigation" aria-label="main navigation">
+<div class="navbar-brand">
+    <a class="navbar-item" href="http://localhost:8080/">
+        <img src="/images/nueep-logo.png" width="140" height="40">
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+       data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+</div>
+
+<div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Vagas
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/vaga/novo">
+                    Nova...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/vaga/listar">
+                    Vagas em aberto
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/vaga/vagasEncerradas">
+                    Vagas Encerradas
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Candidatos
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/candidato/novo">
+                    Novo...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/listar">
+                    Listar Candidatos
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/inativos">
+                    Candidatos Inativos
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Empresa
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/empresa/novo">
+                    Nova...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listar">
+                    Listar Empresas
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listarInativas">
+                    Empresas Inativas
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons">
+                <a class="button is-info" href="http://localhost:8080/usuario">
+                    Usuários
+                </a>
+            </div>
+        </div>
+        <div class="navbar-item">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="button is-danger">Logout</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</nav><section class="hero is-danger">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
@@ -122,7 +215,8 @@
 <div class="container">
     <div class="notification">
         <div class="buttons is-right">
-            <a class="button is-primary">Editar Vaga</a>
+            <a class="button is-success">Encerrar Vaga</a>
+            <a class="button is-primary" th:href="@{/vaga/atualizar(vagaId=${vaga.getId()})}">Editar Vaga</a>
             <a class="button is-danger">Remover Vaga</a>
         </div>
         <h4 class="title is-4">Detalhes da Vaga</h4>
@@ -131,7 +225,6 @@
         <p>Área: <span th:text="${vaga.area.getNome().getName()}"></span></p>
         <p>Período: <span th:text="${vaga.turno.getPeriodo().getName()}"></span></p>
         <p>Salário: <strong><span th:text="${vaga.salarioReais}"></span></strong></p>
-        <p>Vale Transporte: <span th:text="${vaga.valeTransporte}"></span></p>
         <p>Vale Refeição: <span th:text="${vaga.getVrReais()}"></span></p>
         <p>Idade minima exigida: <span th:text="${vaga.idade_minima}"></span></p>
         <p>Descrição da Vaga:<i> <span th:text="${vaga.descricao}"></span></i></p>
@@ -172,17 +265,21 @@
                 <td th:text="${tempVagas?.getIdade()}">Anos</td>
                 <td class="compatibilidade" th:text="${tempVagas?.getCompatibilidade(vaga)}"></td>
                 <td>
-                    <a class="button is-small is-success" target="_blank">
+                    <a class="button is-small is-warning"  onclick="if(!(confirm('Encerrar vaga e vincular candidato?'))) return false"  th:href="@{/vaga/finalizar(vagaId=${vaga.getId()}, candidatoId=${tempVagas?.getId()})}">
+                        <span>Efetivar</span>
+                        <span class="icon">
+                            <i class="far fa-smile"></i>
+                        </span>
+                    </a>
+                    <a class="button is-small is-success" target="_blank" th:href="'https://api.whatsapp.com/send?' + ${tempVagas?.getTelefone().getCelularWhatsap() + '&text=%2AMensagem%20autom%C3%A1tica%2A%3A%20Bom%20dia%2C%20voc%C3%AA%20foi%20selecionado%20para%20uma%20vaga%20de%20trabalho%20anunciada%20aqui%20na%20Potencialize.%20%20Deseja%20mais%20informa%C3%A7%C3%B5es%3F%20Caso%20queira%2C%20voc%C3%AA%20poder%C3%A1%20comparecer%20junto%20%C3%A0%20NUEEP%20com%20o%20c%C3%B3digo%20de%20sua%20vaga.%20Um%20%C3%B3timo%20dia%21%20'}">
                         <span class="icon">
                             <i class="fab fa-whatsapp"></i>
                         </span>
-                        <span>Whatsapp</span>
                     </a>
                     <a class="button is-small is-primary" target="_blank"  th:href="'mailto:' + ${tempVagas?.email}">
                         <span class="icon">
-                            <i class="fab fa-envelope"></i>
+                            <i class="fas fa-envelope"></i>
                         </span>
-                        <span>E-mail</span>
                     </a>
                     <a class="button is-small is-danger"
                        th:href="@{/vaga/excluirCandidato(candidato=${tempVagas.getId()},vaga=${vaga.getId()})}">
@@ -206,7 +303,7 @@
                 <th>Nome Completo</th>
                 <th>Telefone</th>
                 <th>Idade</th>
-                <th>Compatibilidade (%)</th>
+                <th>P.C.(%)</th>
                 <th>Ação</th>
             </tr>
             </thead>

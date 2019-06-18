@@ -5,18 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Empresa - Lista</title>
+    <title>Vagas - Encerradas</title>
     <link rel="icon" th:href="@{/images/nueep-icone.png}" type="image/x-icon" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.validate.js"></script>
-    <script th:src="@{/js/jquery.mask.js}"></script>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <link rel="sthylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"/>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script th:src="@{/js/jquery.mask.js}"></script>
@@ -32,7 +26,7 @@
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js "></script>
     <script>
         $(document).ready(function () {
-            $('#tabelaCandidato').DataTable({
+            $('#tabelaVaga').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     {
@@ -157,56 +151,77 @@
         </div>
     </div>
 </div>
-</nav>    <section class="hero is-success">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Listar Empresas
-                </h1>
-                <h2 class="subtitle">
-                    Lista das empresas <strong>ativas</strong> do sistema
-                </h2>
-            </div>
-        </div>
-    </section>
-
-    <div class="container">
-        <div class="notification">
-
-            <table id="tabelaCandidato" class="display">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nome Fantasia</th>
-                        <th>CNPJ</th>
-                        <th>Email</th>
-                        <th>Responsável</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="tempEmpresas :${empresas}">
-                        <td th:text="${tempEmpresas?.id}"></td>
-                        <td th:text="${tempEmpresas?.nomeFantasia}"></td>
-                        <td th:text="${tempEmpresas?.cnpj}"></td>
-                        <td th:text="${tempEmpresas?.email}"></td>
-                        <td th:text="${tempEmpresas?.responsavel}"></td>
-                        <td>
-                            <a th:href="@{/empresa/atualizar(empresaId=${tempEmpresas?.id})}"
-                                class="button is-info is-small">
-                                Atualizar
-                            </a>
-                            <a th:href="@{/empresa/deletar(user=${tempEmpresas})}"
-                                class="button is-danger is-small" onclick="if(!(confirm('Remover empresa?'))) return false">
-                                Desativar Empresa
-                            </a>
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
+</nav><section class="hero is-dark">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Vagas encerradas
+            </h1>
+            <h2 class="subtitle">
+                Lista das vagas <strong>encerradas</strong> no sistema
+            </h2>
         </div>
     </div>
+</section>
+
+<div class="container">
+    <div class="notification">
+
+        <table id="tabelaVaga" class="display">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Empresa</th>
+                <th>Area</th>
+                <th>Hierarquia</th>
+                <th>Salario</th>
+                <th>VR</th>
+                <th>Data de cadastro</th>
+                <th>Data de encerramento</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tempVagas :${vagas}">
+                <td th:text="${tempVagas?.id}"></td>
+                <td th:text="${tempVagas?.empresa.getNomeSocial()}"></td>
+                <td th:text="${tempVagas?.area.getNome().getName()}"></td>
+                <td th:text="${tempVagas?.hierarquia.getNivel().getName()}"></td>
+                <td th:text="${tempVagas?.getSalarioReais()}"></td>
+                <td th:text="${tempVagas?.getVrReais()}"></td>
+                <td th:text="${tempVagas?.dataCadastro}"></td>
+                <td th:text="${tempVagas?.dataEncerramento}"></td>
+
+
+
+                <!--<a th:href="@{/empresa/atualizar(empresaId=${tempVagas?.id})}"
+                    class="button is-info">
+                    Atualizar
+                </a>
+                <a th:href="@{/empresa/deletar(empresaId=${tempVagas?.id})}"
+                    class="button is-danger" onclick="if(!(confirm('Remover empresa?'))) return false">
+                    Deletar
+                </a> -->
+
+
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Empresa</th>
+                <th>Area</th>
+                <th>Hierarquia</th>
+                <th>Salario</th>
+                <th>VR</th>
+                <th>Data de cadastro</th>
+                <th>Data de encerramento</th>
+
+            </tr>
+
+            </tfoot>
+        </table>
+    </div>
+</div>
 
 </body>
 <footer class="footer" style="background: #363636">

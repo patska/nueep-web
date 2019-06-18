@@ -13,5 +13,7 @@ public interface CandidatoService {
 	public List<Candidato> encontrarTodos();
 	public void salvar(Candidato candidato);
 	public void deletarPorId (int id);
+	public void deletarCandidatoDeVagas(Integer candidatoId);
+
 
 }

@@ -68,5 +68,15 @@ public class EmpresaServiceImplement implements EmpresaService {
         return empresaRepository.encontrarPorCnpj(cnpj);
     }
 
+    @Override
+    public List<Empresa> encontrarTodosAtivos() {
+        return empresaRepository.encontrarTodosAtivos();
+    }
+
+    @Override
+    public List<Empresa> encontrarTodosInativos() {
+        return empresaRepository.encontrarTodosInativos();
+    }
+
 
 }

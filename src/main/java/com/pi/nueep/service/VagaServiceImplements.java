@@ -28,4 +28,14 @@ public class VagaServiceImplements implements VagaService {
     public Vaga encontrarPorId(int id) {
         return vagaRepository.findById(id).get();
     }
+
+    @Override
+    public List<Vaga> encontrarTodosAtivos() {
+        return vagaRepository.encontrarTodosAtivos();
+    }
+
+    @Override
+    public List<Vaga> encontrarTodosInativos() {
+        return vagaRepository.encontrarTodosInativos();
+    }
 }

@@ -82,6 +82,12 @@ public class CandidatoServiceImplement implements CandidatoService {
 		candidatoRepository.deleteById(id);
 	}
 
-	
+	@Override
+	public void deletarCandidatoDeVagas(Integer candidatoId) {
+		candidatoRepository.deletarCandidatoDeVagas(candidatoId);
+	}
+
+
+
 
 }

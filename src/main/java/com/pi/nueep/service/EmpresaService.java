@@ -2,6 +2,7 @@ package com.pi.nueep.service;
 
 import java.util.List;
 
+import com.pi.nueep.entidades.Candidato;
 import com.pi.nueep.entidades.Empresa;
 
 /**
@@ -16,4 +17,6 @@ public interface EmpresaService {
     public void deletarPorId(int id);
     public Empresa pesquisarPeloNomeSocial(String NomeSocial);
     public Empresa pesquisarPeloCnpj(String cnpj);
+    public List<Empresa> encontrarTodosAtivos();
+    public List<Empresa> encontrarTodosInativos();
 }

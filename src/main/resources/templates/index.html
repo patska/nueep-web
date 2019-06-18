@@ -3,24 +3,108 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/images/nueep-icone.png}" type="image/x-icon" />
     <title>NUEEP - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
     <link rel="stylesheet" href="@{/css/style.css}"/>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <!-- jQuery JS 3.1.0 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#navbar-default").load("navbar.html");
-        });
-
-    </script>
+    <script></script>
 </head>
 <body style="background-color: #6e6e6e">
-<div id="navbar-default"></div>
+<nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+<div class="navbar-brand">
+    <a class="navbar-item" href="http://localhost:8080/">
+        <img src="/images/nueep-logo.png" width="140" height="40">
+    </a>
 
+    <a role="button" class="navbar-burger burger " aria-label="menu" aria-expanded="false"
+       data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+</div>
+
+<div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Vagas
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/vaga/novo">
+                    Nova...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/vaga/listar">
+                    Vagas em aberto
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/vaga/vagasEncerradas">
+                    Vagas Encerradas
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Candidatos
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/candidato/novo">
+                    Novo...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/listar">
+                    Listar Candidatos
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/inativos">
+                    Candidatos Inativos
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Empresa
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/empresa/novo">
+                    Nova...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listar">
+                    Listar Empresas
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listarInativas">
+                    Empresas Inativas
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons">
+                <a class="button is-info" href="http://localhost:8080/usuario">
+                    Usuários
+                </a>
+            </div>
+        </div>
+        <div class="navbar-item">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="button is-danger">Logout</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</nav>
 <div class="container">
     <div class="notification">
         <section class="hero is-danger">
@@ -31,16 +115,18 @@
                     </h1>
                     <h2 class="subtitle">
                         <p class="content">
-                            Vagas em aberto: <span th:text="${vagas.size()}"></span>
+                            Total de vagas ativas: <span th:text="${vagasAtivas.size()}"></span>
                             <br>
-                            Vagas encerradas: <span th:text="0"></span>
+                            Total de vagas encerradas: <span th:text="${vagasInativas.size()}"></span>
                             <br>
-                            Total histórico: <span th:text="${vagas.size()}"></span>
+                            Última vaga anunciada:  <span th:text="${vagasAtivas.get(vagasAtivas.size()-1).hierarquia.getNivel().getName()}"></span> em <span
+                                th:text="${vagasAtivas.get(vagasAtivas.size()-1).empresa.getNomeSocial()}"></span>
                         </p>
                     </h2>
                 </div>
             </div>
         </section>
+        <br>
         <section class="hero is-info">
             <div class="hero-body">
                 <div class="container">
@@ -49,15 +135,18 @@
                     </h1>
                     <h2 class="subtitle">
                         <p class="content">
-                            Total de candidatos: <span th:text="${candidatos.size()}"></span>
+                            Total de candidatos ativos: <span th:text="${candidatosAtivos.size()}"></span>
+                            <br>
+                            Total de candidatos inativos: <span th:text="${candidatosInativos.size()}"></span>
                             <br>
                             Último candidato cadastrado: <span
-                                th:text="${candidatos.get(candidatos.size() - 1).nomeCompleto}"></span>
+                                th:text="${candidatosAtivos.get(candidatosAtivos.size() - 1).nomeCompleto}"></span>
                         </p>
                     </h2>
                 </div>
             </div>
         </section>
+        <br>
         <section class="hero is-success">
             <div class="hero-body">
                 <div class="container">
@@ -66,27 +155,17 @@
                     </h1>
                     <h2 class="subtitle">
                         <p class="content">
-                            Vagas em aberto: <span th:text="${vagas.size()}"></span>
+                            Empresa Ativas: <span th:text="${empresasAtivas.size()}"></span>
                             <br>
-                            Vagas encerradas: <span th:text="0"></span>
+                            Empresas Inativas: <span th:text="${empresasInativas.size()}"></span>
                             <br>
-                            Total histórico: <span th:text="${vagas.size()}"></span>
+                            Ultima empresa cadastrada: <span th:text="${empresasAtivas.get(empresasAtivas.size()-1).nomeFantasia}"></span>
                         </p>
                     </h2>
                 </div>
             </div>
         </section>
-        <div class="hero is-light is-small">
-            <div class="hero-body">
-                <p class="title">Vagas</p>
-                <p class="content">
-                    Total de empresas cadastradas: <span th:text="${empresas.size()}"></span>
-                    <br>
-                    Último empresa cadastrada: <span th:text="${empresas.get(empresas.size()-1).nomeFantasia}"
-                ></span>
-                </p>
-            </div>
-        </div>
+
         <br><br>
     </div>
 </div>

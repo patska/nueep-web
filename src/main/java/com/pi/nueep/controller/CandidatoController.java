@@ -174,6 +174,17 @@ public class CandidatoController {
     }
 
 
+    @GetMapping("/ficha")
+    public String fichaCandidato(@RequestParam("candidatoId") int id, Model modelCandidatoVagas, Model modelVagas, Model modelCandidato) {
+
+        Candidato candidato = candidatoService.encontrarPorId(id);
+        modelCandidato.addAttribute("candidato", candidato);
+        List<Vaga> vagas = candidato.getVaga();
+        modelVagas.addAttribute("vagas", vagas);
+
+        return "/candidato/ficha";
+    }
+
     @GetMapping("/deletar")
     public String deletar(@RequestParam("candidatoId") int oId) {
 

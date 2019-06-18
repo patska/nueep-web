@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Empresa - Lista</title>
+    <title>Empresas - Inativar</title>
     <link rel="icon" th:href="@{/images/nueep-icone.png}" type="image/x-icon" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
@@ -15,49 +15,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script th:src="@{/js/jquery.mask.js}"></script>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <link rel="sthylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"/>
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script type="text/javascript" src="js/jquery.validate.js"></script>
-    <script th:src="@{/js/jquery.mask.js}"></script>
-    <!-- DATA TABLE -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js "></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tabelaCandidato').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel',
-                        className: 'button is-success is-outlined'
-                    },
-                    {
-                        extend:'csvHtml5',
-                        text:'CSV',
-                        className:'button is-info is-outlined'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        className: 'button is-danger is-outlined'
-                    }
-                ],
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
-                }
-
-
-
-            });
+            $('#tabelaCandidato').DataTable();
         });
     </script>
     <script>
@@ -157,14 +118,14 @@
         </div>
     </div>
 </div>
-</nav>    <section class="hero is-success">
+</nav>    <section class="hero is-dark">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Listar Empresas
+                    Empresas inativas
                 </h1>
                 <h2 class="subtitle">
-                    Lista das empresas <strong>ativas</strong> do sistema
+                    Lista das empresas <strong>inativas</strong> do sistema
                 </h2>
             </div>
         </div>
@@ -192,13 +153,10 @@
                         <td th:text="${tempEmpresas?.email}"></td>
                         <td th:text="${tempEmpresas?.responsavel}"></td>
                         <td>
-                            <a th:href="@{/empresa/atualizar(empresaId=${tempEmpresas?.id})}"
-                                class="button is-info is-small">
-                                Atualizar
-                            </a>
-                            <a th:href="@{/empresa/deletar(user=${tempEmpresas})}"
-                                class="button is-danger is-small" onclick="if(!(confirm('Remover empresa?'))) return false">
-                                Desativar Empresa
+
+                            <a th:href="@{/empresa/ativar(empresaId=${tempEmpresas?.id})}"
+                                class="button is-success" onclick="if(!(confirm('Ativar empresa?'))) return false">
+                                Ativar Empresa
                             </a>
                         </td>
 

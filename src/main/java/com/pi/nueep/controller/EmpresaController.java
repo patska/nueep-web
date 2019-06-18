@@ -112,9 +112,16 @@ public class EmpresaController {
 
     @GetMapping("/listar")
     public String listarEmpresas(Model theModel){
-        List<Empresa> empresas = empresaService.encontrarTodos();
+        List<Empresa> empresas = empresaService.encontrarTodosAtivos();
         theModel.addAttribute("empresas", empresas);
         return "empresa/lista";
+    }
+
+    @GetMapping("/listarInativas")
+    public String listarEmpresasInativas(Model theModel){
+        List<Empresa> empresas = empresaService.encontrarTodosInativos();
+        theModel.addAttribute("empresas", empresas);
+        return "empresa/inativas";
     }
 
     @GetMapping("/atualizar")
@@ -144,9 +151,22 @@ public class EmpresaController {
 	}
     @GetMapping("/deletar")
 	public String deletar(@RequestParam("empresaId") int oId){
-		empresaService.deletarPorId(oId);
+		Empresa empresa = new Empresa();
+		empresa = empresaService.encontrarPorId(oId);
+		empresa.setAtivo(false);
+		empresaService.salvar(empresa);
 		
-		return "redirect:/empresa/listar";
+		return "redirect:/empresa/listarInativas";
 	}
+
+    @GetMapping("/ativar")
+    public String ativarEmpresa(@RequestParam("empresaId") int oId){
+        Empresa empresa = new Empresa();
+        empresa = empresaService.encontrarPorId(oId);
+        empresa.setAtivo(true);
+        empresaService.salvar(empresa);
+
+        return "redirect:/empresa/listar";
+    }
 
 }

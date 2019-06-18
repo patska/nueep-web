@@ -1,5 +1,6 @@
 package com.pi.nueep.dao;
 
+import com.pi.nueep.entidades.Candidato;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -18,7 +19,12 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer> {
     @Query("SELECT e FROM Empresa e WHERE e.cnpj = :cnpj")
     Empresa encontrarPorCnpj(@Param("cnpj")String cnpj);
 
-
     @Query("SELECT e FROM Empresa e ")
     Empresa carregarPrimeiro();
+
+    @Query("SELECT e FROM Empresa e WHERE e.ativo = true")
+    List<Empresa> encontrarTodosAtivos();
+
+    @Query("SELECT e FROM Empresa e WHERE e.ativo = false")
+    List<Empresa> encontrarTodosInativos();
 }

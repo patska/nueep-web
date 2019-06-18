@@ -71,6 +71,57 @@ public class VagaController {
 
         return "vaga/nova-vaga";
     }
+    @GetMapping("/atualizar")
+    public String atualizarVag(@RequestParam("vagaId") int oId,
+                               Model modelEmpresa,
+                               Model modelVaga,
+                               Model modelAreaTipo,
+                               Model modelArea,
+                               Model modelHierarquia,
+                               Model modelHierarquiaTipo,
+                               Model modelTurno,
+                               Model modelTurnoTipo,
+                               Model modelTipoEnsino,
+                               Model modelTipoSexo,
+                               Model modelGrauInstrucao){
+        Vaga vaga = vagaService.encontrarPorId(oId);
+        Empresa empresa = vaga.getEmpresa();
+        Area area = vaga.getArea();
+        Hierarquia hierarquia = vaga.getHierarquia();
+        Turno turno = vaga.getTurno();
+        modelEmpresa.addAttribute("empresa", empresa);
+        modelVaga.addAttribute("vaga", vaga);
+        modelArea.addAttribute("area", area);
+        modelHierarquia.addAttribute("hierarquias", hierarquia);
+        modelTurno.addAttribute("turnos", turno);
+        modelAreaTipo.addAttribute("tiposDeArea", AreaProfissional.values());
+        modelHierarquiaTipo.addAttribute("tipoHierarquia", com.pi.nueep.entidades.listas.Hierarquia.values());
+        modelTurnoTipo.addAttribute("tipoTurno", TurnoEstudo.values());
+        modelTipoEnsino.addAttribute("tipoEnsino", NivelEnsino.values());
+        modelTipoSexo.addAttribute("tipoSexo", Sexo.values());
+        modelGrauInstrucao.addAttribute("tipoGrau", GrauInstrucao.values());
+        return "vaga/nova-vaga";
+
+
+    }
+
+    @GetMapping("finalizar")
+    public String finalizarVaga(
+            @RequestParam("vagaId") int vagaId,
+            @RequestParam("candidatoId") int candidatoId
+    ){
+
+        Vaga vaga = vagaService.encontrarPorId(vagaId);
+        Candidato candidato = candidatoService.encontrarPorId(candidatoId);
+        candidato.setAtivo(false);
+        vaga.setAtivo(false);
+        vaga.setDataEncerramento(LocalDate.now());
+        candidatoService.salvar(candidato);
+        vagaService.salvar(vaga);
+
+
+        return "redirect:/vaga/listar";
+    }
 
     @PostMapping("/salvar")
     public String salvarEmpresa(@RequestParam("EmpresaRazaoSocial") String razaoSocial,
@@ -81,7 +132,9 @@ public class VagaController {
                                 @ModelAttribute("hierarquia") Hierarquia aHierarquia,
                                 @ModelAttribute("turno") Turno oTurno) {
 
+        System.out.println("TERMO DE PESQUISA: " + razaoSocial);
         Empresa empresa = empresaService.pesquisarPeloNomeSocial(razaoSocial);
+        System.out.println("EMPRESA ENCONTRAR POR RAZÃO SOCIAL: " + empresa);
         aVaga.setHierarquia(aHierarquia);
         aVaga.setArea(oArea);
         aVaga.setTurno(oTurno);
@@ -97,6 +150,7 @@ public class VagaController {
         aVaga.setValeRefeicao(vrDouble);
         System.out.println(aVaga.toString());
         aVaga.setDataCadastro(LocalDate.now());
+        aVaga.setAtivo(true);
         vagaService.salvar(aVaga);
 
 
@@ -106,7 +160,7 @@ public class VagaController {
 
     @GetMapping("/listar")
     public String listarVagas(Model theModel) {
-        List<Vaga> vagas = vagaService.encontrarTodos();
+        List<Vaga> vagas = vagaService.encontrarTodosAtivos();
         theModel.addAttribute("vagas", vagas);
         return "vaga/lista";
     }
@@ -133,13 +187,30 @@ public class VagaController {
         return retorno;
     }
 
+    @GetMapping("/vagasEncerradas")
+    public String listarVagasEncerradas(Model theModel) {
+        List<Vaga> vagas = vagaService.encontrarTodosInativos();
+        theModel.addAttribute("vagas", vagas);
+        return "vaga/encerradas";
+    }
+
+
     @GetMapping("/ficha")
     public String fichaVaga(@RequestParam("vagaId") int id, Model modelVaga, Model modelVagas, Model modelCandidato) {
         Vaga vaga = vagaService.encontrarPorId(id);
         modelVaga.addAttribute("vaga", vaga);
         List<Candidato> candidatosVaga = vaga.getCandidatos();
+        System.out.println("LISTA DE CANDIDATOS: " + candidatosVaga);
+        List<Candidato> candidatosVagaAux = candidatosVaga;
+        for(int i = 0; i < candidatosVagaAux.size(); i++){
+            if(!candidatosVagaAux.get(i).isAtivo()){
+                candidatosVaga.remove(i);
+            }
+        }
+        System.out.println("LISTA DE CANDIDATOS DEPOIS: " + candidatosVaga);
+
         modelVagas.addAttribute("candidatosVaga", candidatosVaga);
-        List<Candidato> candidatos = candidatoService.encontrarTodos();
+        List<Candidato> candidatos = candidatoService.encontrarTodosAtivos();
         modelCandidato.addAttribute("candidatos", candidatos);
         System.out.println(vaga.toString());
         return "vaga/ficha";

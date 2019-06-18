@@ -1,132 +1,219 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Candidatos - Lista</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-        <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        <link rel="sthylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"/>
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-        <script type="text/javascript" src="js/jquery.validate.js"></script>
-        <script th:src="@{/js/jquery.mask.js}"></script>
-        <!-- DATA TABLE -->
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js "></script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candidatos - Desativado</title>
+    <link rel="icon" th:href="@{/images/nueep-icone.png}" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="sthylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"/>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+    <!-- DATA TABLE -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js "></script>
 
 
-
-        <script>
-            $(document).ready(function () {
-                $('#tabelaCandidato').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        {
-                            extend: 'excelHtml5',
-                            text: 'Excel',
-                            className: 'button is-success is-outlined'
-                        },
-                        {
-                            extend:'csvHtml5',
-                            text:'CSV',
-                            className:'button is-info is-outlined'
-                        },
-                        {
-                            extend: 'pdfHtml5',
-                            text: 'PDF',
-                            className: 'button is-danger is-outlined'
-                        }
-                    ],
-                    language: {
-                        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+    <script>
+        $(document).ready(function () {
+            $('#tabelaCandidato').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        className: 'button is-success is-outlined'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        className: 'button is-info is-outlined'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        className: 'button is-danger is-outlined'
                     }
+                ],
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+                }
 
 
-
-                });
             });
-        </script>
+        });
+    </script>
 
-        <script>
-            $(document).ready(function () {
-                $("#navbar-default").load("/navbar.html");
-            });
-        </script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-default").load("/navbar.html");
+        });
+    </script>
 
-    </head>
+</head>
 
-    <body style="background-color: #6e6e6e">
-        <div id="navbar-default"></div>
-        <section class="hero is-dark">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        Listar Candidatos Inativos
-                    </h1>
-                    <h2 class="subtitle">
-                        Lista de os candidatos <strong>inativos</strong> no sistema
-                    </h2>
-                </div>
-            </div>
-        </section>
+<body style="background-color: #6e6e6e">
+<nav class="navbar is-warning" role=" navigation " aria-label="main navigation">
+<div class="navbar-brand">
+    <a class="navbar-item" href="http://localhost:8080/">
+        <img src="/images/nueep-logo.png" width="140" height="40">
+    </a>
 
-        <div class="container">
-            <div class="notification">
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+       data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+</div>
 
-                <table id="tabelaCandidato" class="display">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Matrícula</th>
-                            <th>Nome Completo</th>
-                            <th>Email</th>
-                            <th>Data de Nascimento</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="tempCandidatos :${candidatos}">
-                            <td th:text="${tempCandidatos?.id}"></td>
-                            <td th:text="${tempCandidatos?.matricula}"></td>
-                            <td th:text="${tempCandidatos?.nomeCompleto}"></td>
-                            <td th:text="${tempCandidatos?.email}"></td>
-                            <td th:text="${tempCandidatos?.dataNascimento}"></td>
-                            <td>
-                                <a th:href="@{/candidato/ativar(candidatoId=${tempCandidatos?.id})}"
-                                   class="button is-success is-small" onclick="if (!(confirm('Reativar usuário?')))
-                                               return false">
-                                    Ativar
-                                </a>
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </body>
-    <footer class="footer" style="background: #363636">
-        <div class="content has-text-centered">
-            <p style="color: white">
-                <strong style="color: white"> NUEEP Estágio</strong> é um sistema desenvolvido para o Projeto Integrador do
-                Terceiro Semestre<br>
-                do Curso de Análise e Desenvolvimento de Sistema da Unicuritiba.
-            </p>
-            <a href="https://bulma.io">
-                <img src="/images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
+<div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Vagas
             </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/vaga/novo">
+                    Nova...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/vaga/listar">
+                    Vagas em aberto
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/vaga/vagasEncerradas">
+                    Vagas Encerradas
+                </a>
+            </div>
         </div>
-    </footer>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Candidatos
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/candidato/novo">
+                    Novo...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/listar">
+                    Listar Candidatos
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/candidato/inativos">
+                    Candidatos Inativos
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Empresa
+            </a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="http://localhost:8080/empresa/novo">
+                    Nova...
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listar">
+                    Listar Empresas
+                </a>
+                <a class="navbar-item" href="http://localhost:8080/empresa/listarInativas">
+                    Empresas Inativas
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons">
+                <a class="button is-info" href="http://localhost:8080/usuario">
+                    Usuários
+                </a>
+            </div>
+        </div>
+        <div class="navbar-item">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="button is-danger">Logout</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</nav>
+<section class="hero is-dark">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Listar Candidatos Inativos
+            </h1>
+            <h2 class="subtitle">
+                Lista de os candidatos <strong>inativos</strong> no sistema
+            </h2>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="notification">
+
+        <table id="tabelaCandidato" class="display">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Matrícula</th>
+                <th>Nome Completo</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tempCandidatos :${candidatos}">
+                <td th:text="${tempCandidatos?.id}"></td>
+                <td th:text="${tempCandidatos?.matricula}"></td>
+                <td th:text="${tempCandidatos?.nomeCompleto}"></td>
+                <td th:text="${tempCandidatos?.email}"></td>
+                <td th:text="${tempCandidatos?.dataNascimento}"></td>
+                <td>
+                    <a th:href="@{/candidato/ativar(candidatoId=${tempCandidatos?.id})}"
+                       class="button is-success is-small" onclick="if (!(confirm('Reativar usuário?')))
+                                               return false">
+                        Ativar
+                    </a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+<footer class="footer" style="background: #363636">
+    <div class="content has-text-centered">
+        <p style="color: white">
+            <strong style="color: white"> NUEEP Estágio</strong> é um sistema desenvolvido para o Projeto Integrador do
+            Terceiro Semestre<br>
+            do Curso de Análise e Desenvolvimento de Sistema da Unicuritiba.
+        </p>
+        <a href="https://bulma.io">
+            <img src="/images/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
+        </a>
+    </div>
+</footer>
 
 </html>
